@@ -5,8 +5,8 @@ import {
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
-import { STATUS_COLORS, STATUS_DIM, STATUS_LABELS, QUALITY_LABELS, QUALITY_COLORS } from '../../constants/environments'
 import { useEnvironments } from '../../context/EnvironmentsContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 // ── Score formula (igual que web) ─────────────────────────────
 function calcScore(env) {
@@ -52,7 +52,7 @@ const isWarning = (e) => e.statusKey === 'dashboard.statusWarning' || e.statusKe
 const isAlert   = (e) => e.statusKey === 'dashboard.statusAlert'   || e.statusKey === 'alert'
 
 // ── Global Health Card ─────────────────────────────────────────
-function GlobalHealthCard({ environments, currentColors }) {
+function GlobalHealthCard({ environments, currentColors, t }) {
   const total   = environments.length
   if (!total) return null
   const normal  = environments.filter(isNormal).length
@@ -61,7 +61,7 @@ function GlobalHealthCard({ environments, currentColors }) {
   const pct     = Math.round((normal / total) * 100)
   const color   = pct >= 70 ? '#4CAF50' : pct >= 40 ? '#FFC107' : '#F44336'
   const emoji   = pct >= 70 ? '🟢' : pct >= 40 ? '🟡' : '🔴'
-  const label   = pct >= 70 ? 'Estado general bueno' : pct >= 40 ? 'Atención recomendada' : 'Intervención necesaria'
+  const label   = pct >= 70 ? t('dashboard.goodHealth') : pct >= 40 ? t('dashboard.recommendedAttention') : t('dashboard.interventionNeeded')
 
   return (
     <View style={[hcStyles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
@@ -69,7 +69,7 @@ function GlobalHealthCard({ environments, currentColors }) {
         <Text style={{ fontSize: 22 }}>{emoji}</Text>
         <View style={{ flex: 1 }}>
           <Text style={[hcStyles.label, { color: currentColors.textPrimary }]}>{label}</Text>
-          <Text style={[hcStyles.sub,   { color: currentColors.textMuted }]}>{total} ambientes monitoreados</Text>
+          <Text style={[hcStyles.sub,   { color: currentColors.textMuted }]}>{t('dashboard.monitored', { count: total })}</Text>
         </View>
         <Text style={[hcStyles.pct, { color }]}>{pct}%</Text>
       </View>
@@ -80,9 +80,9 @@ function GlobalHealthCard({ environments, currentColors }) {
       </View>
       <View style={hcStyles.legend}>
         {[
-          { color: '#4CAF50', icon: 'checkmark-circle', count: normal, label: 'Normal' },
-          { color: '#FFC107', icon: 'warning', count: warning, label: 'Advertencia' },
-          { color: '#F44336', icon: 'alert-circle', count: alert, label: 'Alerta' },
+          { color: '#4CAF50', icon: 'checkmark-circle', count: normal, label: t('status.normal') },
+          { color: '#FFC107', icon: 'warning', count: warning, label: t('status.warning') },
+          { color: '#F44336', icon: 'alert-circle', count: alert, label: t('status.alert') },
         ].map((item) => (
           <View
             key={item.label}
@@ -125,12 +125,12 @@ const hcStyles = StyleSheet.create({
 })
 
 // ── Stats Bar ──────────────────────────────────────────────────
-function StatsBar({ environments, currentColors }) {
+function StatsBar({ environments, currentColors, t }) {
   const counts = [
-    { n: environments.filter(isNormal).length,  color: '#4CAF50', icon: 'checkmark-circle', label: 'Normal' },
-    { n: environments.filter(isWarning).length, color: '#FFC107', icon: 'warning',           label: 'Advertencia' },
-    { n: environments.filter(isAlert).length,   color: '#F44336', icon: 'alert-circle',      label: 'Alerta' },
-    { n: environments.length,                   color: currentColors.accent, icon: 'trophy', label: 'Total' },
+    { n: environments.filter(isNormal).length,  color: '#4CAF50', icon: 'checkmark-circle', label: t('status.normal') },
+    { n: environments.filter(isWarning).length, color: '#FFC107', icon: 'warning',           label: t('status.warning') },
+    { n: environments.filter(isAlert).length,   color: '#F44336', icon: 'alert-circle',      label: t('status.alert') },
+    { n: environments.length,                   color: currentColors.accent, icon: 'trophy', label: t('dashboard.total') },
   ]
   return (
     <View style={[sbStyles.bar, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
@@ -152,14 +152,14 @@ const sbStyles = StyleSheet.create({
 })
 
 // ── Alerts Panel ───────────────────────────────────────────────
-function AlertsPanel({ environments, onPress, currentColors }) {
+function AlertsPanel({ environments, onPress, currentColors, t }) {
   const problematic = environments.filter((e) => isAlert(e) || isWarning(e))
 
   if (!problematic.length) {
     return (
       <View style={[apStyles.empty, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
         <Ionicons name="checkmark-circle" size={20} color="#4CAF50" />
-        <Text style={[apStyles.emptyTxt, { color: currentColors.textMuted }]}>Sin alertas activas — todos los ambientes están bien</Text>
+        <Text style={[apStyles.emptyTxt, { color: currentColors.textMuted }]}>{t('dashboard.noAlerts')}</Text>
       </View>
     )
   }
@@ -168,7 +168,7 @@ function AlertsPanel({ environments, onPress, currentColors }) {
     <View style={[apStyles.panel, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
       <View style={apStyles.titleRow}>
         <Ionicons name="notifications" size={16} color={currentColors.accent} />
-        <Text style={[apStyles.title, { color: currentColors.textPrimary }]}>Alertas activas</Text>
+        <Text style={[apStyles.title, { color: currentColors.textPrimary }]}>{t('dashboard.activeAlerts')}</Text>
         <View style={[apStyles.badge, { backgroundColor: currentColors.accent }]}>
           <Text style={apStyles.badgeTxt}>{problematic.length}</Text>
         </View>
@@ -181,7 +181,7 @@ function AlertsPanel({ environments, onPress, currentColors }) {
         if (t < 18 || t > 24)                       issues.push(`Temp ${t}°C`)
         if (env.humidity < 40 || env.humidity > 60) issues.push(`Hum ${env.humidity}%`)
         if (env.co2 > 1000)                         issues.push(`CO₂ ${env.co2}ppm`)
-        if (env.noise > 50)                         issues.push(`Ruido ${env.noise}dB`)
+        if (env.noise > 50)                         issues.push(`${t('dashboard.noise')} ${env.noise}dB`)
         return (
           <TouchableOpacity
             key={env.id}
@@ -333,16 +333,17 @@ const rrStyles = StyleSheet.create({
 
 // ── Filter Bar ─────────────────────────────────────────────────
 const FILTERS = [
-  { key: 'all',     label: 'Todos' },
-  { key: 'normal',  label: '✅ Normal' },
-  { key: 'warning', label: '⚠️ Advertencia' },
-  { key: 'alert',   label: '🔴 Alerta' },
+  { key: 'all',     labelKey: 'dashboard.all' },
+  { key: 'normal',  icon: 'checkmark-circle', labelKey: 'status.normal' },
+  { key: 'warning', icon: 'warning', labelKey: 'status.warning' },
+  { key: 'alert',   icon: 'alert-circle', labelKey: 'status.alert' },
 ]
 
 // ── Main ───────────────────────────────────────────────────────
 export default function DashboardScreen({ navigation }) {
   const { darkMode, currentColors, loaded } = useTheme()
   const { environments, toggleFavorite } = useEnvironments()
+  const { t } = useLanguage()
   const [filter, setFilter] = useState('all')
 
   const ranked = useMemo(() =>
@@ -371,7 +372,7 @@ export default function DashboardScreen({ navigation }) {
     return (
       <SafeAreaView style={[styles.safe, { backgroundColor: '#f0fafa' }]}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: '#999' }}>Cargando...</Text>
+          <Text style={{ color: '#999' }}>{t('loading')}</Text>
         </View>
       </SafeAreaView>
     )
@@ -385,15 +386,15 @@ export default function DashboardScreen({ navigation }) {
       <View style={[styles.header, { backgroundColor: currentColors.bgCard, borderBottomColor: currentColors.borderColor }]}>
         <Ionicons name="trophy" size={24} color="#FFD700" />
         <View style={{ flex: 1 }}>
-          <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>Ranking de Ambientes</Text>
-          <Text style={[styles.headerSub,   { color: currentColors.textMuted }]}>Toca un ambiente para ver detalles</Text>
+          <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>{t('dashboard.title')}</Text>
+          <Text style={[styles.headerSub,   { color: currentColors.textMuted }]}>{t('dashboard.subtitle')}</Text>
         </View>
       </View>
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 
         {/* Stats */}
-        <StatsBar environments={environments} currentColors={currentColors} />
+        <StatsBar environments={environments} currentColors={currentColors} t={t} />
 
         {/* Filters */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll} contentContainerStyle={styles.filterRow}>
@@ -407,7 +408,9 @@ export default function DashboardScreen({ navigation }) {
               ]}
               onPress={() => setFilter(f.key)}
             >
-              <Text style={[styles.filterTxt, { color: filter === f.key ? currentColors.bgBody : currentColors.textSecondary }]}>{f.label}</Text>
+              <Text style={[styles.filterTxt, { color: filter === f.key ? currentColors.bgBody : currentColors.textSecondary }]}>
+                {f.icon ? `${t(f.labelKey)}` : t(f.labelKey)}
+              </Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -416,7 +419,7 @@ export default function DashboardScreen({ navigation }) {
         {filtered.length === 0 && (
           <View style={styles.empty}>
             <Text style={{ fontSize: 36 }}>🏜️</Text>
-            <Text style={[styles.emptyTxt, { color: currentColors.textMuted }]}>No hay ambientes con este estado</Text>
+            <Text style={[styles.emptyTxt, { color: currentColors.textMuted }]}>{t('dashboard.emptyByStatus')}</Text>
           </View>
         )}
 
@@ -444,7 +447,7 @@ export default function DashboardScreen({ navigation }) {
         {rest.length > 0 && (
           <View style={styles.listSection}>
             <Text style={[styles.listTitle, { color: currentColors.textMuted }]}>
-              Posiciones {top3.length + 1} – {filtered.length}
+              {t('dashboard.positions', { from: top3.length + 1, to: filtered.length })}
             </Text>
             {rest.map(({ env, score }, idx) => (
               <RankRow
@@ -462,12 +465,12 @@ export default function DashboardScreen({ navigation }) {
 
         {/* Legend */}
         <View style={[styles.legend, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
-          <Text style={[styles.legendTitle, { color: currentColors.textPrimary }]}>💡 Cómo se calcula el puntaje</Text>
+          <Text style={[styles.legendTitle, { color: currentColors.textPrimary }]}>{t('dashboard.scoreTitle')}</Text>
           {[
-            '🌡️ Temp ideal: 18–24°C',
-            '💧 Humedad ideal: 40–60%',
-            '💨 CO₂ ideal: < 1000 ppm',
-            '🔊 Ruido ideal: < 50 dB',
+            t('dashboard.idealTemp'),
+            t('dashboard.idealHumidity'),
+            t('dashboard.idealCo2'),
+            t('dashboard.idealNoise'),
           ].map((l) => (
             <Text key={l} style={[styles.legendItem, { color: currentColors.textSecondary }]}>{l}</Text>
           ))}

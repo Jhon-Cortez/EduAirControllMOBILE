@@ -7,6 +7,7 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { useTheme } from '../../context/ThemeContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 const DEFAULT_PROFILE = {
   fullName: 'Keneth Santiago Rubiano Silva',
@@ -16,14 +17,15 @@ const DEFAULT_PROFILE = {
 
 export default function ProfileScreen({ navigation, route }) {
   const { darkMode, currentColors, loaded } = useTheme()
+  const { t } = useLanguage()
 
   const [profile, setProfile] = useState(DEFAULT_PROFILE)
   const [modal, setModal] = useState({ open: false, field: '', value: '', label: '' })
 
   const fieldConfig = {
-    fullName: { label: 'Nombre completo', icon: 'person-outline', keyboardType: 'default' },
-    email: { label: 'Correo electrónico', icon: 'mail-outline', keyboardType: 'email-address' },
-    title: { label: 'Cargo / Rol', icon: 'briefcase-outline', keyboardType: 'default' },
+    fullName: { label: t('profile.fullName'), icon: 'person-outline', keyboardType: 'default' },
+    email: { label: t('profile.email'), icon: 'mail-outline', keyboardType: 'email-address' },
+    title: { label: t('profile.role'), icon: 'briefcase-outline', keyboardType: 'default' },
   }
 
   const openModal = (field) =>
@@ -36,11 +38,11 @@ export default function ProfileScreen({ navigation, route }) {
 
   const handleLogout = () => {
     Alert.alert(
-      'Cerrar sesión',
-      '¿Estás seguro de que quieres salir?',
+      t('profile.logout'),
+      t('profile.logoutQuestion'),
       [
-        { text: 'Cancelar', style: 'cancel' },
-        { text: 'Salir', style: 'destructive', onPress: () => navigation.navigate('Login') },
+        { text: t('common.cancel'), style: 'cancel' },
+        { text: t('profile.exit'), style: 'destructive', onPress: () => navigation.navigate('Login') },
       ]
     )
   }
@@ -57,7 +59,7 @@ export default function ProfileScreen({ navigation, route }) {
       <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
         <StatusBar barStyle="dark-content" backgroundColor={currentColors.bgBody} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: currentColors.textMuted }}>Cargando...</Text>
+          <Text style={{ color: currentColors.textMuted }}>{t('loading')}</Text>
         </View>
       </SafeAreaView>
     )
@@ -70,7 +72,7 @@ export default function ProfileScreen({ navigation, route }) {
       {/* Header */}
       <View style={[styles.header, { backgroundColor: currentColors.bgCard, borderBottomColor: currentColors.borderColor }]}>
         <View style={{ width: 36 }} />
-        <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>Mi Perfil</Text>
+        <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>{t('profile.title')}</Text>
         <TouchableOpacity
           style={[styles.settingsBtn, { backgroundColor: currentColors.accentDim }]}
           onPress={() => navigation.navigate('Settings')}
@@ -98,7 +100,7 @@ export default function ProfileScreen({ navigation, route }) {
         </View>
 
         {/* Info fields */}
-        <Text style={[styles.sectionTitle, { color: currentColors.textMuted }]}>Información personal</Text>
+        <Text style={[styles.sectionTitle, { color: currentColors.textMuted }]}>{t('profile.personalInfo')}</Text>
         <View style={[styles.fieldsCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
           {Object.entries(fieldConfig).map(([key, config], index, arr) => (
             <TouchableOpacity
@@ -123,7 +125,7 @@ export default function ProfileScreen({ navigation, route }) {
         {/* Logout */}
         <TouchableOpacity style={[styles.logoutBtn, { borderColor: currentColors.error }]} onPress={handleLogout}>
           <Ionicons name="log-out-outline" size={18} color={currentColors.error} />
-          <Text style={[styles.logoutText, { color: currentColors.error }]}>Cerrar sesión</Text>
+          <Text style={[styles.logoutText, { color: currentColors.error }]}>{t('profile.logout')}</Text>
         </TouchableOpacity>
 
         <View style={{ height: 30 }} />
@@ -133,12 +135,12 @@ export default function ProfileScreen({ navigation, route }) {
       <Modal visible={modal.open} transparent animationType="slide">
         <View style={styles.modalOverlay}>
           <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard, borderTopColor: currentColors.accent }]}>
-            <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Editar {modal.label}</Text>
+            <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>{t('profile.edit', { label: modal.label })}</Text>
             <TextInput
               style={[styles.modalInput, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
               value={modal.value}
               onChangeText={(v) => setModal((prev) => ({ ...prev, value: v }))}
-              placeholder={`Ingresa ${modal.label.toLowerCase()}`}
+              placeholder={t('profile.placeholder', { label: modal.label.toLowerCase() })}
               placeholderTextColor={currentColors.textMuted}
               autoFocus
               keyboardType={modal.field ? fieldConfig[modal.field]?.keyboardType : 'default'}
@@ -148,10 +150,10 @@ export default function ProfileScreen({ navigation, route }) {
                 style={[styles.modalCancel, { borderColor: currentColors.borderColor }]}
                 onPress={() => setModal({ open: false, field: '', value: '', label: '' })}
               >
-                <Text style={[styles.modalCancelText, { color: currentColors.textSecondary }]}>Cancelar</Text>
+                <Text style={[styles.modalCancelText, { color: currentColors.textSecondary }]}>{t('common.cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.modalSave, { backgroundColor: currentColors.accent }]} onPress={handleSave}>
-                <Text style={[styles.modalSaveText, { color: currentColors.bgBody }]}>Guardar</Text>
+                <Text style={[styles.modalSaveText, { color: currentColors.bgBody }]}>{t('common.save')}</Text>
               </TouchableOpacity>
             </View>
           </View>

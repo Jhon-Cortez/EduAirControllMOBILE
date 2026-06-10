@@ -15,31 +15,34 @@ import AppNavigator from './src/navigation/AppNavigator'
 // Context
 import { EnvironmentsProvider } from './src/context/EnvironmentsContext'
 import { ThemeProvider } from './src/context/ThemeContext'
+import { LanguageProvider } from './src/context/LanguageContext'
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
     <ThemeProvider>
-      <EnvironmentsProvider>
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="Login"
-            screenOptions={{ headerShown: false }}
-          >
-            {/* Auth */}
-            <Stack.Screen name="Login"          component={LoginScreen} />
-            <Stack.Screen name="SignUp"          component={SignUpScreen} />
-            <Stack.Screen name="ForgotPassword"  component={ForgotPasswordScreen} />
-            <Stack.Screen name="VerifyCode"      component={VerifyCodeScreen} />
-            <Stack.Screen name="ChangePassword"  component={ChangePasswordScreen} />
-            <Stack.Screen name="Terms"           component={TermsScreen} />
+      <LanguageProvider>
+        <EnvironmentsProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName="Login"
+              screenOptions={{ headerShown: false }}
+            >
+              {/* Auth */}
+              <Stack.Screen name="Login"          component={LoginScreen} />
+              <Stack.Screen name="SignUp"          component={SignUpScreen} />
+              <Stack.Screen name="ForgotPassword"  component={ForgotPasswordScreen} />
+              <Stack.Screen name="VerifyCode"      component={VerifyCodeScreen} />
+              <Stack.Screen name="ChangePassword"  component={ChangePasswordScreen} />
+              <Stack.Screen name="Terms"           component={TermsScreen} />
 
-            {/* App (bottom tabs) */}
-            <Stack.Screen name="App" component={AppNavigator} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </EnvironmentsProvider>
+              {/* App (bottom tabs) */}
+              <Stack.Screen name="App" component={AppNavigator} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </EnvironmentsProvider>
+      </LanguageProvider>
     </ThemeProvider>
   )
 }

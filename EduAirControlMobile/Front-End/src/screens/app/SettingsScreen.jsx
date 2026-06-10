@@ -7,6 +7,7 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { useTheme } from '../../context/ThemeContext'
+import { useLanguage } from '../../context/LanguageContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const TIMEZONES = [
@@ -26,14 +27,15 @@ const TIMEZONES = [
 ]
 
 const THEMES = [
-  { key: '',                   label: 'Normal' },
-  { key: 'theme-protanopia',   label: 'Protanopía' },
-  { key: 'theme-deuteranopia', label: 'Deuteranopía' },
-  { key: 'theme-tritanopia',   label: 'Tritanopía' },
+  { key: '',                   labelKey: 'settings.normalTheme' },
+  { key: 'theme-protanopia',   labelKey: 'settings.protanopia' },
+  { key: 'theme-deuteranopia', labelKey: 'settings.deuteranopia' },
+  { key: 'theme-tritanopia',   labelKey: 'settings.tritanopia' },
 ]
 
 export default function SettingsScreen({ navigation, route }) {
   const { darkMode, toggleDarkMode, currentColors, loaded } = useTheme()
+  const { language, languageName, setLanguage, t } = useLanguage()
 
   const [autoTimezone, setAutoTimezone] = useState(true)
   const [manualTimezone, setManualTimezone] = useState('America/Bogota')
@@ -43,7 +45,7 @@ export default function SettingsScreen({ navigation, route }) {
   const [privacy, setPrivacy] = useState({
     perfilPublico: false, compartirDatos: false,
   })
-  const [settings, setSettings] = useState({ language: 'Español', dateFormat: 'DD-MM-YYYY' })
+  const [settings, setSettings] = useState({ language: languageName, dateFormat: 'DD-MM-YYYY' })
   const [theme, setTheme] = useState('')
   const [showLangModal, setShowLangModal] = useState(false)
   const [showPasswordModal, setShowPasswordModal] = useState(false)
@@ -71,9 +73,8 @@ export default function SettingsScreen({ navigation, route }) {
         const savedSettings = await AsyncStorage.getItem('settings')
         if (savedSettings !== null) {
           const parsed = JSON.parse(savedSettings)
-          const LANG_NAMES = { es: 'Español', en: 'English', fr: 'Français', pt: 'Português' }
           setSettings({
-            language: LANG_NAMES[parsed.language] || 'Español',
+            language: languageName,
             dateFormat: parsed.dateFormat || 'DD-MM-YYYY',
           })
         }
@@ -123,11 +124,13 @@ export default function SettingsScreen({ navigation, route }) {
     await AsyncStorage.setItem('theme', newTheme)
   }
 
+  useEffect(() => {
+    setSettings((prev) => ({ ...prev, language: languageName }))
+  }, [languageName])
+
   const handleChangeLanguage = async (langCode) => {
-    const LANG_NAMES = { es: 'Español', en: 'English', fr: 'Français', pt: 'Português' }
-    const newSettings = { ...settings, language: LANG_NAMES[langCode] || 'English' }
-    setSettings(newSettings)
-    await AsyncStorage.setItem('settings', JSON.stringify({ ...newSettings, language: langCode }))
+    await setLanguage(langCode)
+    setSettings((prev) => ({ ...prev, language: langCode === 'en' ? 'English' : 'Espanol' }))
     setShowLangModal(false)
   }
 
@@ -139,27 +142,27 @@ export default function SettingsScreen({ navigation, route }) {
 
   const handleSavePassword = () => {
     if (!passwordData.current || !passwordData.new || !passwordData.confirm) {
-      Alert.alert('Campos requeridos', 'Completa todos los campos.')
+      Alert.alert(t('settings.requiredFieldsTitle'), t('settings.requiredFieldsMessage'))
       return
     }
     if (passwordData.new !== passwordData.confirm) {
-      Alert.alert('Error', 'Las contraseñas no coinciden.')
+      Alert.alert(t('settings.passwordMismatchTitle'), t('settings.passwordMismatchMessage'))
       return
     }
     if (passwordData.new.length < 6) {
-      Alert.alert('Error', 'La contraseña debe tener al menos 6 caracteres.')
+      Alert.alert(t('settings.passwordMismatchTitle'), t('settings.passwordLengthMessage'))
       return
     }
-    Alert.alert('Éxito', 'Contraseña actualizada correctamente 😎')
+    Alert.alert(t('settings.passwordSuccessTitle'), t('settings.passwordSuccessMessage'))
     setShowPasswordModal(false)
     setPasswordData({ current: '', new: '', confirm: '' })
   }
 
   const themeLabel = (key) => {
-    if (key === '') return 'Normal'
-    if (key === 'theme-protanopia') return 'Protanopía'
-    if (key === 'theme-deuteranopia') return 'Deuteranopía'
-    return 'Tritanopía'
+    if (key === '') return t('settings.normalTheme')
+    if (key === 'theme-protanopia') return t('settings.protanopia')
+    if (key === 'theme-deuteranopia') return t('settings.deuteranopia')
+    return t('settings.tritanopia')
   }
 
   const renderHelpContent = (tc) => {
@@ -169,19 +172,19 @@ export default function SettingsScreen({ navigation, route }) {
           <>
             <View style={styles.helpSectionTitle}>
               <Text style={[styles.helpIcon, { color: tc.accent }]}>❓</Text>
-              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>Preguntas frecuentes</Text>
+              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>{t('settings.faq')}</Text>
             </View>
             <View style={styles.helpItem}>
-              <Text style={[styles.helpQuestion, { color: tc.textPrimary }]}>¿Cómo agregar un ambiente?</Text>
-              <Text style={[styles.helpAnswer, { color: tc.textSecondary }]}>Ve a Gestión → Agregar ambiente</Text>
+              <Text style={[styles.helpQuestion, { color: tc.textPrimary }]}>{t('settings.faqAddQuestion')}</Text>
+              <Text style={[styles.helpAnswer, { color: tc.textSecondary }]}>{t('settings.faqAddAnswer')}</Text>
             </View>
             <View style={styles.helpItem}>
-              <Text style={[styles.helpQuestion, { color: tc.textPrimary }]}>¿Cómo cambiar el tema?</Text>
-              <Text style={[styles.helpAnswer, { color: tc.textSecondary }]}>En Configuración → Apariencia</Text>
+              <Text style={[styles.helpQuestion, { color: tc.textPrimary }]}>{t('settings.faqThemeQuestion')}</Text>
+              <Text style={[styles.helpAnswer, { color: tc.textSecondary }]}>{t('settings.faqThemeAnswer')}</Text>
             </View>
             <View style={styles.helpItem}>
-              <Text style={[styles.helpQuestion, { color: tc.textPrimary }]}>¿Olvidé mi contraseña?</Text>
-              <Text style={[styles.helpAnswer, { color: tc.textSecondary }]}>Usa la opción "Olvidé mi contraseña" en login</Text>
+              <Text style={[styles.helpQuestion, { color: tc.textPrimary }]}>{t('settings.faqPasswordQuestion')}</Text>
+              <Text style={[styles.helpAnswer, { color: tc.textSecondary }]}>{t('settings.faqPasswordAnswer')}</Text>
             </View>
           </>
         )
@@ -190,20 +193,20 @@ export default function SettingsScreen({ navigation, route }) {
           <>
             <View style={styles.helpSectionTitle}>
               <Text style={[styles.helpIcon, { color: tc.accent }]}>📬</Text>
-              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>Contacto</Text>
+              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>{t('settings.contact')}</Text>
             </View>
             <View style={styles.helpItem}>
               <Text style={[styles.helpIconSmall, { color: tc.textMuted }]}>✉️</Text>
               <View style={{ flex: 1 }}>
-                <Text style={[styles.helpLabel, { color: tc.textPrimary }]}>Correo</Text>
+                <Text style={[styles.helpLabel, { color: tc.textPrimary }]}>{t('settings.email')}</Text>
                 <Text style={[styles.helpValue, { color: tc.textSecondary }]}>soporte@eduaircontrol.com</Text>
               </View>
             </View>
             <View style={styles.helpItem}>
               <Text style={[styles.helpIconSmall, { color: tc.textMuted }]}>🕐</Text>
               <View style={{ flex: 1 }}>
-                <Text style={[styles.helpLabel, { color: tc.textPrimary }]}>Horario</Text>
-                <Text style={[styles.helpValue, { color: tc.textSecondary }]}>L-V 8am-6pm</Text>
+                <Text style={[styles.helpLabel, { color: tc.textPrimary }]}>{t('settings.schedule')}</Text>
+                <Text style={[styles.helpValue, { color: tc.textSecondary }]}>{t('settings.scheduleValue')}</Text>
               </View>
             </View>
           </>
@@ -213,13 +216,13 @@ export default function SettingsScreen({ navigation, route }) {
           <>
             <View style={styles.helpSectionTitle}>
               <Text style={[styles.helpIcon, { color: tc.accent }]}>📋</Text>
-              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>Términos y condiciones</Text>
+              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>{t('settings.terms')}</Text>
             </View>
-            <Text style={[styles.helpText, { color: tc.textSecondary }]}>Al usar EduAirControl, aceptas nuestros términos de servicio.</Text>
+            <Text style={[styles.helpText, { color: tc.textSecondary }]}>{t('settings.termsText')}</Text>
             <View style={styles.helpList}>
-              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• Uso responsable de la plataforma</Text>
-              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• Protección de datos personales</Text>
-              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• Propiedad intelectual</Text>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>- {t('settings.termsUse')}</Text>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>- {t('settings.termsData')}</Text>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>- {t('settings.termsIp')}</Text>
             </View>
           </>
         )
@@ -228,13 +231,13 @@ export default function SettingsScreen({ navigation, route }) {
           <>
             <View style={styles.helpSectionTitle}>
               <Text style={[styles.helpIcon, { color: tc.accent }]}>🔒</Text>
-              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>Política de privacidad</Text>
+              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>{t('settings.privacyPolicy')}</Text>
             </View>
-            <Text style={[styles.helpText, { color: tc.textSecondary }]}>Tu privacidad es importante para nosotros.</Text>
+            <Text style={[styles.helpText, { color: tc.textSecondary }]}>{t('settings.privacyText')}</Text>
             <View style={styles.helpList}>
-              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• No compartimos datos con terceros</Text>
-              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• Datos encriptados</Text>
-              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• Derechos del usuario</Text>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>- {t('settings.privacyNoShare')}</Text>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>- {t('settings.privacyEncrypted')}</Text>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>- {t('settings.privacyRights')}</Text>
             </View>
           </>
         )
@@ -243,13 +246,13 @@ export default function SettingsScreen({ navigation, route }) {
           <>
             <View style={styles.helpSectionTitle}>
               <Text style={[styles.helpIcon, { color: tc.accent }]}>📱</Text>
-              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>Versión</Text>
+              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>{t('settings.version')}</Text>
             </View>
             <View style={[styles.versionBadgeBase, { backgroundColor: `${tc.accent}20`, borderColor: tc.accent }]}>
               <Text style={[styles.versionNumber, { color: tc.accent }]}>v1.0.0</Text>
             </View>
             <Text style={[styles.helpText, { color: tc.textSecondary }]}>EduAirControl Mobile App</Text>
-            <Text style={[styles.versionDate, { color: tc.textMuted }]}>Mayo 2026</Text>
+            <Text style={[styles.versionDate, { color: tc.textMuted }]}>{t('settings.versionDate')}</Text>
           </>
         )
       default:
@@ -262,7 +265,7 @@ export default function SettingsScreen({ navigation, route }) {
       <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
         <StatusBar barStyle="dark-content" backgroundColor={currentColors.bgBody} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: currentColors.textMuted }}>Cargando...</Text>
+          <Text style={{ color: currentColors.textMuted }}>{t('loading')}</Text>
         </View>
       </SafeAreaView>
     )
@@ -278,7 +281,7 @@ export default function SettingsScreen({ navigation, route }) {
       {/* Header */}
       <View style={styles.header}>
         <Ionicons name="settings-outline" size={30} color={currentColors.accent} />
-        <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>Configuración</Text>
+        <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>{t('settings.title')}</Text>
       </View>
 
       <ScrollView
@@ -290,12 +293,12 @@ export default function SettingsScreen({ navigation, route }) {
         <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
           <View style={styles.cardHeader}>
             <Ionicons name="color-palette-outline" size={18} color={currentColors.accent} />
-            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>Apariencia</Text>
+            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>{t('settings.appearance')}</Text>
           </View>
           <TouchableOpacity style={styles.row} onPress={() => handleDarkModeToggle(!darkMode)}>
             <View style={styles.rowLeft}>
               <Ionicons name={darkMode ? 'moon' : 'moon-outline'} size={16} color={currentColors.textMuted} />
-              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Modo oscuro</Text>
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>{t('settings.darkMode')}</Text>
             </View>
             <View style={[
               styles.toggle,
@@ -307,12 +310,12 @@ export default function SettingsScreen({ navigation, route }) {
           <View style={styles.row}>
             <View style={styles.rowLeft}>
               <Ionicons name="color-palette-outline" size={16} color={currentColors.textMuted} />
-              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Tema accesible</Text>
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>{t('settings.accessibleTheme')}</Text>
             </View>
             <Text style={[styles.rowValue, { color: currentColors.textMuted }]} numberOfLines={1}>{themeLabel(theme)}</Text>
           </View>
           <View style={styles.themePicker}>
-            {THEMES.map(({ key, label }) => (
+            {THEMES.map(({ key, labelKey }) => (
               <TouchableOpacity
                 key={key}
                 style={[
@@ -328,7 +331,7 @@ export default function SettingsScreen({ navigation, route }) {
                 <Text style={[
                   styles.themeChipLabel,
                   { color: theme === key ? currentColors.accent : currentColors.textSecondary }
-                ]}>{label}</Text>
+                ]}>{t(labelKey)}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -338,12 +341,12 @@ export default function SettingsScreen({ navigation, route }) {
         <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
           <View style={styles.cardHeader}>
             <Ionicons name="globe-outline" size={18} color={currentColors.accent} />
-            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>Idioma y fechas</Text>
+            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>{t('settings.languageDates')}</Text>
           </View>
           <TouchableOpacity style={styles.row} onPress={() => setShowLangModal(true)}>
             <View style={styles.rowLeft}>
               <Ionicons name="language-outline" size={16} color={currentColors.textMuted} />
-              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Idioma</Text>
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>{t('settings.language')}</Text>
             </View>
             <Text style={[styles.rowValue, { color: currentColors.textMuted }]} numberOfLines={1}>{settings.language}</Text>
             <Ionicons name="chevron-forward" size={16} color={currentColors.textMuted} />
@@ -351,14 +354,14 @@ export default function SettingsScreen({ navigation, route }) {
           <View style={styles.row}>
             <View style={styles.rowLeft}>
               <Ionicons name="calendar-outline" size={16} color={currentColors.textMuted} />
-              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Formato de fecha</Text>
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>{t('settings.dateFormat')}</Text>
             </View>
             <Text style={[styles.rowValue, { color: currentColors.textMuted }]} numberOfLines={1}>{settings.dateFormat}</Text>
           </View>
           <TouchableOpacity style={styles.row} onPress={() => handleAutoTimezoneToggle(!autoTimezone)}>
             <View style={styles.rowLeft}>
               <Ionicons name="time-outline" size={16} color={currentColors.textMuted} />
-              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Zona horaria automática</Text>
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>{t('settings.autoTimezone')}</Text>
             </View>
             <View style={[
               styles.toggle,
@@ -370,7 +373,7 @@ export default function SettingsScreen({ navigation, route }) {
           {!autoTimezone && (
             <View style={styles.timezoneRow}>
               <Ionicons name="location-outline" size={16} color={currentColors.textMuted} />
-              <Text style={[styles.timezoneLabel, { color: currentColors.textSecondary }]}>Zona horaria:</Text>
+              <Text style={[styles.timezoneLabel, { color: currentColors.textSecondary }]}>{t('settings.timezone')}</Text>
               {TIMEZONES.map(({ value, label }) => (
                 <TouchableOpacity
                   key={value}
@@ -398,13 +401,13 @@ export default function SettingsScreen({ navigation, route }) {
         <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
           <View style={styles.cardHeader}>
             <Ionicons name="notifications-outline" size={18} color={currentColors.accent} />
-            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>Recordatorios</Text>
+            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>{t('settings.reminders')}</Text>
           </View>
           {[
-            { key: 'alertas', label: 'Alertas críticas' },
-            { key: 'advertencias', label: 'Advertencias' },
-            { key: 'resumenDiario', label: 'Resumen diario' },
-            { key: 'sonido', label: 'Sonido' },
+            { key: 'alertas', label: t('settings.criticalAlerts') },
+            { key: 'advertencias', label: t('settings.warnings') },
+            { key: 'resumenDiario', label: t('settings.dailySummary') },
+            { key: 'sonido', label: t('settings.sound') },
           ].map(({ key, label }) => (
             <TouchableOpacity key={key} style={styles.row} onPress={() => toggleReminder(key)}>
               <View style={styles.rowLeft}>
@@ -425,12 +428,12 @@ export default function SettingsScreen({ navigation, route }) {
         <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
           <View style={styles.cardHeader}>
             <Ionicons name="shield-checkmark-outline" size={18} color={currentColors.accent} />
-            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>Privacidad</Text>
+            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>{t('settings.privacy')}</Text>
           </View>
           <TouchableOpacity style={styles.row} onPress={() => togglePrivacy('perfilPublico')}>
             <View style={styles.rowLeft}>
               <Ionicons name="eye-outline" size={16} color={currentColors.textMuted} />
-              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Perfil público</Text>
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>{t('settings.publicProfile')}</Text>
             </View>
             <View style={[
               styles.toggle,
@@ -442,7 +445,7 @@ export default function SettingsScreen({ navigation, route }) {
           <TouchableOpacity style={styles.row} onPress={() => togglePrivacy('compartirDatos')}>
             <View style={styles.rowLeft}>
               <Ionicons name="share-social-outline" size={16} color={currentColors.textMuted} />
-              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Compartir datos</Text>
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>{t('settings.shareData')}</Text>
             </View>
             <View style={[
               styles.toggle,
@@ -454,14 +457,14 @@ export default function SettingsScreen({ navigation, route }) {
           <TouchableOpacity style={styles.row} onPress={() => setShowPasswordModal(true)}>
             <View style={styles.rowLeft}>
               <Ionicons name="lock-closed-outline" size={16} color={currentColors.accent} />
-              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Cambiar contraseña</Text>
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>{t('settings.changePassword')}</Text>
             </View>
             <Ionicons name="chevron-forward" size={16} color={currentColors.textMuted} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.row} onPress={() => setShowDeleteModal(true)}>
             <View style={[styles.rowLeft, { flex: 1 }]}>
               <Ionicons name="trash-outline" size={16} color={currentColors.error} />
-              <Text style={[styles.rowLabel, { color: currentColors.error }]}>Eliminar cuenta</Text>
+              <Text style={[styles.rowLabel, { color: currentColors.error }]}>{t('settings.deleteAccount')}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -470,14 +473,14 @@ export default function SettingsScreen({ navigation, route }) {
         <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
           <View style={styles.cardHeader}>
             <Ionicons name="help-circle-outline" size={18} color={currentColors.accent} />
-            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>Ayuda</Text>
+            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>{t('settings.help')}</Text>
           </View>
           {[
-            { type: 'faq',     icon: 'help-circle-outline',     label: 'Preguntas frecuentes' },
-            { type: 'contact', icon: 'mail-outline',            label: 'Contacto' },
-            { type: 'terms',   icon: 'document-text-outline',   label: 'Términos y condiciones' },
-            { type: 'privacy', icon: 'lock-closed-outline',     label: 'Política de privacidad' },
-            { type: 'version', icon: 'information-circle-outline', label: 'Versión' },
+            { type: 'faq',     icon: 'help-circle-outline',     label: t('settings.faq') },
+            { type: 'contact', icon: 'mail-outline',            label: t('settings.contact') },
+            { type: 'terms',   icon: 'document-text-outline',   label: t('settings.terms') },
+            { type: 'privacy', icon: 'lock-closed-outline',     label: t('settings.privacyPolicy') },
+            { type: 'version', icon: 'information-circle-outline', label: t('settings.version') },
           ].map(({ type, icon, label }) => (
             <TouchableOpacity key={type} style={styles.row} onPress={() => setShowHelpModal({ open: true, type })}>
               <View style={styles.rowLeft}>
@@ -498,14 +501,14 @@ export default function SettingsScreen({ navigation, route }) {
            <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard }]}>
             <View style={styles.modalHeader}>
               <Ionicons name="lock-closed-outline" size={22} color={currentColors.accent} />
-              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Cambiar contraseña</Text>
+              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>{t('settings.changePassword')}</Text>
               <TouchableOpacity onPress={() => setShowPasswordModal(false)}>
                 <Ionicons name="close" size={22} color={currentColors.textMuted} />
               </TouchableOpacity>
             </View>
             <TextInput
               style={[styles.input, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-              placeholder="Contraseña actual"
+              placeholder={t('settings.currentPassword')}
               placeholderTextColor={currentColors.textMuted}
               value={passwordData.current}
               onChangeText={(v) => setPasswordData(p => ({ ...p, current: v }))}
@@ -514,7 +517,7 @@ export default function SettingsScreen({ navigation, route }) {
             <View style={styles.inputRow}>
               <TextInput
                 style={[styles.input, { flex: 1, backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-                placeholder="Nueva contraseña"
+                placeholder={t('settings.newPassword')}
                 placeholderTextColor={currentColors.textMuted}
                 value={passwordData.new}
                 onChangeText={(v) => setPasswordData(p => ({ ...p, new: v }))}
@@ -527,7 +530,7 @@ export default function SettingsScreen({ navigation, route }) {
             <View style={styles.inputRow}>
               <TextInput
                 style={[styles.input, { flex: 1, backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-                placeholder="Confirmar contraseña"
+                placeholder={t('settings.confirmPassword')}
                 placeholderTextColor={currentColors.textMuted}
                 value={passwordData.confirm}
                 onChangeText={(v) => setPasswordData(p => ({ ...p, confirm: v }))}
@@ -539,10 +542,10 @@ export default function SettingsScreen({ navigation, route }) {
             </View>
             <View style={styles.modalActions}>
               <TouchableOpacity style={[styles.cancelBtn, { borderColor: currentColors.borderColor }]} onPress={() => setShowPasswordModal(false)}>
-                <Text style={[styles.cancelBtnText, { color: currentColors.textSecondary }]}>Cancelar</Text>
+                <Text style={[styles.cancelBtnText, { color: currentColors.textSecondary }]}>{t('common.cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.saveBtn, { backgroundColor: currentColors.accent }]} onPress={handleSavePassword}>
-                <Text style={[styles.saveBtnText, { color: currentColors.bgBody }]}>Guardar</Text>
+                <Text style={[styles.saveBtnText, { color: currentColors.bgBody }]}>{t('common.save')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -554,18 +557,18 @@ export default function SettingsScreen({ navigation, route }) {
            <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard }]}>
             <View style={styles.modalHeader}>
               <Ionicons name="warning-outline" size={22} color={currentColors.error} />
-              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Eliminar cuenta</Text>
+              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>{t('settings.deleteAccount')}</Text>
               <TouchableOpacity onPress={() => setShowDeleteModal(false)}>
                 <Ionicons name="close" size={22} color={currentColors.textMuted} />
               </TouchableOpacity>
             </View>
-            <Text style={[styles.modalText, { color: currentColors.textSecondary }]}>¿Estás seguro de eliminar tu cuenta? Esta acción no se puede deshacer.</Text>
+            <Text style={[styles.modalText, { color: currentColors.textSecondary }]}>{t('settings.deleteMessage')}</Text>
             <View style={styles.modalActions}>
               <TouchableOpacity style={[styles.cancelBtn, { borderColor: currentColors.borderColor }]} onPress={() => setShowDeleteModal(false)}>
-                <Text style={[styles.cancelBtnText, { color: currentColors.textSecondary }]}>Cancelar</Text>
+                <Text style={[styles.cancelBtnText, { color: currentColors.textSecondary }]}>{t('common.cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.deleteBtn, { backgroundColor: currentColors.error }]} onPress={() => setShowDeleteModal(false)}>
-                <Text style={styles.deleteBtnText}>Eliminar</Text>
+                <Text style={styles.deleteBtnText}>{t('common.delete')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -577,16 +580,14 @@ export default function SettingsScreen({ navigation, route }) {
          <View style={styles.modalOverlay}>
            <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard }]}>
             <View style={styles.modalHeader}>
-              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Idioma</Text>
+              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>{t('settings.language')}</Text>
               <TouchableOpacity onPress={() => setShowLangModal(false)}>
                 <Ionicons name="close" size={22} color={currentColors.textMuted} />
               </TouchableOpacity>
             </View>
             {[
-              { code: 'es', name: 'Español' },
+              { code: 'es', name: 'Espanol' },
               { code: 'en', name: 'English' },
-              { code: 'fr', name: 'Français' },
-              { code: 'pt', name: 'Português' },
             ].map((lang) => (
               <TouchableOpacity
                 key={lang.code}
@@ -606,7 +607,7 @@ export default function SettingsScreen({ navigation, route }) {
            <View style={[styles.modalCard, { maxHeight: '80%', backgroundColor: currentColors.bgCard }]}>
             <View style={styles.modalHeader}>
               <Ionicons name="help-circle-outline" size={22} color={currentColors.accent} />
-              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Ayuda</Text>
+              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>{t('settings.help')}</Text>
               <TouchableOpacity onPress={() => setShowHelpModal({ open: false, type: null })}>
                 <Ionicons name="close" size={22} color={currentColors.textMuted} />
               </TouchableOpacity>

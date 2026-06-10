@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../context/ThemeContext'
+import { useLanguage } from '../context/LanguageContext'
 
 import DashboardScreen from '../screens/app/DashboardScreen'
 import EnvironmentDetailScreen from '../screens/app/EnvironmentDetailScreen'
@@ -62,6 +63,7 @@ function ProfileStack() {
 
 export default function AppNavigator() {
   const { currentColors } = useTheme()
+  const { t } = useLanguage()
   const { unreadCount } = useNotifications()
 
   return (
@@ -101,23 +103,23 @@ export default function AppNavigator() {
       <Tab.Screen
         name="Dashboard"
         component={DashboardStack}
-        options={{ tabBarLabel: 'Inicio' }}
+        options={{ tabBarLabel: t('tabs.home') }}
       />
       <Tab.Screen
         name="Favorites"
         component={FavoritesStack}
-        options={{ tabBarLabel: 'Favoritos' }}
+        options={{ tabBarLabel: t('tabs.favorites') }}
       />
       <Tab.Screen
         name="Management"
         component={ManagementStack}
-        options={{ tabBarLabel: 'Gestión' }}
+        options={{ tabBarLabel: t('tabs.management') }}
       />
       <Tab.Screen
         name="Notifications"
         component={NotificationsStack}
         options={{
-          tabBarLabel: 'Alertas',
+          tabBarLabel: t('tabs.alerts'),
           tabBarBadge: unreadCount > 0 ? unreadCount : undefined,
           tabBarBadgeStyle: { backgroundColor: '#ff6b6b', color: '#fff' },
         }}
@@ -125,7 +127,7 @@ export default function AppNavigator() {
       <Tab.Screen
         name="Profile"
         component={ProfileStack}
-        options={{ tabBarLabel: 'Perfil' }}
+        options={{ tabBarLabel: t('tabs.profile') }}
       />
     </Tab.Navigator>
   )

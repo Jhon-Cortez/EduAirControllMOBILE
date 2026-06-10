@@ -11,6 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
 import { useNotifications } from '../../hooks/useNotifications'
+import { useLanguage } from '../../context/LanguageContext'
 
 const TYPE_CONFIG = {
   danger:  { icon: 'alert-circle',      color: '#F44336', bg: 'rgba(244,67,54,0.12)'  },
@@ -18,10 +19,10 @@ const TYPE_CONFIG = {
   info:    { icon: 'information-circle', color: '#00b894', bg: 'rgba(0,184,148,0.12)' },
 }
 
-function NotificationItem({ notification, onPress, currentColors }) {
+function NotificationItem({ notification, onPress, currentColors, locale }) {
   const cfg = TYPE_CONFIG[notification.type] || TYPE_CONFIG.info
   const timeStr = notification.time instanceof Date
-    ? notification.time.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })
+    ? notification.time.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })
     : ''
 
   return (
@@ -51,14 +52,15 @@ function NotificationItem({ notification, onPress, currentColors }) {
 export default function NotificationsScreen({ navigation }) {
   const { darkMode, currentColors, loaded } = useTheme()
   const { notifications, unreadCount }      = useNotifications()
+  const { language, t } = useLanguage()
 
   const [filter, setFilter] = useState('all')
 
   const FILTERS = [
-    { key: 'all',     label: 'Todas' },
-    { key: 'danger',  label: '🔴 Alertas' },
-    { key: 'warning', label: '⚠️ Advertencias' },
-    { key: 'info',    label: 'ℹ️ Info' },
+    { key: 'all',     label: t('notifications.all') },
+    { key: 'danger',  label: t('notifications.alerts') },
+    { key: 'warning', label: t('notifications.warnings') },
+    { key: 'info',    label: t('notifications.info') },
   ]
 
   const filtered = filter === 'all'
@@ -69,7 +71,7 @@ export default function NotificationsScreen({ navigation }) {
     return (
       <SafeAreaView style={[styles.safe, { backgroundColor: '#f0fafa' }]}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: '#999' }}>Cargando...</Text>
+          <Text style={{ color: '#999' }}>{t('loading')}</Text>
         </View>
       </SafeAreaView>
     )
@@ -83,9 +85,9 @@ export default function NotificationsScreen({ navigation }) {
       <View style={[styles.header, { backgroundColor: currentColors.bgCard, borderBottomColor: currentColors.borderColor }]}>
         <Ionicons name="notifications" size={24} color={currentColors.accent} />
         <View style={{ flex: 1 }}>
-          <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>Notificaciones</Text>
+          <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>{t('notifications.title')}</Text>
           {unreadCount > 0 && (
-            <Text style={[styles.headerSub, { color: '#F44336' }]}>{unreadCount} alertas activas</Text>
+            <Text style={[styles.headerSub, { color: '#F44336' }]}>{t('notifications.activeAlerts', { count: unreadCount })}</Text>
           )}
         </View>
         {unreadCount > 0 && (
@@ -131,9 +133,9 @@ export default function NotificationsScreen({ navigation }) {
         {filtered.length === 0 ? (
           <View style={styles.empty}>
             <Ionicons name="checkmark-circle" size={60} color={currentColors.accent} />
-            <Text style={[styles.emptyTitle, { color: currentColors.textPrimary }]}>Sin notificaciones</Text>
+            <Text style={[styles.emptyTitle, { color: currentColors.textPrimary }]}>{t('notifications.emptyTitle')}</Text>
             <Text style={[styles.emptyText, { color: currentColors.textMuted }]}>
-              Todos los ambientes están dentro de los parámetros normales
+              {t('notifications.emptyText')}
             </Text>
           </View>
         ) : (
@@ -142,6 +144,7 @@ export default function NotificationsScreen({ navigation }) {
               key={n.id}
               notification={n}
               currentColors={currentColors}
+              locale={language === 'en' ? 'en-US' : 'es-CO'}
               onPress={() => {
                 if (n.envId) navigation.navigate('EnvironmentDetail', { envId: n.envId })
               }}

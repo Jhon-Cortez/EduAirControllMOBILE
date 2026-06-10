@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
 import { STATUS_COLORS, STATUS_LABELS } from '../../constants/environments'
 import { useEnvironments } from '../../context/EnvironmentsContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers
@@ -72,15 +73,15 @@ function SummaryCard({ label, value, emoji, accent, active, onPress, currentColo
 // ─────────────────────────────────────────────────────────────────────────────
 // EnvironmentCard — métricas + toque para navegar al detalle (igual que web)
 // ─────────────────────────────────────────────────────────────────────────────
-function EnvironmentCard({ environment, onEdit, onDelete, onPress, currentColors }) {
+function EnvironmentCard({ environment, onEdit, onDelete, onPress, currentColors, t }) {
   const statusColor = STATUS_COLORS[environment.statusKey] || currentColors.accent
-  const statusLabel = STATUS_LABELS[environment.statusKey] || environment.statusKey
+  const statusLabel = t(`status.${environment.statusKey}`) || STATUS_LABELS[environment.statusKey] || environment.statusKey
 
   const metrics = [
     { key: 'temp',     icon: '🌡️', label: 'Temp',   value: `${environment.temp}°C`       },
     { key: 'humidity', icon: '💧', label: 'Hum',    value: `${environment.humidity}%`     },
     { key: 'co2',      icon: '☁️', label: 'CO₂',    value: `${environment.co2}ppm`        },
-    { key: 'noise',    icon: '🔊', label: 'Ruido',  value: `${environment.noise}dB`       },
+    { key: 'noise',    icon: '🔊', label: t('dashboard.noise'),  value: `${environment.noise}dB`       },
   ]
 
   // raw values for color coding
@@ -149,11 +150,11 @@ function EnvironmentCard({ environment, onEdit, onDelete, onPress, currentColors
           onPress={(e) => { onEdit(environment) }}
         >
           <Ionicons name="create-outline" size={14} color={currentColors.accent} />
-          <Text style={[styles.editBtnTxt, { color: currentColors.accent }]}>Editar</Text>
+          <Text style={[styles.editBtnTxt, { color: currentColors.accent }]}>{t('common.edit')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.deleteBtn} onPress={() => onDelete(environment)}>
           <Ionicons name="trash-outline" size={14} color={currentColors.error} />
-          <Text style={[styles.deleteBtnTxt, { color: currentColors.error }]}>Eliminar</Text>
+          <Text style={[styles.deleteBtnTxt, { color: currentColors.error }]}>{t('common.delete')}</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -168,6 +169,7 @@ const EMPTY_FORM = { name: '', capacity: '', location: '' }
 export default function EnvironmentManagementScreen({ navigation }) {
   const { darkMode, currentColors, loaded } = useTheme()
   const { environments, addEnvironment, editEnvironment, deleteEnvironment } = useEnvironments()
+  const { t } = useLanguage()
 
   // ── Filtros (igual que web) ───────────────────────────────────
   const [search, setSearch]             = useState('')
@@ -215,14 +217,14 @@ export default function EnvironmentManagementScreen({ navigation }) {
 
   const handleSave = () => {
     if (!form.name.trim()) {
-      Alert.alert('Campo requerido', 'El nombre del ambiente es obligatorio.')
+      Alert.alert(t('management.requiredTitle'), t('management.requiredName'))
       return
     }
     if (modal.mode === 'add') {
       addEnvironment({
         name: form.name.trim(),
         capacity: Number(form.capacity) || 0,
-        location: form.location.trim() || 'Sin ubicación',
+        location: form.location.trim() || t('management.noLocation'),
       })
     } else {
       editEnvironment(modal.env.id, {
@@ -236,11 +238,11 @@ export default function EnvironmentManagementScreen({ navigation }) {
 
   const confirmDelete = (env) => {
     Alert.alert(
-      'Eliminar ambiente',
-      `¿Eliminar "${env.name}"? Esta acción no se puede deshacer.`,
+      t('management.deleteTitle'),
+      t('management.deleteQuestion', { name: env.name }),
       [
-        { text: 'Cancelar', style: 'cancel' },
-        { text: 'Eliminar', style: 'destructive', onPress: () => deleteEnvironment(env.id) },
+        { text: t('common.cancel'), style: 'cancel' },
+        { text: t('common.delete'), style: 'destructive', onPress: () => deleteEnvironment(env.id) },
       ]
     )
   }
@@ -254,7 +256,7 @@ export default function EnvironmentManagementScreen({ navigation }) {
       <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
         <StatusBar barStyle="dark-content" />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: currentColors.textMuted }}>Cargando...</Text>
+          <Text style={{ color: currentColors.textMuted }}>{t('loading')}</Text>
         </View>
       </SafeAreaView>
     )
@@ -269,7 +271,7 @@ export default function EnvironmentManagementScreen({ navigation }) {
         <View style={styles.headerLeft}>
           <Ionicons name="grid-outline" size={20} color={currentColors.accent} />
           <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>
-            Gestión de Ambientes
+            {t('management.title')}
           </Text>
         </View>
         <TouchableOpacity
@@ -278,7 +280,7 @@ export default function EnvironmentManagementScreen({ navigation }) {
           activeOpacity={0.85}
         >
           <Ionicons name="add" size={18} color={currentColors.bgBody} />
-          <Text style={[styles.addBtnTxt, { color: currentColors.bgBody }]}>Agregar</Text>
+          <Text style={[styles.addBtnTxt, { color: currentColors.bgBody }]}>{t('management.add')}</Text>
         </TouchableOpacity>
       </View>
 
@@ -291,28 +293,28 @@ export default function EnvironmentManagementScreen({ navigation }) {
         {/* ── Summary cards (NUEVO — igual que web) ──────────── */}
         <View style={styles.summaryRow}>
           <SummaryCard
-            label="Total"  value={stats.total}    emoji="🏫"
+            label={t('dashboard.total')}  value={stats.total}    emoji="🏫"
             accent={currentColors.accent}
             active={activeFilter === 'all'}
             onPress={() => setActiveFilter('all')}
             currentColors={currentColors}
           />
           <SummaryCard
-            label="Normal"  value={stats.normals}  emoji="✅"
+            label={t('status.normal')}  value={stats.normals}  emoji="✅"
             accent="#4CAF50"
             active={activeFilter === 'normal'}
             onPress={() => setActiveFilter('normal')}
             currentColors={currentColors}
           />
           <SummaryCard
-            label="Advertencia" value={stats.warnings} emoji="🔔"
+            label={t('management.warning')} value={stats.warnings} emoji="🔔"
             accent="#FFC107"
             active={activeFilter === 'warning'}
             onPress={() => setActiveFilter('warning')}
             currentColors={currentColors}
           />
           <SummaryCard
-            label="Alerta" value={stats.alerts}   emoji="⚠️"
+            label={t('status.alert')} value={stats.alerts}   emoji="⚠️"
             accent="#F44336"
             active={activeFilter === 'alert'}
             onPress={() => setActiveFilter('alert')}
@@ -328,7 +330,7 @@ export default function EnvironmentManagementScreen({ navigation }) {
           <Ionicons name="search-outline" size={16} color={currentColors.textMuted} />
           <TextInput
             style={[styles.searchInput, { color: currentColors.textPrimary }]}
-            placeholder="Buscar por nombre o ubicación..."
+            placeholder={t('management.searchPlaceholder')}
             placeholderTextColor={currentColors.textMuted}
             value={search}
             onChangeText={setSearch}
@@ -343,15 +345,11 @@ export default function EnvironmentManagementScreen({ navigation }) {
         {/* ── Contador de resultados (NUEVO — igual que web) ──── */}
         <View style={styles.resultsInfo}>
           <Text style={[styles.resultsCount, { color: currentColors.textMuted }]}>
-            Mostrando{' '}
-            <Text style={{ color: currentColors.textPrimary, fontWeight: '700' }}>{filtered.length}</Text>
-            {' '}de{' '}
-            <Text style={{ color: currentColors.textPrimary, fontWeight: '700' }}>{stats.total}</Text>
-            {' '}ambientes
+            {t('management.showing', { shown: filtered.length, total: stats.total })}
           </Text>
           {(search || activeFilter !== 'all') && (
             <TouchableOpacity onPress={clearAll}>
-              <Text style={[styles.clearTxt, { color: currentColors.accent }]}>Limpiar</Text>
+              <Text style={[styles.clearTxt, { color: currentColors.accent }]}>{t('management.clear')}</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -361,26 +359,26 @@ export default function EnvironmentManagementScreen({ navigation }) {
           <View style={styles.empty}>
             <Text style={styles.emptyIcon}>🏫</Text>
             <Text style={[styles.emptyTitle, { color: currentColors.textPrimary }]}>
-              {search || activeFilter !== 'all' ? 'Sin resultados' : 'Sin ambientes'}
+              {search || activeFilter !== 'all' ? t('management.noResults') : t('management.noEnvironments')}
             </Text>
             <Text style={[styles.emptyText, { color: currentColors.textMuted }]}>
               {search || activeFilter !== 'all'
-                ? 'Intenta con otro término o cambia los filtros'
-                : 'Toca "Agregar" para comenzar a monitorear'}
+                ? t('management.tryAnother')
+                : t('management.startMonitoring')}
             </Text>
             {(search || activeFilter !== 'all') ? (
               <TouchableOpacity
                 style={[styles.emptyBtn, { backgroundColor: currentColors.accent }]}
                 onPress={clearAll}
               >
-                <Text style={[styles.emptyBtnTxt, { color: currentColors.bgBody }]}>Limpiar búsqueda</Text>
+                <Text style={[styles.emptyBtnTxt, { color: currentColors.bgBody }]}>{t('management.clearSearch')}</Text>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
                 style={[styles.emptyBtn, { backgroundColor: currentColors.accent }]}
                 onPress={openAdd}
               >
-                <Text style={[styles.emptyBtnTxt, { color: currentColors.bgBody }]}>Agregar ambiente</Text>
+                <Text style={[styles.emptyBtnTxt, { color: currentColors.bgBody }]}>{t('management.addEnvironment')}</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -393,6 +391,7 @@ export default function EnvironmentManagementScreen({ navigation }) {
               onEdit={openEdit}
               onDelete={confirmDelete}
               onPress={() => navigation.navigate('EnvironmentDetail', { envId: env.id })}
+              t={t}
             />
           ))
         )}
@@ -411,7 +410,7 @@ export default function EnvironmentManagementScreen({ navigation }) {
                 color={currentColors.accent}
               />
               <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>
-                {modal.mode === 'add' ? 'Nuevo ambiente' : 'Editar ambiente'}
+                {modal.mode === 'add' ? t('management.newEnvironment') : t('management.editEnvironment')}
               </Text>
               <TouchableOpacity onPress={closeModal} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
                 <Ionicons name="close" size={22} color={currentColors.textMuted} />
@@ -420,14 +419,14 @@ export default function EnvironmentManagementScreen({ navigation }) {
 
             <ScrollView keyboardShouldPersistTaps="handled">
               <FormField
-                label="Nombre *"
+                label={t('management.name')}
                 value={form.name}
                 onChangeText={(v) => setForm((p) => ({ ...p, name: v }))}
                 placeholder="Ej: Aula 301"
                 currentColors={currentColors}
               />
               <FormField
-                label="Capacidad"
+                label={t('management.capacity')}
                 value={form.capacity}
                 onChangeText={(v) => setForm((p) => ({ ...p, capacity: v }))}
                 placeholder="Ej: 30"
@@ -435,7 +434,7 @@ export default function EnvironmentManagementScreen({ navigation }) {
                 currentColors={currentColors}
               />
               <FormField
-                label="Ubicación"
+                label={t('management.location')}
                 value={form.location}
                 onChangeText={(v) => setForm((p) => ({ ...p, location: v }))}
                 placeholder="Ej: Bloque A"
@@ -448,14 +447,14 @@ export default function EnvironmentManagementScreen({ navigation }) {
                 style={[styles.cancelBtn, { borderColor: currentColors.borderColor }]}
                 onPress={closeModal}
               >
-                <Text style={[styles.cancelBtnTxt, { color: currentColors.textSecondary }]}>Cancelar</Text>
+                <Text style={[styles.cancelBtnTxt, { color: currentColors.textSecondary }]}>{t('common.cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.saveBtn, { backgroundColor: currentColors.accent }]}
                 onPress={handleSave}
               >
                 <Text style={[styles.saveBtnTxt, { color: currentColors.bgBody }]}>
-                  {modal.mode === 'add' ? 'Agregar' : 'Guardar'}
+                  {modal.mode === 'add' ? t('common.add') : t('common.save')}
                 </Text>
               </TouchableOpacity>
             </View>

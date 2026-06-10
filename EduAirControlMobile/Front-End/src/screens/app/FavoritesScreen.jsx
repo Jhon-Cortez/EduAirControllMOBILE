@@ -10,6 +10,7 @@ import {
   QUALITY_LABELS, QUALITY_COLORS,
 } from '../../constants/environments'
 import { useEnvironments } from '../../context/EnvironmentsContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 function getMetricColor(key, value) {
   if (key === 'temp') return value < 18 || value > 24 ? '#FFC107' : '#00b894'
@@ -19,18 +20,18 @@ function getMetricColor(key, value) {
   return '#00b894'
 }
 
-function EnvironmentCard({ environment, onPress, onRemoveFavorite, currentColors }) {
+function EnvironmentCard({ environment, onPress, onRemoveFavorite, currentColors, t }) {
   const statusColor = STATUS_COLORS[environment.statusKey] || '#00b894'
   const statusDim = STATUS_DIM[environment.statusKey] || 'rgba(0,184,148,0.1)'
-  const statusLabel = STATUS_LABELS[environment.statusKey] || environment.statusKey
-  const qualityLabel = QUALITY_LABELS[environment.qualityKey] || environment.qualityKey
+  const statusLabel = t(`status.${environment.statusKey}`)
+  const qualityLabel = t(`quality.${environment.qualityKey}`)
   const qualityColor = QUALITY_COLORS[environment.qualityKey] || '#00b894'
   const temp = environment.temp ?? environment.temperature ?? 0
   const metrics = [
     { key: 'temp', icon: 'thermometer-outline', label: 'Temp', value: `${temp}C`, raw: temp },
     { key: 'humidity', icon: 'water-outline', label: 'Hum', value: `${environment.humidity ?? 0}%`, raw: environment.humidity ?? 0 },
     { key: 'co2', icon: 'cloud-outline', label: 'CO2', value: `${environment.co2 ?? 0}ppm`, raw: environment.co2 ?? 0 },
-    { key: 'noise', icon: 'volume-medium-outline', label: 'Ruido', value: `${environment.noise ?? 0}dB`, raw: environment.noise ?? 0 },
+    { key: 'noise', icon: 'volume-medium-outline', label: t('dashboard.noise'), value: `${environment.noise ?? 0}dB`, raw: environment.noise ?? 0 },
   ]
 
   return (
@@ -59,7 +60,7 @@ function EnvironmentCard({ environment, onPress, onRemoveFavorite, currentColors
         <Ionicons name="location-outline" size={13} color={currentColors.textMuted} />
         <Text style={[styles.locationText, { color: currentColors.textMuted }]}>{environment.location}</Text>
         <Ionicons name="people-outline" size={13} color={currentColors.textMuted} style={{ marginLeft: 10 }} />
-        <Text style={[styles.locationText, { color: currentColors.textMuted }]}>{environment.capacity} personas</Text>
+        <Text style={[styles.locationText, { color: currentColors.textMuted }]}>{environment.capacity} {t('favorites.people')}</Text>
       </View>
 
       <View style={styles.metricsRow}>
@@ -76,7 +77,7 @@ function EnvironmentCard({ environment, onPress, onRemoveFavorite, currentColors
       </View>
 
       <View style={[styles.qualityRow, { borderTopColor: currentColors.borderColor }]}>
-        <Text style={[styles.qualityLabel, { color: currentColors.textSecondary }]}>Calidad del aire</Text>
+        <Text style={[styles.qualityLabel, { color: currentColors.textSecondary }]}>{t('favorites.airQuality')}</Text>
         <Text style={[styles.qualityValue, { color: qualityColor }]}>{qualityLabel}</Text>
       </View>
     </TouchableOpacity>
@@ -85,6 +86,7 @@ function EnvironmentCard({ environment, onPress, onRemoveFavorite, currentColors
 
 export default function FavoritesScreen({ navigation }) {
   const { darkMode, currentColors, loaded } = useTheme()
+  const { t } = useLanguage()
 
   const { environments, toggleFavorite } = useEnvironments()
   const [confirmEnv, setConfirmEnv] = useState(null)
@@ -102,7 +104,7 @@ export default function FavoritesScreen({ navigation }) {
       <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
         <StatusBar barStyle="dark-content" backgroundColor={currentColors.bgBody} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: currentColors.textMuted }}>Cargando...</Text>
+          <Text style={{ color: currentColors.textMuted }}>{t('loading')}</Text>
         </View>
       </SafeAreaView>
     )
@@ -116,7 +118,7 @@ export default function FavoritesScreen({ navigation }) {
       <View style={[styles.header, { backgroundColor: currentColors.bgCard, borderBottomColor: currentColors.borderColor }]}>
         <View style={styles.headerTitle}>
           <Ionicons name="heart" size={35} color="#ff6b6b" />
-          <Text style={[styles.headerText, { color: currentColors.textPrimary }]}>Favoritos</Text>
+          <Text style={[styles.headerText, { color: currentColors.textPrimary }]}>{t('favorites.title')}</Text>
         </View>
         <View style={{ width: 20 }} />
       </View>
@@ -128,22 +130,22 @@ export default function FavoritesScreen({ navigation }) {
       >
         <Text style={[styles.subtitle, { color: currentColors.textMuted }]}>
           {favorites.length === 0
-            ? 'No tienes ambientes favoritos aún'
-            : `${favorites.length} ambiente${favorites.length > 1 ? 's' : ''} guardado${favorites.length > 1 ? 's' : ''}`}
+            ? t('favorites.noneYet')
+            : t('favorites.saved', { count: favorites.length, plural: favorites.length > 1 ? 's' : '' })}
         </Text>
 
         {favorites.length === 0 ? (
           <View style={styles.empty}>
             <Ionicons name="heart-outline" size={64} color={currentColors.borderColor} />
-            <Text style={[styles.emptyTitle, { color: currentColors.textPrimary }]}>Sin favoritos</Text>
+            <Text style={[styles.emptyTitle, { color: currentColors.textPrimary }]}>{t('favorites.emptyTitle')}</Text>
             <Text style={[styles.emptyText, { color: currentColors.textMuted }]}>
-              Toca el ❤️ en cualquier ambiente del dashboard para guardarlo aquí
+              {t('favorites.emptyText')}
             </Text>
             <TouchableOpacity
               style={styles.goBackBtn}
               onPress={() => navigation.getParent()?.navigate('Dashboard')}
             >
-              <Text style={styles.goBackText}>Ir al Dashboard</Text>
+              <Text style={styles.goBackText}>{t('favorites.goDashboard')}</Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -154,6 +156,7 @@ export default function FavoritesScreen({ navigation }) {
               onPress={() => navigation.navigate('EnvironmentDetail', { envId: fav.id })}
               onRemoveFavorite={setConfirmEnv}
               currentColors={currentColors}
+              t={t}
             />
           ))
         )}
@@ -165,23 +168,23 @@ export default function FavoritesScreen({ navigation }) {
           <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
             <View style={styles.modalHeader}>
               <Ionicons name="heart" size={24} color="#ff6b6b" />
-              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Eliminar de favoritos</Text>
+              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>{t('favorites.removeTitle')}</Text>
             </View>
             <Text style={[styles.modalText, { color: currentColors.textSecondary }]}>
-              {`Deseas quitar "${confirmEnv?.name || 'este ambiente'}" de tus favoritos?`}
+              {t('favorites.removeQuestion', { name: confirmEnv?.name || 'este ambiente' })}
             </Text>
             <View style={styles.modalActions}>
               <TouchableOpacity
                 style={[styles.modalBtn, styles.cancelBtn, { borderColor: currentColors.borderColor }]}
                 onPress={() => setConfirmEnv(null)}
               >
-                <Text style={[styles.cancelText, { color: currentColors.textSecondary }]}>Cancelar</Text>
+                <Text style={[styles.cancelText, { color: currentColors.textSecondary }]}>{t('common.cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.modalBtn, styles.removeBtn]}
                 onPress={confirmRemove}
               >
-                <Text style={styles.removeText}>Eliminar</Text>
+                <Text style={styles.removeText}>{t('common.delete')}</Text>
               </TouchableOpacity>
             </View>
           </View>
