@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
 import { useEnvironments } from '../../context/EnvironmentsContext'
 import { useLanguage } from '../../context/LanguageContext'
+import NotificationButton from '../../components/NotificationButton'
 
 // ── Score formula (igual que web) ─────────────────────────────
 function calcScore(env) {
@@ -389,12 +390,10 @@ export default function DashboardScreen({ navigation }) {
           <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>{t('dashboard.title')}</Text>
           <Text style={[styles.headerSub,   { color: currentColors.textMuted }]}>{t('dashboard.subtitle')}</Text>
         </View>
+        <NotificationButton />
       </View>
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-
-        {/* Stats */}
-        <StatsBar environments={environments} currentColors={currentColors} t={t} />
 
         {/* Filters */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll} contentContainerStyle={styles.filterRow}>
@@ -489,10 +488,10 @@ const styles = StyleSheet.create({
   headerSub:    { fontSize: 12, marginTop: 1 },
   scroll:       { flex: 1 },
   scrollContent:{ padding: 16 },
-  filterScroll: { marginBottom: 12, maxHeight: 44, flexGrow: 0 },
-  filterRow:    { flexDirection: 'row', gap: 8, paddingRight: 8 },
-  filterBtn:    { paddingHorizontal: 13, paddingVertical: 7, borderRadius: 20, borderWidth: 1, minHeight: 36, justifyContent: 'center' },
-  filterTxt:    { fontSize: 12, fontWeight: '700' },
+  filterScroll: { marginBottom: 16, maxHeight: 58, flexGrow: 0 },
+  filterRow:    { flexDirection: 'row', gap: 10, paddingRight: 8 },
+  filterBtn:    { paddingHorizontal: 18, paddingVertical: 11, borderRadius: 24, borderWidth: 1, minHeight: 48, justifyContent: 'center' },
+  filterTxt:    { fontSize: 14, fontWeight: '800' },
   empty:        { alignItems: 'center', paddingVertical: 40, gap: 8 },
   emptyTxt:     { fontSize: 14 },
   podium:       { flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-end', gap: 8, marginBottom: 24, paddingTop: 20 },

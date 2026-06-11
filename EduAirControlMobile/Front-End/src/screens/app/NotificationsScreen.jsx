@@ -173,16 +173,16 @@ const styles = StyleSheet.create({
   },
   badgeText: { color: '#fff', fontSize: 12, fontWeight: 'bold' },
 
-  filterScroll:     { marginTop: 12, maxHeight: 48, flexGrow: 0 },
-  filterRow:        { flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 16, paddingBottom: 4 },
+  filterScroll:     { marginTop: 12, maxHeight: 58, flexGrow: 0 },
+  filterRow:        { flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 16, paddingBottom: 4 },
   filterChip: {
-    paddingHorizontal: 14, paddingVertical: 7,
-    borderRadius: 20, borderWidth: 1.5,
+    paddingHorizontal: 18, paddingVertical: 11,
+    borderRadius: 24, borderWidth: 1.5,
     backgroundColor: 'transparent',
-    minHeight: 36,
+    minHeight: 48,
     justifyContent: 'center',
   },
-  filterChipText: { fontSize: 13, fontWeight: '600' },
+  filterChipText: { fontSize: 14, fontWeight: '800' },
 
   list:        { flex: 1 },
   listContent: { padding: 16 },

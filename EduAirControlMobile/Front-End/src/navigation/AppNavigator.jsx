@@ -8,10 +8,10 @@ import DashboardScreen from '../screens/app/DashboardScreen'
 import EnvironmentDetailScreen from '../screens/app/EnvironmentDetailScreen'
 import FavoritesScreen from '../screens/app/FavoritesScreen'
 import NotificationsScreen from '../screens/app/NotificationsScreen'
+import AllEnvironmentsScreen from '../screens/app/AllEnvironmentsScreen'
 import ProfileScreen from '../screens/app/ProfileScreen'
 import EnvironmentManagementScreen from '../screens/app/EnvironmentManagementScreen'
 import SettingsScreen from '../screens/app/SettingsScreen'
-import { useNotifications } from '../hooks/useNotifications'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -21,6 +21,7 @@ function DashboardStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="DashboardHome" component={DashboardScreen} />
       <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
+      <Stack.Screen name="NotificationsPanel" component={NotificationsScreen} />
     </Stack.Navigator>
   )
 }
@@ -30,6 +31,7 @@ function FavoritesStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="FavoritesHome" component={FavoritesScreen} />
       <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
+      <Stack.Screen name="NotificationsPanel" component={NotificationsScreen} />
     </Stack.Navigator>
   )
 }
@@ -43,11 +45,12 @@ function ManagementStack() {
   )
 }
 
-function NotificationsStack() {
+function EnvironmentsStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="NotificationsHome" component={NotificationsScreen} />
+      <Stack.Screen name="EnvironmentsHome" component={AllEnvironmentsScreen} />
       <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
+      <Stack.Screen name="NotificationsPanel" component={NotificationsScreen} />
     </Stack.Navigator>
   )
 }
@@ -64,7 +67,6 @@ function ProfileStack() {
 export default function AppNavigator() {
   const { currentColors } = useTheme()
   const { t } = useLanguage()
-  const { unreadCount } = useNotifications()
 
   return (
     <Tab.Navigator
@@ -89,8 +91,8 @@ export default function AppNavigator() {
             iconName = focused ? 'heart' : 'heart-outline'
           } else if (route.name === 'Management') {
             iconName = focused ? 'settings' : 'settings-outline'
-          } else if (route.name === 'Notifications') {
-            iconName = focused ? 'notifications' : 'notifications-outline'
+          } else if (route.name === 'Environments') {
+            iconName = focused ? 'business' : 'business-outline'
           } else if (route.name === 'Settings') {
             iconName = focused ? 'options' : 'options-outline'
           } else if (route.name === 'Profile') {
@@ -116,13 +118,9 @@ export default function AppNavigator() {
         options={{ tabBarLabel: t('tabs.management') }}
       />
       <Tab.Screen
-        name="Notifications"
-        component={NotificationsStack}
-        options={{
-          tabBarLabel: t('tabs.alerts'),
-          tabBarBadge: unreadCount > 0 ? unreadCount : undefined,
-          tabBarBadgeStyle: { backgroundColor: '#ff6b6b', color: '#fff' },
-        }}
+        name="Environments"
+        component={EnvironmentsStack}
+        options={{ tabBarLabel: t('tabs.environments') }}
       />
       <Tab.Screen
         name="Profile"

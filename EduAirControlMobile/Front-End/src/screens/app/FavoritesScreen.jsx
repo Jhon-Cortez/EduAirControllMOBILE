@@ -5,81 +5,59 @@ import {
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
-import {
-  STATUS_COLORS, STATUS_DIM, STATUS_LABELS,
-  QUALITY_LABELS, QUALITY_COLORS,
-} from '../../constants/environments'
+import { STATUS_COLORS } from '../../constants/environments'
 import { useEnvironments } from '../../context/EnvironmentsContext'
 import { useLanguage } from '../../context/LanguageContext'
+import NotificationButton from '../../components/NotificationButton'
 
-function getMetricColor(key, value) {
-  if (key === 'temp') return value < 18 || value > 24 ? '#FFC107' : '#00b894'
-  if (key === 'humidity') return value < 40 || value > 60 ? '#FFC107' : '#00b894'
-  if (key === 'co2') return value > 1000 ? '#F44336' : '#00b894'
-  if (key === 'noise') return value > 50 ? '#FFC107' : '#00b894'
-  return '#00b894'
+function calcScore(env) {
+  const temp = env.temp ?? env.temperature ?? 22
+  const tempScore = Math.max(0, 100 - Math.abs(temp - 21) * 8)
+  const humidityScore = Math.max(0, 100 - Math.abs(env.humidity - 50) * 3)
+  const co2Score = Math.max(0, 100 - Math.max(0, env.co2 - 600) * 0.08)
+  const noiseScore = Math.max(0, 100 - Math.max(0, env.noise - 30) * 2)
+  return Math.round((tempScore + humidityScore + co2Score + noiseScore) / 4)
 }
 
-function EnvironmentCard({ environment, onPress, onRemoveFavorite, currentColors, t }) {
-  const statusColor = STATUS_COLORS[environment.statusKey] || '#00b894'
-  const statusDim = STATUS_DIM[environment.statusKey] || 'rgba(0,184,148,0.1)'
+function ScoreRing({ score, color }) {
+  return (
+    <View style={[styles.scoreRing, { borderColor: color }]}>
+      <Text style={[styles.scoreText, { color }]}>{score}</Text>
+    </View>
+  )
+}
+
+function EnvironmentCard({ environment, rank, onPress, onRemoveFavorite, currentColors, t }) {
+  const statusColor = STATUS_COLORS[environment.statusKey] || currentColors.accent
   const statusLabel = t(`status.${environment.statusKey}`)
-  const qualityLabel = t(`quality.${environment.qualityKey}`)
-  const qualityColor = QUALITY_COLORS[environment.qualityKey] || '#00b894'
-  const temp = environment.temp ?? environment.temperature ?? 0
-  const metrics = [
-    { key: 'temp', icon: 'thermometer-outline', label: 'Temp', value: `${temp}C`, raw: temp },
-    { key: 'humidity', icon: 'water-outline', label: 'Hum', value: `${environment.humidity ?? 0}%`, raw: environment.humidity ?? 0 },
-    { key: 'co2', icon: 'cloud-outline', label: 'CO2', value: `${environment.co2 ?? 0}ppm`, raw: environment.co2 ?? 0 },
-    { key: 'noise', icon: 'volume-medium-outline', label: t('dashboard.noise'), value: `${environment.noise ?? 0}dB`, raw: environment.noise ?? 0 },
-  ]
+  const score = calcScore(environment)
 
   return (
-    <TouchableOpacity style={[styles.card, { backgroundColor: currentColors.bgCard }]} onPress={onPress} activeOpacity={0.85}>
-      <View style={styles.cardHeader}>
-        <View style={styles.cardTitleBlock}>
-          <Text style={[styles.cardName, { color: currentColors.textPrimary }]} numberOfLines={1}>{environment.name}</Text>
-          <View style={[styles.statusBadge, { backgroundColor: statusDim, borderColor: statusColor }]}>
-            <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
-            <Text style={[styles.statusText, { color: statusColor }]}>{statusLabel}</Text>
-          </View>
+    <TouchableOpacity
+      style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}
+      onPress={onPress}
+      activeOpacity={0.85}
+    >
+      <Text style={[styles.rank, { color: currentColors.textMuted }]}>#{rank}</Text>
+      <View style={[styles.statusIcon, { backgroundColor: `${statusColor}18` }]}>
+        <Ionicons name="business-outline" size={18} color={statusColor} />
+      </View>
+      <View style={styles.cardInfo}>
+        <Text style={[styles.cardName, { color: currentColors.textPrimary }]} numberOfLines={1}>{environment.name}</Text>
+        <View style={styles.cardMeta}>
+          <Ionicons name="location-outline" size={12} color={currentColors.textMuted} />
+          <Text style={[styles.cardMetaTxt, { color: currentColors.textMuted }]} numberOfLines={1}>{environment.location}</Text>
+          <Text style={[styles.statusText, { color: statusColor }]}>{statusLabel}</Text>
         </View>
-        <TouchableOpacity
-          onPress={() => onRemoveFavorite(environment)}
-          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-        >
-          <Ionicons
-            name="heart"
-            size={22}
-            color="#ff6b6b"
-          />
-        </TouchableOpacity>
       </View>
-
-      <View style={styles.locationRow}>
-        <Ionicons name="location-outline" size={13} color={currentColors.textMuted} />
-        <Text style={[styles.locationText, { color: currentColors.textMuted }]}>{environment.location}</Text>
-        <Ionicons name="people-outline" size={13} color={currentColors.textMuted} style={{ marginLeft: 10 }} />
-        <Text style={[styles.locationText, { color: currentColors.textMuted }]}>{environment.capacity} {t('favorites.people')}</Text>
-      </View>
-
-      <View style={styles.metricsRow}>
-        {metrics.map((metric) => {
-          const color = getMetricColor(metric.key, metric.raw)
-          return (
-            <View key={metric.key} style={[styles.metricChip, { borderColor: color, backgroundColor: `${color}12` }]}>
-              <Ionicons name={metric.icon} size={14} color={color} />
-              <Text style={[styles.metricValue, { color }]} numberOfLines={1}>{metric.value}</Text>
-              <Text style={[styles.metricLabel, { color: currentColors.textMuted }]}>{metric.label}</Text>
-            </View>
-          )
-        })}
-      </View>
-
-      <View style={[styles.qualityRow, { borderTopColor: currentColors.borderColor }]}>
-        <Text style={[styles.qualityLabel, { color: currentColors.textSecondary }]}>{t('favorites.airQuality')}</Text>
-        <Text style={[styles.qualityValue, { color: qualityColor }]}>{qualityLabel}</Text>
-      </View>
+      <ScoreRing score={score} color={statusColor} />
+      <TouchableOpacity
+        onPress={() => onRemoveFavorite(environment)}
+        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+        style={styles.heartBtn}
+      >
+        <Ionicons name="heart" size={44} color="#ff6b6b" />
+      </TouchableOpacity>
     </TouchableOpacity>
   )
 }
@@ -120,7 +98,7 @@ export default function FavoritesScreen({ navigation }) {
           <Ionicons name="heart" size={35} color="#ff6b6b" />
           <Text style={[styles.headerText, { color: currentColors.textPrimary }]}>{t('favorites.title')}</Text>
         </View>
-        <View style={{ width: 20 }} />
+        <NotificationButton />
       </View>
 
       <ScrollView
@@ -149,10 +127,11 @@ export default function FavoritesScreen({ navigation }) {
             </TouchableOpacity>
           </View>
         ) : (
-          favorites.map((fav) => (
+          favorites.map((fav, index) => (
             <EnvironmentCard
               key={fav.id}
               environment={fav}
+              rank={index + 1}
               onPress={() => navigation.navigate('EnvironmentDetail', { envId: fav.id })}
               onRemoveFavorite={setConfirmEnv}
               currentColors={currentColors}
@@ -220,74 +199,42 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    borderRadius: 15,
-    padding: 20,
-    marginBottom: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
+    borderRadius: 12,
+    borderWidth: 1,
+    padding: 12,
+    marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
-    shadowRadius: 10,
+    shadowRadius: 8,
     elevation: 3,
   },
-  cardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 12,
-  },
-  cardTitleBlock: { flex: 1 },
-  cardName: { fontSize: 16, fontWeight: 'bold', marginBottom: 4 },
-  statusBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    borderWidth: 1,
-  },
-  statusDot: { width: 6, height: 6, borderRadius: 3 },
-  statusText: { fontSize: 11, fontWeight: '600' },
-
-  locationRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-    gap: 4,
-  },
-  locationText: { fontSize: 12 },
-
-  metricsRow: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 10,
-  },
-  metricChip: {
-    flex: 1,
+  rank: { width: 30, fontSize: 13, fontWeight: '800' },
+  statusIcon: {
+    width: 38,
+    height: 38,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 2,
-    paddingVertical: 7,
-    paddingHorizontal: 3,
-    borderRadius: 8,
-    borderWidth: 1,
-    minHeight: 58,
   },
-  metricIcon: { fontSize: 12 },
-  metricValue: { fontSize: 11, fontWeight: '800' },
-  metricLabel: { fontSize: 9, fontWeight: '600', textTransform: 'uppercase' },
-
-  qualityRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  cardInfo: { flex: 1 },
+  cardName: { fontSize: 14, fontWeight: '800', marginBottom: 4 },
+  cardMeta: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  cardMetaTxt: { fontSize: 11, flexShrink: 1, maxWidth: 110 },
+  statusText: { fontSize: 10, fontWeight: '800', marginLeft: 4 },
+  scoreRing: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    borderWidth: 3,
     alignItems: 'center',
-    paddingTop: 8,
-    borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
+    justifyContent: 'center',
   },
-  qualityLabel: { fontSize: 12, color: '#666666', flex: 1 },
-  qualityValue: { fontSize: 13, fontWeight: '600', flexShrink: 0 },
+  scoreText: { fontSize: 12, fontWeight: '900' },
+  heartBtn: { marginLeft: 2 },
 
   empty: {
     alignItems: 'center',

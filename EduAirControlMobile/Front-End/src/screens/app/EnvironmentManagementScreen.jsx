@@ -73,7 +73,7 @@ function SummaryCard({ label, value, emoji, accent, active, onPress, currentColo
 // ─────────────────────────────────────────────────────────────────────────────
 // EnvironmentCard — métricas + toque para navegar al detalle (igual que web)
 // ─────────────────────────────────────────────────────────────────────────────
-function EnvironmentCard({ environment, onEdit, onDelete, onPress, currentColors, t }) {
+function EnvironmentCard({ environment, onEdit, onDelete, currentColors, t }) {
   const statusColor = STATUS_COLORS[environment.statusKey] || currentColors.accent
   const statusLabel = t(`status.${environment.statusKey}`) || STATUS_LABELS[environment.statusKey] || environment.statusKey
 
@@ -93,14 +93,12 @@ function EnvironmentCard({ environment, onEdit, onDelete, onPress, currentColors
   }
 
   return (
-    <TouchableOpacity
+    <View
       style={[styles.envCard, {
         backgroundColor: currentColors.bgCard,
         borderColor: currentColors.borderColor,
         borderLeftColor: statusColor,
       }]}
-      onPress={onPress}
-      activeOpacity={0.85}
     >
       {/* Card top: icon + info + status pill */}
       <View style={styles.cardTop}>
@@ -157,7 +155,7 @@ function EnvironmentCard({ environment, onEdit, onDelete, onPress, currentColors
           <Text style={[styles.deleteBtnTxt, { color: currentColors.error }]}>{t('common.delete')}</Text>
         </TouchableOpacity>
       </View>
-    </TouchableOpacity>
+    </View>
   )
 }
 
@@ -390,7 +388,6 @@ export default function EnvironmentManagementScreen({ navigation }) {
               currentColors={currentColors}
               onEdit={openEdit}
               onDelete={confirmDelete}
-              onPress={() => navigation.navigate('EnvironmentDetail', { envId: env.id })}
               t={t}
             />
           ))
@@ -489,6 +486,7 @@ const styles = StyleSheet.create({
 
   // Summary cards
   summaryRow: {
+    display: 'none',
     flexDirection: 'row', gap: 8, marginBottom: 14,
   },
   summaryCard: {
@@ -560,6 +558,7 @@ const styles = StyleSheet.create({
 
   // Metrics row (NUEVO)
   metricsRow: {
+    display: 'none',
     flexDirection: 'row', borderTopWidth: 1,
   },
   metricCell: {
