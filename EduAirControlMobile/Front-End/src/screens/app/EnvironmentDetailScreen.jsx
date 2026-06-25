@@ -25,6 +25,69 @@ function getProgress(value, min, max) {
   return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))
 }
 
+function getIssueDetail(metric) {
+  if (metric.key === 'temp') {
+    return metric.raw < 18
+      ? `Temperatura baja: ${metric.raw}°C. Ideal ${metric.ideal}.`
+      : `Temperatura alta: ${metric.raw}°C. Ideal ${metric.ideal}.`
+  }
+  if (metric.key === 'humidity') {
+    return metric.raw < 40
+      ? `Humedad baja: ${metric.raw}%. Ideal ${metric.ideal}.`
+      : `Humedad alta: ${metric.raw}%. Ideal ${metric.ideal}.`
+  }
+  if (metric.key === 'co2') {
+    return `CO2 elevado: ${metric.raw} ppm. Ideal ${metric.ideal}.`
+  }
+  if (metric.key === 'noise') {
+    return `Ruido elevado: ${metric.raw} dB. Ideal ${metric.ideal}.`
+  }
+  return `${metric.label} fuera del rango recomendado.`
+}
+
+function HistoryCard({ history, currentColors }) {
+  if (!history?.length) return null
+  const latest = history[history.length - 1]
+  const previous = history[Math.max(0, history.length - 2)]
+  const trend = {
+    temp: Number((latest.temp - previous.temp).toFixed(1)),
+    humidity: latest.humidity - previous.humidity,
+    co2: latest.co2 - previous.co2,
+    noise: latest.noise - previous.noise,
+  }
+  const rows = [
+    { key: 'temp', label: 'Temp', value: `${latest.temp}°C`, delta: `${trend.temp > 0 ? '+' : ''}${trend.temp}°C` },
+    { key: 'humidity', label: 'Humedad', value: `${latest.humidity}%`, delta: `${trend.humidity > 0 ? '+' : ''}${trend.humidity}%` },
+    { key: 'co2', label: 'CO2', value: `${latest.co2} ppm`, delta: `${trend.co2 > 0 ? '+' : ''}${trend.co2}` },
+    { key: 'noise', label: 'Ruido', value: `${latest.noise} dB`, delta: `${trend.noise > 0 ? '+' : ''}${trend.noise}` },
+  ]
+
+  return (
+    <View style={[styles.historyCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+      <View style={styles.historyTimeline}>
+        {history.map((item) => (
+          <View key={item.time} style={styles.historyPoint}>
+            <View style={[styles.historyDot, { backgroundColor: currentColors.accent }]} />
+            <Text style={[styles.historyTime, { color: currentColors.textMuted }]}>{item.time}</Text>
+          </View>
+        ))}
+      </View>
+
+      <View style={styles.historyRows}>
+        {rows.map((row) => (
+          <View key={row.key} style={[styles.historyRow, { borderTopColor: currentColors.borderColor }]}>
+            <Text style={[styles.historyLabel, { color: currentColors.textMuted }]}>{row.label}</Text>
+            <Text style={[styles.historyValue, { color: currentColors.textPrimary }]}>{row.value}</Text>
+            <Text style={[styles.historyDelta, { color: row.delta.startsWith('-') ? currentColors.success : currentColors.warning }]}>
+              {row.delta}
+            </Text>
+          </View>
+        ))}
+      </View>
+    </View>
+  )
+}
+
 function MetricTile({ metric, currentColors }) {
   const pct = getProgress(metric.raw, metric.min, metric.max)
 
@@ -200,7 +263,10 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
     },
   ]
 
-  const activeIssues = metrics.filter((metric) => metric.warning)
+  const activeIssues = metrics.filter((metric) => metric.warning).map((metric) => ({
+    ...metric,
+    detail: getIssueDetail(metric),
+  }))
   const recommendation = activeIssues.length
     ? `Revisar ${activeIssues.map((metric) => metric.label.toLowerCase()).join(', ')}.`
     : 'Las condiciones estan dentro del rango recomendado.'
@@ -277,6 +343,12 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
               {activeIssues.length ? 'Atencion necesaria' : 'Ambiente estable'}
             </Text>
             <Text style={[styles.insightText, { color: currentColors.textSecondary }]}>{recommendation}</Text>
+            {activeIssues.map((issue) => (
+              <View key={issue.key} style={styles.issueRow}>
+                <Ionicons name="ellipse" size={7} color={issue.color} />
+                <Text style={[styles.issueText, { color: currentColors.textSecondary }]}>{issue.detail}</Text>
+              </View>
+            ))}
           </View>
         </View>
 
@@ -290,6 +362,13 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
             <MetricTile key={metric.key} metric={metric} currentColors={currentColors} />
           ))}
         </View>
+
+        <View style={styles.sectionHeader}>
+          <Ionicons name="time-outline" size={18} color={currentColors.accent} />
+          <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>Historial del dia</Text>
+        </View>
+
+        <HistoryCard history={env.history} currentColors={currentColors} />
 
         <RatingCard
           rating={rating}
@@ -385,6 +464,8 @@ const styles = StyleSheet.create({
   },
   insightTitle: { fontSize: 14, fontWeight: '900', marginBottom: 2 },
   insightText: { fontSize: 13, lineHeight: 18 },
+  issueRow: { flexDirection: 'row', alignItems: 'center', gap: 7, marginTop: 7 },
+  issueText: { flex: 1, fontSize: 12.5, lineHeight: 17, fontWeight: '600' },
 
   sectionHeader: { flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: 10 },
   sectionTitle: { fontSize: 16, fontWeight: '900' },
@@ -417,6 +498,31 @@ const styles = StyleSheet.create({
   progressFill: { height: '100%', borderRadius: 4 },
   metricFooter: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 6 },
   idealText: { fontSize: 10.5, fontWeight: '700', flex: 1 },
+
+  historyCard: {
+    borderRadius: 16,
+    borderWidth: 1,
+    padding: 14,
+    marginBottom: 16,
+  },
+  historyTimeline: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  historyPoint: { alignItems: 'center', gap: 5, flex: 1 },
+  historyDot: { width: 8, height: 8, borderRadius: 4 },
+  historyTime: { fontSize: 10, fontWeight: '700' },
+  historyRows: { gap: 0 },
+  historyRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTopWidth: 1,
+    paddingVertical: 9,
+  },
+  historyLabel: { flex: 1, fontSize: 12, fontWeight: '800' },
+  historyValue: { flex: 1, fontSize: 13, fontWeight: '900', textAlign: 'right' },
+  historyDelta: { width: 62, fontSize: 12, fontWeight: '900', textAlign: 'right' },
 
   ratingCard: {
     borderRadius: 16,

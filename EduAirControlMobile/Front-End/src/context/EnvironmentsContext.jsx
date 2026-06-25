@@ -1,6 +1,34 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const EnvironmentsContext = createContext()
+const STORAGE_KEY = 'eduair.environments'
+
+function buildHistory(env) {
+  const temp = env.temp ?? env.temperature ?? 22
+  const humidity = env.humidity ?? 50
+  const co2 = env.co2 ?? 700
+  const noise = env.noise ?? 40
+  const labels = ['08:00', '10:00', '12:00', '14:00', '16:00']
+
+  return labels.map((time, index) => {
+    const offset = index - 2
+    return {
+      time,
+      temp: Number((temp + offset * 0.4).toFixed(1)),
+      humidity: Math.max(0, Math.round(humidity + offset * 2)),
+      co2: Math.max(350, Math.round(co2 + offset * 45)),
+      noise: Math.max(0, Math.round(noise + offset * 3)),
+    }
+  })
+}
+
+function withHistory(env) {
+  return {
+    ...env,
+    history: Array.isArray(env.history) && env.history.length ? env.history : buildHistory(env),
+  }
+}
 
 const INITIAL_ENVIRONMENTS = [
   {
@@ -71,7 +99,35 @@ const INITIAL_ENVIRONMENTS = [
 ]
 
 export function EnvironmentsProvider({ children }) {
-  const [environments, setEnvironments] = useState(INITIAL_ENVIRONMENTS)
+  const [environments, setEnvironments] = useState(() => INITIAL_ENVIRONMENTS.map(withHistory))
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const saved = await AsyncStorage.getItem(STORAGE_KEY)
+        if (saved) {
+          const parsed = JSON.parse(saved)
+          if (Array.isArray(parsed)) {
+            setEnvironments(parsed.map(withHistory))
+          }
+        }
+      } catch (e) {
+        console.warn('Error loading environments:', e)
+      } finally {
+        setLoaded(true)
+      }
+    }
+
+    load()
+  }, [])
+
+  useEffect(() => {
+    if (!loaded) return
+    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(environments)).catch((e) => {
+      console.warn('Error saving environments:', e)
+    })
+  }, [environments, loaded])
 
   const toggleFavorite = (id, isFav) => {
     setEnvironments((prev) =>
@@ -94,6 +150,7 @@ export function EnvironmentsProvider({ children }) {
         co2: 700,
         noise: 39,
         qualityKey: 'good',
+        history: buildHistory({ temp: 22, humidity: 49, co2: 700, noise: 39 }),
       },
     ])
   }
@@ -110,7 +167,7 @@ export function EnvironmentsProvider({ children }) {
 
   return (
     <EnvironmentsContext.Provider
-      value={{ environments, toggleFavorite, addEnvironment, editEnvironment, deleteEnvironment }}
+      value={{ environments, toggleFavorite, addEnvironment, editEnvironment, deleteEnvironment, environmentsLoaded: loaded }}
     >
       {children}
     </EnvironmentsContext.Provider>

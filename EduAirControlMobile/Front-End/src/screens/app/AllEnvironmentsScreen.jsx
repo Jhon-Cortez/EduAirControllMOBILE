@@ -29,6 +29,13 @@ function calcScore(env) {
   return Math.round((tempScore + humidityScore + co2Score + noiseScore) / 4)
 }
 
+function getSeverity(env) {
+  const status = getStatusKey(env)
+  if (status === 'alert') return 3
+  if (status === 'warning') return 2
+  return 1
+}
+
 function EnvironmentRow({ env, currentColors, t, onPress }) {
   const statusKey = getStatusKey(env)
   const statusColor = STATUS_COLORS[statusKey] || currentColors.accent
@@ -69,6 +76,7 @@ export default function AllEnvironmentsScreen({ navigation }) {
   const [status, setStatus] = useState('all')
   const [favorite, setFavorite] = useState('all')
   const [capacity, setCapacity] = useState('all')
+  const [location, setLocation] = useState('all')
   const [sort, setSort] = useState('name')
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [filterSection, setFilterSection] = useState('status')
@@ -89,21 +97,30 @@ export default function AllEnvironmentsScreen({ navigation }) {
     { key: 'medium', label: t('environments.medium') },
     { key: 'large', label: t('environments.large') },
   ]
+  const locationFilters = [
+    { key: 'all', label: 'Todos los bloques' },
+    ...Array.from(new Set(environments.map((env) => env.location).filter(Boolean)))
+      .sort((a, b) => a.localeCompare(b))
+      .map((item) => ({ key: item, label: item })),
+  ]
   const sortFilters = [
     { key: 'name', label: t('environments.byName') },
     { key: 'score', label: t('environments.byScore') },
     { key: 'capacity', label: t('environments.byCapacity') },
+    { key: 'critical', label: 'Mas criticos' },
   ]
   const filterSections = [
     { key: 'status', label: t('environments.status') },
     { key: 'favorite', label: t('environments.favorite') },
     { key: 'capacity', label: t('environments.capacity') },
+    { key: 'location', label: 'Bloque' },
     { key: 'sort', label: t('environments.sort') },
   ]
   const filterGroups = {
     status: { title: t('environments.status'), items: statusFilters, active: status, setActive: setStatus },
     favorite: { title: t('environments.favorite'), items: favoriteFilters, active: favorite, setActive: setFavorite },
     capacity: { title: t('environments.capacity'), items: capacityFilters, active: capacity, setActive: setCapacity },
+    location: { title: 'Bloque o ubicacion', items: locationFilters, active: location, setActive: setLocation },
     sort: { title: t('environments.sort'), items: sortFilters, active: sort, setActive: setSort },
   }
 
@@ -116,25 +133,28 @@ export default function AllEnvironmentsScreen({ navigation }) {
         const matchSearch = !q || env.name.toLowerCase().includes(q) || String(env.location || '').toLowerCase().includes(q)
         const matchStatus = status === 'all' || status === envStatus
         const matchFavorite = favorite === 'all' || env.isFavorite
+        const matchLocation = location === 'all' || env.location === location
         const matchCapacity =
           capacity === 'all'
           || (capacity === 'small' && cap <= 30)
           || (capacity === 'medium' && cap > 30 && cap <= 50)
           || (capacity === 'large' && cap > 50)
-        return matchSearch && matchStatus && matchFavorite && matchCapacity
+        return matchSearch && matchStatus && matchFavorite && matchCapacity && matchLocation
       })
       .sort((a, b) => {
         if (sort === 'score') return calcScore(b) - calcScore(a)
         if (sort === 'capacity') return (b.capacity || 0) - (a.capacity || 0)
+        if (sort === 'critical') return getSeverity(b) - getSeverity(a) || calcScore(a) - calcScore(b)
         return a.name.localeCompare(b.name)
       })
-  }, [capacity, environments, favorite, search, sort, status])
-  const activeFiltersCount = [status !== 'all', favorite !== 'all', capacity !== 'all', sort !== 'name'].filter(Boolean).length
+  }, [capacity, environments, favorite, location, search, sort, status])
+  const activeFiltersCount = [status !== 'all', favorite !== 'all', capacity !== 'all', location !== 'all', sort !== 'name'].filter(Boolean).length
   const activeGroup = filterGroups[filterSection]
   const clearFilters = () => {
     setStatus('all')
     setFavorite('all')
     setCapacity('all')
+    setLocation('all')
     setSort('name')
   }
 
