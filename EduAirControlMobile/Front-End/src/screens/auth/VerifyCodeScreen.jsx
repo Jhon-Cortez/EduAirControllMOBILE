@@ -5,9 +5,11 @@ import {
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 export default function VerifyCodeScreen({ navigation }) {
   const { currentColors, darkMode } = useTheme()
+  const { t } = useLanguage()
   const [code, setCode] = useState('')
 
   return (
@@ -18,17 +20,17 @@ export default function VerifyCodeScreen({ navigation }) {
           <Ionicons name="arrow-back" size={20} color={currentColors.accent} />
         </TouchableOpacity>
         <View style={styles.header}>
-          <Text style={[styles.title, { color: currentColors.textPrimary }]}>Verificar código</Text>
+          <Text style={[styles.title, { color: currentColors.textPrimary }]}>{t('auth.verifyTitle')}</Text>
           <Ionicons name="shield-checkmark-outline" size={50} color={currentColors.accent} />
         </View>
         <Text style={[styles.description, { color: currentColors.textSecondary }]}>
-          Ingresa el código de 6 dígitos que enviamos a tu correo.
+          {t('auth.verifyDescription')}
         </Text>
         <View style={styles.inputGroup}>
-          <Text style={[styles.label, { color: currentColors.textSecondary }]}>Código de verificación</Text>
+          <Text style={[styles.label, { color: currentColors.textSecondary }]}>{t('auth.codeLabel')}</Text>
           <TextInput
             style={[styles.codeInput, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-            placeholder="000000"
+            placeholder={t('auth.codePlaceholder')}
             placeholderTextColor={currentColors.textMuted}
             value={code}
             onChangeText={setCode}
@@ -38,13 +40,13 @@ export default function VerifyCodeScreen({ navigation }) {
         </View>
         <TouchableOpacity
           style={[styles.submitBtn, { backgroundColor: currentColors.accent }]}
-          onPress={() => navigation.navigate('ChangePassword')}   // ← igual que web: va a change-password
+          onPress={() => navigation.navigate('ChangePassword')}
         >
-          <Text style={[styles.submitBtnText, { color: currentColors.bgBody }]}>Verificar</Text>
+          <Text style={[styles.submitBtnText, { color: currentColors.bgBody }]}>{t('auth.verifyBtn')}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={{ color: currentColors.accent, textAlign: 'center', marginTop: 20 }}>
-            Volver al inicio de sesión
+            {t('auth.backToLogin')}
           </Text>
         </TouchableOpacity>
       </View>

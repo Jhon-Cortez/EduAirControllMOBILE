@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import {
   View, Text, ScrollView, TouchableOpacity,
-  StyleSheet, SafeAreaView, StatusBar, Modal,
+  StyleSheet, StatusBar, Modal,
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
 import { STATUS_COLORS } from '../../constants/environments'
@@ -186,7 +187,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: '#00b894',
   },
-  headerTitle: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  headerTitle: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
   headerText: { fontSize: 24, fontWeight: 'bold' },
 
   scroll: { flex: 1 },

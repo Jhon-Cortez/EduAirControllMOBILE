@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 const GOOGLE_ACCOUNTS = [
   { id: 1, name: 'Keneth Rubiano',  email: 'keneth.rubiano@gmail.com',  initials: 'KR' },
@@ -19,6 +20,7 @@ const GOOGLE_ACCOUNTS = [
 
 export default function GoogleSignUpScreen({ navigation }) {
   const { currentColors, darkMode } = useTheme()
+  const { t } = useLanguage()
   const [selectedAccount, setSelectedAccount] = useState(null)
   const [companyCode, setCompanyCode]         = useState('')
   const [step, setStep] = useState(1) // 1 = elegir cuenta, 2 = código empresa
@@ -53,14 +55,14 @@ export default function GoogleSignUpScreen({ navigation }) {
           <View style={styles.logoRow}>
             <Ionicons name="logo-google" size={32} color="#DB4437" />
             <Text style={[styles.title, { color: currentColors.textPrimary }]}>
-              {step === 1 ? 'Elige una cuenta' : 'Código de empresa'}
+              {step === 1 ? t('auth.googleChooseAccount') : t('auth.googleCompanyCode')}
             </Text>
           </View>
 
           {step === 1 ? (
             <>
               <Text style={[styles.subtitle, { color: currentColors.textMuted }]}>
-                Selecciona la cuenta de Google con la que quieres registrarte en EduAirControl
+                {t('auth.googleSelectAccount')}
               </Text>
               {GOOGLE_ACCOUNTS.map((account) => (
                 <TouchableOpacity
@@ -90,15 +92,15 @@ export default function GoogleSignUpScreen({ navigation }) {
               </View>
 
               <Text style={[styles.subtitle, { color: currentColors.textMuted }]}>
-                Ingresa el código de tu institución para completar el registro
+                {t('auth.googleSelectAccount')}
               </Text>
 
-              <Text style={[styles.label, { color: currentColors.textSecondary }]}>Código de empresa</Text>
+              <Text style={[styles.label, { color: currentColors.textSecondary }]}>{t('auth.googleCodeLabel')}</Text>
               <View style={[styles.inputWrap, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor }]}>
                 <Ionicons name="business-outline" size={18} color={currentColors.textMuted} />
                 <TextInput
                   style={[styles.input, { color: currentColors.textPrimary }]}
-                  placeholder="Ej: EDU-2024"
+                  placeholder={t('auth.googlePlaceholder')}
                   placeholderTextColor={currentColors.textMuted}
                   value={companyCode}
                   onChangeText={setCompanyCode}
@@ -111,7 +113,7 @@ export default function GoogleSignUpScreen({ navigation }) {
                 onPress={handleConfirm}
                 disabled={!companyCode.trim()}
               >
-                <Text style={[styles.confirmBtnText, { color: currentColors.bgBody }]}>Completar registro</Text>
+                <Text style={[styles.confirmBtnText, { color: currentColors.bgBody }]}>{t('auth.googleConfirmBtn')}</Text>
               </TouchableOpacity>
             </>
           )}

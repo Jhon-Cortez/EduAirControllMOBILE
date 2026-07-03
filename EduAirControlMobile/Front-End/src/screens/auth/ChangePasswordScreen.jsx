@@ -5,18 +5,20 @@ import {
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 export default function ChangePasswordScreen({ navigation }) {
   const { currentColors, darkMode } = useTheme()
+  const { t } = useLanguage()
   const [form, setForm] = useState({ current: '', new: '', confirm: '' })
   const [errors, setErrors] = useState({})
   const [success, setSuccess] = useState(false)
 
   const validate = () => {
     const newErrors = {}
-    if (!form.current) newErrors.current = 'Requerido'
-    if (!form.new) newErrors.new = 'Requerido'
-    if (form.new !== form.confirm) newErrors.confirm = 'No coincide'
+    if (!form.current) newErrors.current = t('auth.required')
+    if (!form.new) newErrors.new = t('auth.required')
+    if (form.new !== form.confirm) newErrors.confirm = t('auth.noMatch')
     setErrors(newErrors)
     if (!Object.keys(newErrors).length) {
       setSuccess(true)
@@ -29,32 +31,32 @@ export default function ChangePasswordScreen({ navigation }) {
       <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'} backgroundColor={currentColors.bgBody} />
       <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.accent }]}>
         <View style={styles.header}>
-          <Text style={[styles.title, { color: currentColors.textPrimary }]}>Cambiar contraseña</Text>
+          <Text style={[styles.title, { color: currentColors.textPrimary }]}>{t('auth.changePasswordTitle')}</Text>
           <Ionicons name="lock-closed-outline" size={50} color={currentColors.accent} />
         </View>
         <View style={styles.inputGroup}>
-          <Text style={[styles.label, { color: currentColors.textSecondary }]}>Contraseña actual</Text>
+          <Text style={[styles.label, { color: currentColors.textSecondary }]}>{t('auth.currentPasswordLabel')}</Text>
           <TextInput
             style={[styles.input, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-            placeholder="••••••••" placeholderTextColor={currentColors.textMuted}
+            placeholder={t('auth.passwordPlaceholder')} placeholderTextColor={currentColors.textMuted}
             value={form.current} onChangeText={(v) => setForm({ ...form, current: v })} secureTextEntry
           />
           {errors.current && <Text style={styles.error}>{errors.current}</Text>}
         </View>
         <View style={styles.inputGroup}>
-          <Text style={[styles.label, { color: currentColors.textSecondary }]}>Nueva contraseña</Text>
+          <Text style={[styles.label, { color: currentColors.textSecondary }]}>{t('auth.newPasswordLabel')}</Text>
           <TextInput
             style={[styles.input, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-            placeholder="••••••••" placeholderTextColor={currentColors.textMuted}
+            placeholder={t('auth.passwordPlaceholder')} placeholderTextColor={currentColors.textMuted}
             value={form.new} onChangeText={(v) => setForm({ ...form, new: v })} secureTextEntry
           />
           {errors.new && <Text style={styles.error}>{errors.new}</Text>}
         </View>
         <View style={styles.inputGroup}>
-          <Text style={[styles.label, { color: currentColors.textSecondary }]}>Confirmar nueva contraseña</Text>
+          <Text style={[styles.label, { color: currentColors.textSecondary }]}>{t('auth.confirmNewPasswordLabel')}</Text>
           <TextInput
             style={[styles.input, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-            placeholder="••••••••" placeholderTextColor={currentColors.textMuted}
+            placeholder={t('auth.passwordPlaceholder')} placeholderTextColor={currentColors.textMuted}
             value={form.confirm} onChangeText={(v) => setForm({ ...form, confirm: v })} secureTextEntry
           />
           {errors.confirm && <Text style={styles.error}>{errors.confirm}</Text>}
@@ -63,12 +65,12 @@ export default function ChangePasswordScreen({ navigation }) {
           <View style={[styles.successBox, { backgroundColor: currentColors.accentDim }]}>
             <Ionicons name="checkmark-circle" size={24} color={currentColors.accent} />
             <Text style={[styles.successText, { color: currentColors.textPrimary }]}>
-              Contraseña actualizada correctamente
+              {t('auth.passwordSuccess')}
             </Text>
           </View>
         )}
         <TouchableOpacity style={[styles.submitBtn, { backgroundColor: currentColors.accent }]} onPress={validate}>
-          <Text style={[styles.submitBtnText, { color: currentColors.bgBody }]}>Guardar cambios</Text>
+          <Text style={[styles.submitBtnText, { color: currentColors.bgBody }]}>{t('auth.saveChangesBtn')}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

@@ -5,9 +5,11 @@ import {
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 export default function ForgotPasswordScreen({ navigation }) {
   const { currentColors, darkMode } = useTheme()
+  const { t } = useLanguage()
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
@@ -19,17 +21,17 @@ export default function ForgotPasswordScreen({ navigation }) {
           <Ionicons name="arrow-back" size={20} color={currentColors.accent} />
         </TouchableOpacity>
         <View style={styles.header}>
-          <Text style={[styles.title, { color: currentColors.textPrimary }]}>Recuperar contraseña</Text>
+          <Text style={[styles.title, { color: currentColors.textPrimary }]}>{t('auth.forgotTitle')}</Text>
           <Ionicons name="key-outline" size={50} color={currentColors.accent} />
         </View>
         <Text style={[styles.description, { color: currentColors.textSecondary }]}>
-          Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.
+          {t('auth.forgotDescription')}
         </Text>
         <View style={styles.inputGroup}>
-          <Text style={[styles.label, { color: currentColors.textSecondary }]}>Correo electrónico</Text>
+          <Text style={[styles.label, { color: currentColors.textSecondary }]}>{t('auth.emailLabel')}</Text>
           <TextInput
             style={[styles.input, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-            placeholder="correo@ejemplo.com"
+            placeholder={t('auth.emailPlaceholder')}
             placeholderTextColor={currentColors.textMuted}
             value={email}
             onChangeText={setEmail}
@@ -41,7 +43,7 @@ export default function ForgotPasswordScreen({ navigation }) {
           <View style={[styles.successBox, { backgroundColor: currentColors.accentDim }]}>
             <Ionicons name="checkmark-circle" size={32} color={currentColors.accent} />
             <Text style={[styles.successText, { color: currentColors.textPrimary }]}>
-              Consulta tu correo. Hemos enviado las instrucciones.
+              {t('auth.successMessage')}
             </Text>
           </View>
         ) : (
@@ -49,12 +51,12 @@ export default function ForgotPasswordScreen({ navigation }) {
             style={[styles.submitBtn, { backgroundColor: currentColors.accent }]}
             onPress={() => setSubmitted(true)}
           >
-            <Text style={[styles.submitBtnText, { color: currentColors.bgBody }]}>Enviar enlace</Text>
+            <Text style={[styles.submitBtnText, { color: currentColors.bgBody }]}>{t('auth.submitLink')}</Text>
           </TouchableOpacity>
         )}
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={{ color: currentColors.accent, textAlign: 'center', marginTop: 20 }}>
-            Volver al inicio de sesión
+            {t('auth.backToLogin')}
           </Text>
         </TouchableOpacity>
       </View>

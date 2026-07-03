@@ -6,11 +6,12 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
 import {
-  STATUS_COLORS, STATUS_DIM, STATUS_LABELS,
-  QUALITY_LABELS, QUALITY_COLORS,
+  STATUS_COLORS, STATUS_DIM,
+  QUALITY_COLORS,
   IDEAL_RANGES,
 } from '../../constants/environments'
 import { useEnvironments } from '../../context/EnvironmentsContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 const STATUS_ICONS = {
   normal: 'checkmark-circle',
@@ -25,7 +26,14 @@ function getProgress(value, min, max) {
   return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))
 }
 
-function getIssueDetail(metric) {
+function normalizeStatusKey(statusKey) {
+  if (statusKey === 'dashboard.statusNormal') return 'normal'
+  if (statusKey === 'dashboard.statusWarning') return 'warning'
+  if (statusKey === 'dashboard.statusAlert') return 'alert'
+  return statusKey
+}
+
+function getIssueDetail(metric, t) {
   if (metric.key === 'temp') {
     return metric.raw < 18
       ? `Temperatura baja: ${metric.raw}°C. Ideal ${metric.ideal}.`
@@ -45,7 +53,27 @@ function getIssueDetail(metric) {
   return `${metric.label} fuera del rango recomendado.`
 }
 
-function HistoryCard({ history, currentColors }) {
+function getTranslatedIssueDetail(metric, t) {
+  if (metric.key === 'temp') {
+    return metric.raw < 18
+      ? t('environmentDetail.tempLow', { value: metric.raw, ideal: metric.ideal })
+      : t('environmentDetail.tempHigh', { value: metric.raw, ideal: metric.ideal })
+  }
+  if (metric.key === 'humidity') {
+    return metric.raw < 40
+      ? t('environmentDetail.humidityLow', { value: metric.raw, ideal: metric.ideal })
+      : t('environmentDetail.humidityHigh', { value: metric.raw, ideal: metric.ideal })
+  }
+  if (metric.key === 'co2') {
+    return t('environmentDetail.co2High', { value: metric.raw, ideal: metric.ideal })
+  }
+  if (metric.key === 'noise') {
+    return t('environmentDetail.noiseHigh', { value: metric.raw, ideal: metric.ideal })
+  }
+  return t('environmentDetail.outOfRange', { metric: metric.label })
+}
+
+function HistoryCard({ history, currentColors, t }) {
   if (!history?.length) return null
   const latest = history[history.length - 1]
   const previous = history[Math.max(0, history.length - 2)]
@@ -57,9 +85,9 @@ function HistoryCard({ history, currentColors }) {
   }
   const rows = [
     { key: 'temp', label: 'Temp', value: `${latest.temp}°C`, delta: `${trend.temp > 0 ? '+' : ''}${trend.temp}°C` },
-    { key: 'humidity', label: 'Humedad', value: `${latest.humidity}%`, delta: `${trend.humidity > 0 ? '+' : ''}${trend.humidity}%` },
+    { key: 'humidity', label: t('environmentDetail.humidity'), value: `${latest.humidity}%`, delta: `${trend.humidity > 0 ? '+' : ''}${trend.humidity}%` },
     { key: 'co2', label: 'CO2', value: `${latest.co2} ppm`, delta: `${trend.co2 > 0 ? '+' : ''}${trend.co2}` },
-    { key: 'noise', label: 'Ruido', value: `${latest.noise} dB`, delta: `${trend.noise > 0 ? '+' : ''}${trend.noise}` },
+    { key: 'noise', label: t('environmentDetail.noise'), value: `${latest.noise} dB`, delta: `${trend.noise > 0 ? '+' : ''}${trend.noise}` },
   ]
 
   return (
@@ -88,7 +116,7 @@ function HistoryCard({ history, currentColors }) {
   )
 }
 
-function MetricTile({ metric, currentColors }) {
+function MetricTile({ metric, currentColors, t }) {
   const pct = getProgress(metric.raw, metric.min, metric.max)
 
   return (
@@ -111,7 +139,7 @@ function MetricTile({ metric, currentColors }) {
 
       <View style={styles.metricFooter}>
         <Text style={[styles.idealText, { color: currentColors.textMuted }]} numberOfLines={1}>
-          Ideal {metric.ideal}
+          {t('environmentDetail.ideal', { range: metric.ideal })}
         </Text>
         {metric.warning && <Ionicons name="alert-circle" size={14} color={metric.color} />}
       </View>
@@ -119,13 +147,13 @@ function MetricTile({ metric, currentColors }) {
   )
 }
 
-function RatingCard({ rating, setRating, onSubmit, submitted, currentColors }) {
+function RatingCard({ rating, setRating, onSubmit, submitted, currentColors, t }) {
   if (submitted) {
     return (
       <View style={[styles.ratingCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
         <Ionicons name="checkmark-circle" size={28} color={currentColors.accent} />
         <Text style={[styles.ratingSubmittedTxt, { color: currentColors.textPrimary }]}>
-          Calificacion enviada. Gracias por tu opinion.
+          {t('environmentDetail.ratingSubmitted')}
         </Text>
       </View>
     )
@@ -135,11 +163,11 @@ function RatingCard({ rating, setRating, onSubmit, submitted, currentColors }) {
     <View style={[styles.ratingCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
       <View style={styles.sectionHeader}>
         <Ionicons name="star-outline" size={18} color={currentColors.accent} />
-        <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>Confort percibido</Text>
+        <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>{t('environmentDetail.perceivedComfort')}</Text>
       </View>
 
       <Text style={[styles.ratingQuestion, { color: currentColors.textMuted }]}>
-        Califica como se siente este ambiente para estudiar o trabajar.
+        {t('environmentDetail.ratingQuestion')}
       </Text>
 
       <View style={styles.starsRow}>
@@ -159,7 +187,7 @@ function RatingCard({ rating, setRating, onSubmit, submitted, currentColors }) {
         onPress={() => rating > 0 && onSubmit(rating)}
         disabled={rating === 0}
       >
-        <Text style={[styles.ratingBtnTxt, { color: currentColors.bgBody }]}>Enviar calificacion</Text>
+        <Text style={[styles.ratingBtnTxt, { color: currentColors.bgBody }]}>{t('environmentDetail.submitRating')}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -169,6 +197,7 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
   const { envId } = route.params
   const { darkMode, currentColors, loaded } = useTheme()
   const { environments, toggleFavorite } = useEnvironments()
+  const { t } = useLanguage()
   const env = environments.find((e) => e.id === envId)
 
   const [rating, setRating] = useState(0)
@@ -178,7 +207,7 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
     return (
       <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
         <View style={styles.center}>
-          <Text style={{ color: currentColors.textMuted }}>Cargando...</Text>
+          <Text style={{ color: currentColors.textMuted }}>{t('loading')}</Text>
         </View>
       </SafeAreaView>
     )
@@ -188,9 +217,9 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
     return (
       <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
         <View style={styles.center}>
-          <Text style={{ color: currentColors.textPrimary, fontSize: 16 }}>Ambiente no encontrado</Text>
+          <Text style={{ color: currentColors.textPrimary, fontSize: 16 }}>{t('environmentDetail.notFound')}</Text>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text style={{ color: currentColors.accent, marginTop: 10 }}>Volver</Text>
+            <Text style={{ color: currentColors.accent, marginTop: 10 }}>{t('environmentDetail.back')}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -199,8 +228,8 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
 
   const statusColor = STATUS_COLORS[env.statusKey] || currentColors.accent
   const statusDim = STATUS_DIM[env.statusKey] || currentColors.accentDim
-  const statusLabel = STATUS_LABELS[env.statusKey] || env.statusKey
-  const qualityLabel = QUALITY_LABELS[env.qualityKey] || env.qualityKey
+  const statusLabel = t(`status.${normalizeStatusKey(env.statusKey)}`)
+  const qualityLabel = t(`quality.${env.qualityKey}`)
   const qualityColor = QUALITY_COLORS[env.qualityKey] || currentColors.accent
 
   const temp = env.temp ?? env.temperature ?? 0
@@ -212,7 +241,7 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
     {
       key: 'temp',
       icon: 'thermometer-outline',
-      label: 'Temperatura',
+      label: t('environmentDetail.temperature'),
       value: temp,
       unit: ' C',
       raw: temp,
@@ -225,7 +254,7 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
     {
       key: 'humidity',
       icon: 'water-outline',
-      label: 'Humedad',
+      label: t('environmentDetail.humidity'),
       value: humidity,
       unit: '%',
       raw: humidity,
@@ -251,7 +280,7 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
     {
       key: 'noise',
       icon: 'volume-medium-outline',
-      label: 'Ruido',
+      label: t('environmentDetail.noise'),
       value: noise,
       unit: ' dB',
       raw: noise,
@@ -265,11 +294,11 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
 
   const activeIssues = metrics.filter((metric) => metric.warning).map((metric) => ({
     ...metric,
-    detail: getIssueDetail(metric),
+    detail: getTranslatedIssueDetail(metric, t),
   }))
   const recommendation = activeIssues.length
-    ? `Revisar ${activeIssues.map((metric) => metric.label.toLowerCase()).join(', ')}.`
-    : 'Las condiciones estan dentro del rango recomendado.'
+    ? t('environmentDetail.recommendationReview', { metrics: activeIssues.map((metric) => metric.label.toLowerCase()).join(', ') })
+    : t('environmentDetail.recommendationOk')
 
   const handleSubmitRating = () => setRatingSubmitted(true)
 
@@ -359,7 +388,7 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
 
         <View style={styles.metricsGrid}>
           {metrics.map((metric) => (
-            <MetricTile key={metric.key} metric={metric} currentColors={currentColors} />
+            <MetricTile key={metric.key} metric={metric} currentColors={currentColors} t={t} />
           ))}
         </View>
 
@@ -368,7 +397,7 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
           <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>Historial del dia</Text>
         </View>
 
-        <HistoryCard history={env.history} currentColors={currentColors} />
+        <HistoryCard history={env.history} currentColors={currentColors} t={t} />
 
         <RatingCard
           rating={rating}
@@ -376,6 +405,7 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
           onSubmit={handleSubmitRating}
           submitted={ratingSubmitted}
           currentColors={currentColors}
+          t={t}
         />
 
         <View style={{ height: 30 }} />

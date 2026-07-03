@@ -3,9 +3,11 @@ import {
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 export default function TermsScreen({ navigation }) {
   const { currentColors, darkMode } = useTheme()
+  const { t } = useLanguage()
 
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentColors.bgBody }]}>
@@ -15,27 +17,25 @@ export default function TermsScreen({ navigation }) {
           <Ionicons name="arrow-back" size={20} color={currentColors.accent} />
         </TouchableOpacity>
         <View style={styles.header}>
-          <Text style={[styles.title, { color: currentColors.textPrimary }]}>Términos y Condiciones</Text>
+          <Text style={[styles.title, { color: currentColors.textPrimary }]}>{t('auth.termsTitle')}</Text>
         </View>
-        <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>1. Uso de la aplicación</Text>
+        <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>{t('auth.termsSection1')}</Text>
         <Text style={[styles.sectionText, { color: currentColors.textSecondary }]}>
-          EduAirControl es una herramienta educativa para monitorear la calidad del aire en ambientes académicos.
-          Su uso está destinado exclusivamente a fines educativos e institucionales.
+          {t('auth.termsText1')}
         </Text>
-        <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>2. Privacidad de datos</Text>
+        <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>{t('auth.termsSection2')}</Text>
         <Text style={[styles.sectionText, { color: currentColors.textSecondary }]}>
-          Los datos recopilados se utilizan únicamente para mejorar la experiencia del usuario y el monitoreo
-          ambiental. No se comparten con terceros sin consentimiento explícito.
+          {t('auth.termsText2')}
         </Text>
-        <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>3. Responsabilidades</Text>
+        <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>{t('auth.termsSection3')}</Text>
         <Text style={[styles.sectionText, { color: currentColors.textSecondary }]}>
-          El usuario es responsable del uso adecuado de la aplicación y de mantener sus credenciales seguras.
+          {t('auth.termsText3')}
         </Text>
         <TouchableOpacity
           style={[styles.acceptBtn, { backgroundColor: currentColors.accent }]}
           onPress={() => navigation.goBack()}
         >
-          <Text style={[styles.acceptBtnText, { color: currentColors.bgBody }]}>Aceptar y continuar</Text>
+          <Text style={[styles.acceptBtnText, { color: currentColors.bgBody }]}>{t('auth.acceptBtn')}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

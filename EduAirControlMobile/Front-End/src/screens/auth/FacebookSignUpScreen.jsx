@@ -10,9 +10,11 @@ import {
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 export default function FacebookSignUpScreen({ navigation }) {
   const { currentColors, darkMode } = useTheme()
+  const { t } = useLanguage()
   const [companyCode, setCompanyCode] = useState('')
   const [agreed, setAgreed]           = useState(false)
 
@@ -39,52 +41,51 @@ export default function FacebookSignUpScreen({ navigation }) {
             <View style={[styles.fbBubble, { backgroundColor: '#1877F2' }]}>
               <Ionicons name="logo-facebook" size={28} color="#fff" />
             </View>
-            <View>
-              <Text style={[styles.title, { color: currentColors.textPrimary }]}>Registro con Facebook</Text>
-              <Text style={[styles.connectedText, { color: '#1877F2' }]}>Cuenta conectada ✓</Text>
-            </View>
-          </View>
+             <View>
+               <Text style={[styles.title, { color: currentColors.textPrimary }]}>{t('auth.facebookTitle')}</Text>
+               <Text style={[styles.connectedText, { color: '#1877F2' }]}>{t('auth.facebookConnected')} ✓</Text>
+             </View>
+           </View>
 
-          <Text style={[styles.subtitle, { color: currentColors.textMuted }]}>
-            Tu cuenta de Facebook ha sido verificada. Ingresa el código de tu institución para continuar.
-          </Text>
+           <Text style={[styles.subtitle, { color: currentColors.textMuted }]}>
+             {t('auth.facebookDescription')}
+           </Text>
 
-          {/* Company code */}
-          <Text style={[styles.label, { color: currentColors.textSecondary }]}>Código de empresa *</Text>
-          <View style={[styles.inputWrap, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor }]}>
-            <Ionicons name="business-outline" size={18} color={currentColors.textMuted} />
-            <TextInput
-              style={[styles.input, { color: currentColors.textPrimary }]}
-              placeholder="Ej: EDU-2024"
-              placeholderTextColor={currentColors.textMuted}
-              value={companyCode}
-              onChangeText={setCompanyCode}
-              autoCapitalize="characters"
-            />
-          </View>
+           {/* Company code */}
+           <Text style={[styles.label, { color: currentColors.textSecondary }]}>{t('auth.facebookCodeLabel')}</Text>
+           <View style={[styles.inputWrap, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor }]}>
+             <Ionicons name="business-outline" size={18} color={currentColors.textMuted} />
+             <TextInput
+               style={[styles.input, { color: currentColors.textPrimary }]}
+               placeholder={t('auth.googlePlaceholder')}
+               placeholderTextColor={currentColors.textMuted}
+               value={companyCode}
+               onChangeText={setCompanyCode}
+               autoCapitalize="characters"
+             />
+           </View>
 
-          {/* Terms toggle */}
-          <TouchableOpacity style={styles.termsRow} onPress={() => setAgreed(!agreed)}>
-            <View style={[styles.checkbox, agreed && { backgroundColor: '#1877F2', borderColor: '#1877F2' }]}>
-              {agreed && <Ionicons name="checkmark" size={14} color="#fff" />}
-            </View>
-            <Text style={[styles.termsText, { color: currentColors.textSecondary }]}>
-              Acepto los{' '}
-              <Text style={{ color: '#1877F2', fontWeight: '600' }}>términos y condiciones</Text>
-            </Text>
-          </TouchableOpacity>
+           {/* Terms toggle */}
+           <TouchableOpacity style={styles.termsRow} onPress={() => setAgreed(!agreed)}>
+             <View style={[styles.checkbox, agreed && { backgroundColor: '#1877F2', borderColor: '#1877F2' }]}>
+               {agreed && <Ionicons name="checkmark" size={14} color="#fff" />}
+             </View>
+             <Text style={[styles.termsText, { color: currentColors.textSecondary }]}>
+               {t('auth.facebookTerms')}
+             </Text>
+           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[
-              styles.confirmBtn,
-              { backgroundColor: companyCode.trim() && agreed ? '#1877F2' : currentColors.borderColor }
-            ]}
-            onPress={handleConfirm}
-            disabled={!companyCode.trim() || !agreed}
-          >
-            <Ionicons name="logo-facebook" size={18} color="#fff" />
-            <Text style={styles.confirmBtnText}>Completar registro</Text>
-          </TouchableOpacity>
+           <TouchableOpacity
+             style={[
+               styles.confirmBtn,
+               { backgroundColor: companyCode.trim() && agreed ? '#1877F2' : currentColors.borderColor }
+             ]}
+             onPress={handleConfirm}
+             disabled={!companyCode.trim() || !agreed}
+           >
+             <Ionicons name="logo-facebook" size={18} color="#fff" />
+             <Text style={styles.confirmBtnText}>{t('auth.facebookConfirmBtn')}</Text>
+           </TouchableOpacity>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

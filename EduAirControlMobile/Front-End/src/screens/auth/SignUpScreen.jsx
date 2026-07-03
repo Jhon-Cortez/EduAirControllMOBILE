@@ -5,9 +5,11 @@ import {
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 export default function SignUpScreen({ navigation }) {
   const { currentColors, darkMode } = useTheme()
+  const { t } = useLanguage()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -28,24 +30,24 @@ export default function SignUpScreen({ navigation }) {
             <Ionicons name="arrow-back" size={20} color={currentColors.accent} />
           </TouchableOpacity>
           <View style={styles.header}>
-            <Text style={[styles.title, { color: currentColors.textPrimary }]}>Registrarse</Text>
+            <Text style={[styles.title, { color: currentColors.textPrimary }]}>{t('auth.signupTitle')}</Text>
             <Ionicons name="person-circle-outline" size={50} color={currentColors.accent} />
           </View>
           <View style={styles.inputGroup}>
-            <Text style={[styles.label, { color: currentColors.textSecondary }]}>Nombre</Text>
+            <Text style={[styles.label, { color: currentColors.textSecondary }]}>{t('auth.nameLabel')}</Text>
             <TextInput
               style={[styles.input, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-              placeholder="Tu nombre"
+              placeholder={t('auth.namePlaceholder')}
               placeholderTextColor={currentColors.textMuted}
               value={name}
               onChangeText={setName}
             />
           </View>
           <View style={styles.inputGroup}>
-            <Text style={[styles.label, { color: currentColors.textSecondary }]}>Correo electrónico</Text>
+            <Text style={[styles.label, { color: currentColors.textSecondary }]}>{t('auth.emailLabel')}</Text>
             <TextInput
               style={[styles.input, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-              placeholder="correo@ejemplo.com"
+              placeholder={t('auth.emailPlaceholder')}
               placeholderTextColor={currentColors.textMuted}
               value={email}
               onChangeText={setEmail}
@@ -54,11 +56,11 @@ export default function SignUpScreen({ navigation }) {
             />
           </View>
           <View style={styles.inputGroup}>
-            <Text style={[styles.label, { color: currentColors.textSecondary }]}>Contraseña</Text>
+            <Text style={[styles.label, { color: currentColors.textSecondary }]}>{t('auth.passwordLabel')}</Text>
             <View style={styles.passwordRow}>
               <TextInput
                 style={[styles.input, { flex: 1, backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-                placeholder="••••••••"
+                placeholder={t('auth.passwordPlaceholder')}
                 placeholderTextColor={currentColors.textMuted}
                 value={password}
                 onChangeText={setPassword}
@@ -70,11 +72,11 @@ export default function SignUpScreen({ navigation }) {
             </View>
           </View>
           <View style={styles.inputGroup}>
-            <Text style={[styles.label, { color: currentColors.textSecondary }]}>Confirmar contraseña</Text>
+            <Text style={[styles.label, { color: currentColors.textSecondary }]}>{t('auth.confirmPasswordLabel')}</Text>
             <View style={styles.passwordRow}>
               <TextInput
                 style={[styles.input, { flex: 1, backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
-                placeholder="••••••••"
+                placeholder={t('auth.passwordPlaceholder')}
                 placeholderTextColor={currentColors.textMuted}
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
@@ -93,12 +95,12 @@ export default function SignUpScreen({ navigation }) {
               </View>
             </TouchableOpacity>
             <Text style={[styles.termsText, { color: currentColors.textSecondary }]}>
-              Acepto los{' '}
+              {t('auth.acceptTerms')}{' '}
               <Text
                 style={[styles.termsLink, { color: currentColors.accent }]}
                 onPress={() => navigation.navigate('Terms')}
               >
-                Términos de uso y Política de privacidad
+                {t('auth.termsAndPrivacy')}
               </Text>
             </Text>
           </View>
@@ -107,12 +109,12 @@ export default function SignUpScreen({ navigation }) {
             style={[styles.btnRegister, { backgroundColor: acceptTerms ? currentColors.accent : currentColors.borderColor }]}
             onPress={() => acceptTerms && navigation.navigate('App')}
           >
-            <Text style={[styles.btnRegisterText, { color: currentColors.bgBody }]}>Registrarse</Text>
+            <Text style={[styles.btnRegisterText, { color: currentColors.bgBody }]}>{t('auth.registerBtn')}</Text>
           </TouchableOpacity>
 
           <View style={styles.divider}>
             <View style={[styles.dividerLine, { backgroundColor: currentColors.borderColor }]} />
-            <Text style={[styles.dividerText, { color: currentColors.textMuted }]}>o continúa con</Text>
+            <Text style={[styles.dividerText, { color: currentColors.textMuted }]}>{t('auth.orContinueWith')}</Text>
             <View style={[styles.dividerLine, { backgroundColor: currentColors.borderColor }]} />
           </View>
 
@@ -128,9 +130,9 @@ export default function SignUpScreen({ navigation }) {
           </View>
 
           <View style={styles.loginRow}>
-            <Text style={[styles.loginText, { color: currentColors.textSecondary }]}>¿Ya tienes cuenta? </Text>
+            <Text style={[styles.loginText, { color: currentColors.textSecondary }]}>{t('auth.hasAccount')}</Text>
             <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Text style={{ color: currentColors.accent, fontWeight: '600' }}>Iniciar sesión</Text>
+              <Text style={{ color: currentColors.accent, fontWeight: '600' }}>{t('auth.loginLink')}</Text>
             </TouchableOpacity>
           </View>
         </View>
