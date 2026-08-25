@@ -1,58 +1,74 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Ionicons } from '@expo/vector-icons'
-import { useTheme } from '../context/ThemeContext'
-import { useLanguage } from '../context/LanguageContext'
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "../context/ThemeContext";
+import { useLanguage } from "../context/LanguageContext";
 
-import DashboardScreen from '../screens/app/DashboardScreen'
-import EnvironmentDetailScreen from '../screens/app/EnvironmentDetailScreen'
-import FavoritesScreen from '../screens/app/FavoritesScreen'
-import NotificationsScreen from '../screens/app/NotificationsScreen'
-import AllEnvironmentsScreen from '../screens/app/AllEnvironmentsScreen'
-import ProfileScreen from '../screens/app/ProfileScreen'
-import EnvironmentManagementScreen from '../screens/app/EnvironmentManagementScreen'
-import SettingsScreen from '../screens/app/SettingsScreen'
+import DashboardScreen from "../screens/app/DashboardScreen";
+import EnvironmentDetailScreen from "../screens/app/EnvironmentDetailScreen";
+import FavoritesScreen from "../screens/app/FavoritesScreen";
+import NotificationsScreen from "../screens/app/NotificationsScreen";
+import AllEnvironmentsScreen from "../screens/app/AllEnvironmentsScreen";
+import ProfileScreen from "../screens/app/ProfileScreen";
+import EnvironmentManagementScreen from "../screens/app/EnvironmentManagementScreen";
+import SettingsScreen from "../screens/app/SettingsScreen";
+import AccessibilityMenu from "../components/AccessibilityMenu";
 
-const Tab = createBottomTabNavigator()
-const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 function DashboardStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="DashboardHome" component={DashboardScreen} />
-      <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
+      <Stack.Screen
+        name="EnvironmentDetail"
+        component={EnvironmentDetailScreen}
+      />
       <Stack.Screen name="NotificationsPanel" component={NotificationsScreen} />
     </Stack.Navigator>
-  )
+  );
 }
 
 function FavoritesStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="FavoritesHome" component={FavoritesScreen} />
-      <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
+      <Stack.Screen
+        name="EnvironmentDetail"
+        component={EnvironmentDetailScreen}
+      />
       <Stack.Screen name="NotificationsPanel" component={NotificationsScreen} />
     </Stack.Navigator>
-  )
+  );
 }
 
 function ManagementStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="ManagementHome" component={EnvironmentManagementScreen} />
-      <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
+      <Stack.Screen
+        name="ManagementHome"
+        component={EnvironmentManagementScreen}
+      />
+      <Stack.Screen
+        name="EnvironmentDetail"
+        component={EnvironmentDetailScreen}
+      />
     </Stack.Navigator>
-  )
+  );
 }
 
 function EnvironmentsStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="EnvironmentsHome" component={AllEnvironmentsScreen} />
-      <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
+      <Stack.Screen
+        name="EnvironmentDetail"
+        component={EnvironmentDetailScreen}
+      />
       <Stack.Screen name="NotificationsPanel" component={NotificationsScreen} />
     </Stack.Navigator>
-  )
+  );
 }
 
 function ProfileStack() {
@@ -61,72 +77,76 @@ function ProfileStack() {
       <Stack.Screen name="ProfileHome" component={ProfileScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>
-  )
+  );
 }
 
 export default function AppNavigator() {
-  const { currentColors } = useTheme()
-  const { t } = useLanguage()
+  const { currentColors } = useTheme();
+  const { fontScale } = useTheme();
+  const { t } = useLanguage();
 
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: currentColors.bgCard,
-          borderTopColor: currentColors.borderColor,
-          borderTopWidth: 1,
-          height: 90,
-          paddingBottom: 10,
-          paddingTop: 6,
-        },
-        tabBarActiveTintColor: currentColors.accent,
-        tabBarInactiveTintColor: currentColors.textMuted,
-        tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName
-          if (route.name === 'Dashboard') {
-            iconName = focused ? 'grid' : 'grid-outline'
-          } else if (route.name === 'Favorites') {
-            iconName = focused ? 'heart' : 'heart-outline'
-          } else if (route.name === 'Management') {
-            iconName = focused ? 'settings' : 'settings-outline'
-          } else if (route.name === 'Environments') {
-            iconName = focused ? 'business' : 'business-outline'
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'options' : 'options-outline'
-          } else if (route.name === 'Profile') {
-            iconName = focused ? 'person' : 'person-outline'
-          }
-          return <Ionicons name={iconName} size={size} color={color} />
-        },
-      })}
-    >
-      <Tab.Screen
-        name="Dashboard"
-        component={DashboardStack}
-        options={{ tabBarLabel: t('tabs.home') }}
-      />
-      <Tab.Screen
-        name="Favorites"
-        component={FavoritesStack}
-        options={{ tabBarLabel: t('tabs.favorites') }}
-      />
-      <Tab.Screen
-        name="Management"
-        component={ManagementStack}
-        options={{ tabBarLabel: t('tabs.management') }}
-      />
-      <Tab.Screen
-        name="Environments"
-        component={EnvironmentsStack}
-        options={{ tabBarLabel: t('tabs.environments') }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileStack}
-        options={{ tabBarLabel: t('tabs.profile') }}
-      />
-    </Tab.Navigator>
-  )
+    <>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: currentColors.bgCard,
+            borderTopColor: currentColors.borderColor,
+            borderTopWidth: 1,
+            height: 90,
+            paddingBottom: 10,
+            paddingTop: 6,
+          },
+          tabBarActiveTintColor: currentColors.accent,
+          tabBarInactiveTintColor: currentColors.textMuted,
+          tabBarLabelStyle: { fontSize: 11 * fontScale, fontWeight: "600" },
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === "Dashboard") {
+              iconName = focused ? "grid" : "grid-outline";
+            } else if (route.name === "Favorites") {
+              iconName = focused ? "heart" : "heart-outline";
+            } else if (route.name === "Management") {
+              iconName = focused ? "settings" : "settings-outline";
+            } else if (route.name === "Environments") {
+              iconName = focused ? "business" : "business-outline";
+            } else if (route.name === "Settings") {
+              iconName = focused ? "options" : "options-outline";
+            } else if (route.name === "Profile") {
+              iconName = focused ? "person" : "person-outline";
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+      >
+        <Tab.Screen
+          name="Dashboard"
+          component={DashboardStack}
+          options={{ tabBarLabel: t("tabs.home") }}
+        />
+        <Tab.Screen
+          name="Favorites"
+          component={FavoritesStack}
+          options={{ tabBarLabel: t("tabs.favorites") }}
+        />
+        <Tab.Screen
+          name="Management"
+          component={ManagementStack}
+          options={{ tabBarLabel: t("tabs.management") }}
+        />
+        <Tab.Screen
+          name="Environments"
+          component={EnvironmentsStack}
+          options={{ tabBarLabel: t("tabs.environments") }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileStack}
+          options={{ tabBarLabel: t("tabs.profile") }}
+        />
+      </Tab.Navigator>
+      <AccessibilityMenu />
+    </>
+  );
 }
