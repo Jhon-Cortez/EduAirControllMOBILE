@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   View,
   Text,
@@ -9,10 +10,13 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import { useLanguage } from "../../context/LanguageContext";
+import AccessibilityMenu from "../../components/AccessibilityMenu";
 
 export default function TermsScreen({ navigation }) {
-  const { currentColors, darkMode } = useTheme();
+  const { currentColors, darkMode, fontScale } = useTheme();
   const { t } = useLanguage();
+  const [expandedSection, setExpandedSection] = useState(1);
+  const sections = Array.from({ length: 8 }, (_, index) => index + 1);
 
   return (
     <ScrollView
@@ -25,6 +29,7 @@ export default function TermsScreen({ navigation }) {
         barStyle={darkMode ? "light-content" : "dark-content"}
         backgroundColor={currentColors.bgBody}
       />
+      <AccessibilityMenu />
       <View
         style={[
           styles.card,
@@ -45,41 +50,79 @@ export default function TermsScreen({ navigation }) {
             {t("auth.termsTitle")}
           </Text>
         </View>
+        <View style={styles.sectionsList}>
+          {sections.map((section) => {
+            const expanded = expandedSection === section;
+            return (
+              <View
+                key={section}
+                style={[
+                  styles.sectionItem,
+                  { borderColor: currentColors.borderColor },
+                ]}
+              >
+                <TouchableOpacity
+                  style={styles.sectionHeader}
+                  onPress={() => setExpandedSection(expanded ? null : section)}
+                  accessibilityRole="button"
+                  accessibilityState={{ expanded }}
+                >
+                  <Text
+                    style={[
+                      styles.sectionTitle,
+                      {
+                        color: expanded
+                          ? currentColors.accent
+                          : currentColors.textPrimary,
+                        fontSize: 15 * fontScale,
+                      },
+                    ]}
+                  >
+                    {t(`auth.termsSection${section}`)}
+                  </Text>
+                  <Ionicons
+                    name={expanded ? "chevron-up" : "chevron-down"}
+                    size={19}
+                    color={
+                      expanded ? currentColors.accent : currentColors.textMuted
+                    }
+                  />
+                </TouchableOpacity>
+                {expanded && (
+                  <Text
+                    style={[
+                      styles.sectionText,
+                      {
+                        color: currentColors.textSecondary,
+                        fontSize: 14 * fontScale,
+                      },
+                    ]}
+                  >
+                    {t(`auth.termsText${section}`)}
+                  </Text>
+                )}
+              </View>
+            );
+          })}
+        </View>
         <Text
-          style={[styles.sectionTitle, { color: currentColors.textPrimary }]}
+          style={[
+            styles.updated,
+            { color: currentColors.textMuted, fontSize: 12 * fontScale },
+          ]}
         >
-          {t("auth.termsSection1")}
-        </Text>
-        <Text
-          style={[styles.sectionText, { color: currentColors.textSecondary }]}
-        >
-          {t("auth.termsText1")}
-        </Text>
-        <Text
-          style={[styles.sectionTitle, { color: currentColors.textPrimary }]}
-        >
-          {t("auth.termsSection2")}
-        </Text>
-        <Text
-          style={[styles.sectionText, { color: currentColors.textSecondary }]}
-        >
-          {t("auth.termsText2")}
-        </Text>
-        <Text
-          style={[styles.sectionTitle, { color: currentColors.textPrimary }]}
-        >
-          {t("auth.termsSection3")}
-        </Text>
-        <Text
-          style={[styles.sectionText, { color: currentColors.textSecondary }]}
-        >
-          {t("auth.termsText3")}
+          {t("auth.termsUpdated")}
         </Text>
         <TouchableOpacity
           style={[styles.acceptBtn, { backgroundColor: currentColors.accent }]}
           onPress={() => navigation.goBack()}
         >
-          <Text style={[styles.acceptBtnText, { color: currentColors.bgBody }]}>
+          <Text
+            style={[
+              styles.acceptBtnText,
+              { color: currentColors.bgBody, fontSize: 16 * fontScale },
+            ]}
+          >
             {t("auth.acceptBtn")}
           </Text>
         </TouchableOpacity>
@@ -89,7 +132,7 @@ export default function TermsScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, padding: 16, paddingTop: 20, paddingBottom: 20 },
+  container: { flexGrow: 1, padding: 16, paddingTop: 50, paddingBottom: 20 },
   card: {
     borderRadius: 20,
     padding: 20,
@@ -106,10 +149,13 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 15,
     fontWeight: "bold",
-    marginTop: 20,
-    marginBottom: 8,
+    flex: 1,
   },
   sectionText: { fontSize: 14, lineHeight: 22, flexWrap: "wrap" },
+  sectionsList: { gap: 10 },
+  sectionItem: { borderWidth: 1, borderRadius: 12, padding: 14 },
+  sectionHeader: { flexDirection: "row", alignItems: "center", gap: 10 },
+  updated: { marginTop: 22, lineHeight: 18 },
   acceptBtn: {
     borderRadius: 12,
     paddingVertical: 14,

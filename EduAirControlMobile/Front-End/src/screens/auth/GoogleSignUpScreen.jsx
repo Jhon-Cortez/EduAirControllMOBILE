@@ -18,6 +18,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import { useLanguage } from "../../context/LanguageContext";
+import AccessibilityMenu from "../../components/AccessibilityMenu";
 
 const GOOGLE_ACCOUNTS = [
   {
@@ -60,6 +61,7 @@ export default function GoogleSignUpScreen({ navigation }) {
         barStyle={darkMode ? "light-content" : "dark-content"}
         backgroundColor={currentColors.bgBody}
       />
+      <AccessibilityMenu />
       <ScrollView contentContainerStyle={styles.scroll}>
         {/* Header */}
         <View style={styles.header}>

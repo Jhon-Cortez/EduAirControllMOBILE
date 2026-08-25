@@ -17,6 +17,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import { useLanguage } from "../../context/LanguageContext";
+import AccessibilityMenu from "../../components/AccessibilityMenu";
 
 export default function FacebookSignUpScreen({ navigation }) {
   const { currentColors, darkMode } = useTheme();
@@ -38,6 +39,7 @@ export default function FacebookSignUpScreen({ navigation }) {
         barStyle={darkMode ? "light-content" : "dark-content"}
         backgroundColor={currentColors.bgBody}
       />
+      <AccessibilityMenu />
       <ScrollView contentContainerStyle={styles.scroll}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}

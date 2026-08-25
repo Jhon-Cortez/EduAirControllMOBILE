@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -14,16 +14,37 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import { useLanguage } from "../../context/LanguageContext";
+import AccessibilityMenu from "../../components/AccessibilityMenu";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const REMEMBERED_EMAIL_KEY = "rememberedLoginEmail";
 
 export default function LoginScreen({ navigation }) {
-  const { currentColors, darkMode } = useTheme();
+  const { currentColors, darkMode, fontScale } = useTheme();
   const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleLogin = () => {
+  useEffect(() => {
+    const loadRememberedEmail = async () => {
+      try {
+        const rememberedEmail =
+          await AsyncStorage.getItem(REMEMBERED_EMAIL_KEY);
+        if (rememberedEmail) {
+          setEmail(rememberedEmail);
+          setRememberMe(true);
+        }
+      } catch (error) {
+        console.warn("Error loading remembered email:", error);
+      }
+    };
+
+    loadRememberedEmail();
+  }, []);
+
+  const handleLogin = async () => {
     if (!email.trim() || !password) {
       Alert.alert(t("auth.validationTitle"), t("auth.requiredLogin"));
       return;
@@ -32,6 +53,19 @@ export default function LoginScreen({ navigation }) {
       Alert.alert(t("auth.validationTitle"), t("auth.invalidEmail"));
       return;
     }
+    try {
+      if (rememberMe) {
+        await AsyncStorage.setItem(
+          REMEMBERED_EMAIL_KEY,
+          email.trim().toLowerCase(),
+        );
+      } else {
+        await AsyncStorage.removeItem(REMEMBERED_EMAIL_KEY);
+      }
+    } catch (error) {
+      console.warn("Error saving login preference:", error);
+    }
+
     navigation.navigate("App");
   };
 
@@ -44,6 +78,7 @@ export default function LoginScreen({ navigation }) {
         barStyle={darkMode ? "light-content" : "dark-content"}
         backgroundColor={currentColors.bgBody}
       />
+      <AccessibilityMenu />
       <ScrollView contentContainerStyle={styles.scroll}>
         <View
           style={[
@@ -54,6 +89,27 @@ export default function LoginScreen({ navigation }) {
             },
           ]}
         >
+          <TouchableOpacity
+            style={styles.landingBackButton}
+            onPress={() => navigation.navigate("Landing")}
+            accessibilityRole="button"
+            accessibilityLabel={t("landing.home")}
+          >
+            <Ionicons
+              name="arrow-back"
+              size={18}
+              color={currentColors.accent}
+            />
+            <Text
+              style={{
+                color: currentColors.accent,
+                fontWeight: "700",
+                fontSize: 14 * fontScale,
+              }}
+            >
+              {t("landing.home")}
+            </Text>
+          </TouchableOpacity>
           <View style={styles.header}>
             <Text style={[styles.title, { color: currentColors.textPrimary }]}>
               {t("auth.loginTitle")}
@@ -126,6 +182,8 @@ export default function LoginScreen({ navigation }) {
           <TouchableOpacity
             style={styles.rememberRow}
             onPress={() => setRememberMe(!rememberMe)}
+            accessibilityRole="checkbox"
+            accessibilityState={{ checked: rememberMe }}
           >
             <View
               style={[
@@ -277,6 +335,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   header: { alignItems: "center", marginBottom: 24, gap: 12 },
+  landingBackButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    gap: 7,
+    marginBottom: 14,
+  },
   title: { fontSize: 22, fontWeight: "bold" },
   inputGroup: { marginBottom: 16 },
   label: { fontSize: 13, fontWeight: "600", marginBottom: 6 },

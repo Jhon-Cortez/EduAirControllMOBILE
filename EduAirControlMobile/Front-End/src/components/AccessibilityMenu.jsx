@@ -24,7 +24,7 @@ const TEXT_SIZES = [
   { value: 1.3, label: "XL", preview: "Aa" },
 ];
 
-export default function AccessibilityMenu() {
+export default function AccessibilityMenu({ inline = false }) {
   const [open, setOpen] = useState(false);
   const {
     darkMode,
@@ -36,13 +36,13 @@ export default function AccessibilityMenu() {
     resetAccessibility,
     currentColors,
   } = useTheme();
-  const { t } = useLanguage();
+  const { language, languageOptions, setLanguage, t } = useLanguage();
 
   return (
     <>
       <TouchableOpacity
         style={[
-          styles.floatingButton,
+          inline ? styles.inlineButton : styles.floatingButton,
           {
             backgroundColor: currentColors.bgCard,
             borderColor: currentColors.accent,
@@ -57,6 +57,17 @@ export default function AccessibilityMenu() {
           size={27}
           color={currentColors.accent}
         />
+        {inline && (
+          <Text
+            style={{
+              color: currentColors.accent,
+              fontSize: 15 * fontScale,
+              fontWeight: "800",
+            }}
+          >
+            {t("settings.accessibilityMenu")}
+          </Text>
+        )}
       </TouchableOpacity>
       <Modal
         visible={open}
@@ -152,6 +163,62 @@ export default function AccessibilityMenu() {
                     </Text>
                   </TouchableOpacity>
                 ))}
+              </View>
+            </View>
+
+            <View style={styles.section}>
+              <Text
+                style={[
+                  styles.sectionTitle,
+                  { color: currentColors.textMuted, fontSize: 14 * fontScale },
+                ]}
+              >
+                {t("settings.language")}
+              </Text>
+              <View style={styles.languageRow}>
+                {Object.entries(languageOptions).map(([code, name]) => {
+                  const active = language === code;
+                  return (
+                    <TouchableOpacity
+                      key={code}
+                      style={[
+                        styles.languageOption,
+                        {
+                          backgroundColor: active
+                            ? currentColors.accentDim
+                            : currentColors.bgCard,
+                          borderColor: active
+                            ? currentColors.accent
+                            : currentColors.borderColor,
+                        },
+                      ]}
+                      onPress={() => setLanguage(code)}
+                      accessibilityRole="radio"
+                      accessibilityState={{ selected: active }}
+                    >
+                      <Text
+                        style={[
+                          styles.languageOptionText,
+                          {
+                            color: active
+                              ? currentColors.accent
+                              : currentColors.textSecondary,
+                            fontSize: 15 * fontScale,
+                          },
+                        ]}
+                      >
+                        {name}
+                      </Text>
+                      {active && (
+                        <Ionicons
+                          name="checkmark"
+                          size={18}
+                          color={currentColors.accent}
+                        />
+                      )}
+                    </TouchableOpacity>
+                  );
+                })}
               </View>
             </View>
 
@@ -315,6 +382,16 @@ const styles = StyleSheet.create({
     zIndex: 20,
     elevation: 8,
   },
+  inlineButton: {
+    minHeight: 52,
+    borderRadius: 12,
+    borderWidth: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 9,
+    marginTop: 18,
+  },
   overlay: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.58)",
@@ -347,6 +424,18 @@ const styles = StyleSheet.create({
   },
   sectionTitle: { fontSize: 14, fontWeight: "800", marginBottom: 12 },
   textSizeRow: { flexDirection: "row", gap: 10 },
+  languageRow: { flexDirection: "row", gap: 10 },
+  languageOption: {
+    flex: 1,
+    minHeight: 48,
+    borderRadius: 12,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 6,
+  },
+  languageOptionText: { fontWeight: "800" },
   textSizeOption: {
     flex: 1,
     minHeight: 70,

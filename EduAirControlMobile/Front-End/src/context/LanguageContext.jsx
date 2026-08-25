@@ -116,14 +116,16 @@ const STRINGS = {
       schedule: "Horario",
       scheduleValue: "L-V 8am-6pm",
       termsText:
-        "Al usar EduAirControl, aceptas nuestros terminos de servicio.",
-      termsUse: "Uso responsable de la plataforma",
-      termsData: "Proteccion de datos personales",
-      termsIp: "Propiedad intelectual",
-      privacyText: "Tu privacidad es importante para nosotros.",
-      privacyNoShare: "No compartimos datos con terceros",
-      privacyEncrypted: "Datos encriptados",
-      privacyRights: "Derechos del usuario",
+        "Al usar EduAirControl, aceptas estas condiciones y el tratamiento de datos informado en ellas.",
+      termsUse: "Uso educativo e institucional responsable",
+      termsData: "Tratamiento conforme a la Ley 1581 de 2012",
+      termsIp: "Respeto por la propiedad intelectual",
+      privacyText:
+        "Tratamos solo los datos necesarios para prestar y mejorar el servicio.",
+      privacyNoShare:
+        "Compartimos informacion solo cuando es necesario, autorizado o exigido por ley",
+      privacyEncrypted: "Aplicamos medidas razonables de seguridad",
+      privacyRights: "Puedes ejercer tus derechos en soporte@eduaircontrol.com",
       versionDate: "Mayo 2026",
       normalTheme: "Normal",
       protanopia: "Protanopia",
@@ -257,6 +259,71 @@ const STRINGS = {
       deleteTitle: "Eliminar ambiente",
       deleteQuestion: 'Eliminar "{{name}}"? Esta accion no se puede deshacer.',
     },
+    landing: {
+      healthyAir: "AIRE MAS SALUDABLE",
+      heroTitle: "El aire tambien",
+      heroAccent: "educa.",
+      heroDescription:
+        "EduAirControl transforma la calidad del aire en informacion accionable para crear espacios mas sanos y productivos.",
+      createAccount: "Crear cuenta",
+      explore: "Explorar",
+      monitoring: "monitoreo",
+      traceability: "trazabilidad",
+      centralView: "vista central",
+      environmentalSummary: "Resumen ambiental",
+      live: "EN VIVO",
+      airQuality: "Calidad del aire · ultimas 24 h",
+      iaq: "IAQ",
+      co2: "CO2 ppm",
+      humidity: "Humedad",
+      whyEyebrow: "Por que elegirnos",
+      whyTitle: "Bienestar que se",
+      whyAccent: "puede medir",
+      whyDescription:
+        "Una plataforma diseñada para que cada lectura se convierta en una mejora concreta.",
+      designedEyebrow: "Pensado para",
+      designedTitle: "Espacios que",
+      designedAccent: "cuidan",
+      designedDescription:
+        "EduAirControl acompaña a quienes hacen que cada ambiente funcione mejor.",
+      ctaTitle: "Empieza a cuidar tu aire.",
+      ctaDescription:
+        "Convierte tus espacios en ambientes mas saludables desde hoy.",
+      startNow: "Comenzar ahora",
+      footerDescription: "Tecnologia para ambientes que inspiran.",
+      navigation: "Navegacion",
+      home: "Inicio",
+      signIn: "Ingresar",
+      accessibility: "Accesibilidad",
+      openNavigation: "Abrir menu de navegacion",
+      closeNavigation: "Cerrar menu de navegacion",
+      previous: "Anterior",
+      next: "Siguiente",
+      benefit: "Ver beneficio",
+      audience: "Ver publico",
+      features: {
+        feature1Title: "Monitoreo inteligente",
+        feature1Text:
+          "Sensores conectados que convierten el aire de tus espacios en decisiones claras.",
+        feature2Title: "Alertas en tiempo real",
+        feature2Text:
+          "Recibe avisos oportunos antes de que una condicion afecte a tu comunidad.",
+        feature3Title: "Datos que explican",
+        feature3Text:
+          "Visualiza tendencias, compara ambientes y encuentra oportunidades de mejora.",
+        feature4Title: "Gestion confiable",
+        feature4Text:
+          "Una plataforma pensada para cuidar personas, espacios y operaciones.",
+      },
+      audiences: {
+        audience1Title: "Instituciones educativas",
+        audience1Text: "Ambientes preparados para aprender.",
+        audience2Title: "Administradores",
+        audience2Text: "Una vista para decidir mejor.",
+        audience3Title: "Comunidades",
+        audience3Text: "Bienestar medible para todos.",
+      },
+    },
     auth: {
       loginTitle: "Iniciar sesion",
       signupTitle: "Registrarse",
@@ -298,6 +365,22 @@ const STRINGS = {
       termsSection3: "3. Responsabilidades",
       termsText3:
         "El usuario es responsable del uso adecuado de la aplicacion y de mantener sus credenciales seguras.",
+      termsSection4: "4. Tratamiento de datos personales",
+      termsText4:
+        "EduAirControl tratara los datos necesarios para crear y administrar la cuenta, prestar el servicio, atender solicitudes y generar informacion sobre los ambientes monitoreados. El tratamiento se realizara conforme a la Ley 1581 de 2012, el Decreto 1074 de 2015 y las demas normas colombianas aplicables.",
+      termsSection5: "5. Derechos del titular",
+      termsText5:
+        "Puedes conocer, actualizar, rectificar o solicitar la supresion de tus datos, y revocar la autorizacion cuando proceda. Para ejercer tus derechos o presentar consultas y reclamos, escribe a soporte@eduaircontrol.com. La solicitud se gestionara dentro de los plazos legales aplicables.",
+      termsSection6: "6. Seguridad y terceros",
+      termsText6:
+        "Aplicaremos medidas razonables de seguridad y solo compartiremos informacion cuando sea necesario para prestar el servicio, exista autorizacion, una obligacion legal o una orden de autoridad competente. No solicitamos datos sensibles para usar las funciones basicas de la aplicacion.",
+      termsSection7: "7. Alcance de las mediciones",
+      termsText7:
+        "Las lecturas ambientales son orientativas y dependen de los sensores, su instalacion y conectividad. No sustituyen una evaluacion sanitaria, tecnica o de seguridad profesional. El usuario debe tomar las decisiones operativas que correspondan frente a riesgos identificados.",
+      termsSection8: "8. Contacto y cambios",
+      termsText8:
+        "Para soporte, privacidad o solicitudes relacionadas con estos terminos, contacta a soporte@eduaircontrol.com. Podremos actualizar estas condiciones para reflejar cambios legales o funcionales y publicaremos la version vigente en la aplicacion.",
+      termsUpdated: "Ultima actualizacion: agosto de 2026",
       acceptBtn: "Aceptar y continuar",
       changePasswordTitle: "Cambiar contrasena",
       currentPasswordLabel: "Contrasena actual",
@@ -438,14 +521,18 @@ const STRINGS = {
       email: "Email",
       schedule: "Hours",
       scheduleValue: "Mon-Fri 8am-6pm",
-      termsText: "By using EduAirControl, you accept our terms of service.",
-      termsUse: "Responsible use of the platform",
-      termsData: "Personal data protection",
-      termsIp: "Intellectual property",
-      privacyText: "Your privacy matters to us.",
-      privacyNoShare: "We do not share data with third parties",
-      privacyEncrypted: "Encrypted data",
-      privacyRights: "User rights",
+      termsText:
+        "By using EduAirControl, you accept these conditions and the data processing described in them.",
+      termsUse: "Responsible educational and institutional use",
+      termsData: "Processing under Colombian Law 1581 of 2012",
+      termsIp: "Respect for intellectual property",
+      privacyText:
+        "We process only the data needed to provide and improve the service.",
+      privacyNoShare:
+        "Information is shared only when necessary, authorized or required by law",
+      privacyEncrypted: "We apply reasonable security measures",
+      privacyRights:
+        "You can exercise your rights at soporte@eduaircontrol.com",
       versionDate: "May 2026",
       normalTheme: "Normal",
       protanopia: "Protanopia",
@@ -578,6 +665,70 @@ const STRINGS = {
       deleteTitle: "Delete environment",
       deleteQuestion: 'Delete "{{name}}"? This action cannot be undone.',
     },
+    landing: {
+      healthyAir: "HEALTHIER AIR",
+      heroTitle: "Air also",
+      heroAccent: "educates.",
+      heroDescription:
+        "EduAirControl turns air quality into actionable information to create healthier and more productive spaces.",
+      createAccount: "Create account",
+      explore: "Explore",
+      monitoring: "monitoring",
+      traceability: "traceability",
+      centralView: "central view",
+      environmentalSummary: "Environmental summary",
+      live: "LIVE",
+      airQuality: "Air quality · last 24 hours",
+      iaq: "IAQ",
+      co2: "CO2 ppm",
+      humidity: "Humidity",
+      whyEyebrow: "Why choose us",
+      whyTitle: "Wellbeing you can",
+      whyAccent: "measure",
+      whyDescription:
+        "A platform designed to turn every reading into a concrete improvement.",
+      designedEyebrow: "Designed for",
+      designedTitle: "Spaces that",
+      designedAccent: "care",
+      designedDescription:
+        "EduAirControl supports those who make every environment work better.",
+      ctaTitle: "Start caring for your air.",
+      ctaDescription: "Turn your spaces into healthier environments today.",
+      startNow: "Get started",
+      footerDescription: "Technology for inspiring environments.",
+      navigation: "Navigation",
+      home: "Home",
+      signIn: "Log in",
+      accessibility: "Accessibility",
+      openNavigation: "Open navigation menu",
+      closeNavigation: "Close navigation menu",
+      previous: "Previous",
+      next: "Next",
+      benefit: "View benefit",
+      audience: "View audience",
+      features: {
+        feature1Title: "Smart monitoring",
+        feature1Text:
+          "Connected sensors turn the air in your spaces into clear decisions.",
+        feature2Title: "Real-time alerts",
+        feature2Text:
+          "Get timely warnings before a condition affects your community.",
+        feature3Title: "Data that explains",
+        feature3Text:
+          "See trends, compare environments and find opportunities to improve.",
+        feature4Title: "Reliable management",
+        feature4Text:
+          "A platform designed to care for people, spaces and operations.",
+      },
+      audiences: {
+        audience1Title: "Educational institutions",
+        audience1Text: "Environments ready for learning.",
+        audience2Title: "Administrators",
+        audience2Text: "One view for better decisions.",
+        audience3Title: "Communities",
+        audience3Text: "Measurable wellbeing for everyone.",
+      },
+    },
     auth: {
       loginTitle: "Log in",
       signupTitle: "Sign up",
@@ -618,6 +769,22 @@ const STRINGS = {
       termsSection3: "3. Responsibilities",
       termsText3:
         "The user is responsible for the proper use of the application and for keeping their credentials secure.",
+      termsSection4: "4. Personal data processing",
+      termsText4:
+        "EduAirControl will process the data needed to create and manage your account, provide the service, handle requests and generate information about monitored environments. Processing will comply with Colombian Law 1581 of 2012, Decree 1074 of 2015 and other applicable regulations.",
+      termsSection5: "5. Data subject rights",
+      termsText5:
+        "You may access, update, correct or request deletion of your data, and withdraw consent where applicable. To exercise your rights or submit questions and complaints, email soporte@eduaircontrol.com. Requests will be handled within applicable legal deadlines.",
+      termsSection6: "6. Security and third parties",
+      termsText6:
+        "We will apply reasonable security measures and only share information when needed to provide the service, when authorized, required by law or ordered by a competent authority. We do not require sensitive data for the application's basic features.",
+      termsSection7: "7. Measurement scope",
+      termsText7:
+        "Environmental readings are informational and depend on sensors, installation and connectivity. They do not replace a professional health, technical or safety assessment. Users must take the operational decisions required when risks are identified.",
+      termsSection8: "8. Contact and changes",
+      termsText8:
+        "For support, privacy or requests related to these terms, contact soporte@eduaircontrol.com. We may update these conditions to reflect legal or functional changes and will publish the current version in the application.",
+      termsUpdated: "Last updated: August 2026",
       acceptBtn: "Accept and continue",
       changePasswordTitle: "Change password",
       currentPasswordLabel: "Current password",

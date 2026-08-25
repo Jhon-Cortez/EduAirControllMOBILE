@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import {
   Dimensions,
+  Modal,
+  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -10,45 +12,46 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../context/ThemeContext";
+import { useLanguage } from "../context/LanguageContext";
 import AccessibilityMenu from "../components/AccessibilityMenu";
 
 const features = [
   {
     icon: "hardware-chip-outline",
-    title: "Monitoreo inteligente",
-    text: "Sensores conectados que convierten el aire de tus espacios en decisiones claras.",
+    titleKey: "landing.features.feature1Title",
+    textKey: "landing.features.feature1Text",
   },
   {
     icon: "notifications-outline",
-    title: "Alertas en tiempo real",
-    text: "Recibe avisos oportunos antes de que una condición afecte a tu comunidad.",
+    titleKey: "landing.features.feature2Title",
+    textKey: "landing.features.feature2Text",
   },
   {
     icon: "analytics-outline",
-    title: "Datos que explican",
-    text: "Visualiza tendencias, compara ambientes y encuentra oportunidades de mejora.",
+    titleKey: "landing.features.feature3Title",
+    textKey: "landing.features.feature3Text",
   },
   {
     icon: "shield-checkmark-outline",
-    title: "Gestión confiable",
-    text: "Una plataforma pensada para cuidar personas, espacios y operaciones.",
+    titleKey: "landing.features.feature4Title",
+    textKey: "landing.features.feature4Text",
   },
 ];
 const audiences = [
   {
     icon: "school-outline",
-    title: "Instituciones educativas",
-    text: "Ambientes preparados para aprender.",
+    titleKey: "landing.audiences.audience1Title",
+    textKey: "landing.audiences.audience1Text",
   },
   {
     icon: "briefcase-outline",
-    title: "Administradores",
-    text: "Una vista para decidir mejor.",
+    titleKey: "landing.audiences.audience2Title",
+    textKey: "landing.audiences.audience2Text",
   },
   {
     icon: "people-circle-outline",
-    title: "Comunidades",
-    text: "Bienestar medible para todos.",
+    titleKey: "landing.audiences.audience3Title",
+    textKey: "landing.audiences.audience3Text",
   },
 ];
 
@@ -83,7 +86,7 @@ function SectionHeading({ eyebrow, title, accent, text, colors, fontScale }) {
   );
 }
 
-function DashboardPreview({ colors, fontScale }) {
+function DashboardPreview({ colors, fontScale, t }) {
   return (
     <View
       style={[
@@ -93,7 +96,12 @@ function DashboardPreview({ colors, fontScale }) {
     >
       <View style={styles.dashboardHeader}>
         <View>
-          <Text style={[styles.dashboardKicker, { color: colors.accent }]}>
+          <Text
+            style={[
+              styles.dashboardKicker,
+              { color: colors.accent, fontSize: 9 * fontScale },
+            ]}
+          >
             EDUAIRCONTROL
           </Text>
           <Text
@@ -102,13 +110,13 @@ function DashboardPreview({ colors, fontScale }) {
               { color: colors.textPrimary, fontSize: 16 * fontScale },
             ]}
           >
-            Resumen ambiental
+            {t("landing.environmentalSummary")}
           </Text>
         </View>
         <View style={[styles.livePill, { backgroundColor: colors.successDim }]}>
           <View style={[styles.liveDot, { backgroundColor: colors.success }]} />
           <Text style={{ color: colors.success, fontSize: 11 * fontScale }}>
-            EN VIVO
+            {t("landing.live")}
           </Text>
         </View>
       </View>
@@ -116,7 +124,7 @@ function DashboardPreview({ colors, fontScale }) {
         <Metric
           icon="leaf-outline"
           value="28"
-          label="IAQ"
+          label={t("landing.iaq")}
           color="#4ADE80"
           colors={colors}
           fontScale={fontScale}
@@ -124,7 +132,7 @@ function DashboardPreview({ colors, fontScale }) {
         <Metric
           icon="cloud-outline"
           value="612"
-          label="CO2 ppm"
+          label={t("landing.co2")}
           color={colors.accent}
           colors={colors}
           fontScale={fontScale}
@@ -132,7 +140,7 @@ function DashboardPreview({ colors, fontScale }) {
         <Metric
           icon="water-outline"
           value="48%"
-          label="Humedad"
+          label={t("landing.humidity")}
           color="#38BDF8"
           colors={colors}
           fontScale={fontScale}
@@ -140,7 +148,7 @@ function DashboardPreview({ colors, fontScale }) {
       </View>
       <View style={[styles.chart, { borderColor: colors.borderColor }]}>
         <Text style={[styles.chartLabel, { color: colors.textMuted }]}>
-          Calidad del aire · últimas 24 h
+          {t("landing.airQuality")}
         </Text>
       </View>
     </View>
@@ -228,6 +236,7 @@ function FeatureCarousel({
   items,
   colors,
   fontScale,
+  t,
   screenWidth,
   accessibilityLabel,
   itemLabel,
@@ -262,11 +271,13 @@ function FeatureCarousel({
       >
         {items.map((item) => (
           <View
-            key={item.title}
+            key={item.titleKey}
             style={[styles.featureSlide, { width: cardWidth }]}
           >
             <InfoCard
               {...item}
+              title={t(item.titleKey)}
+              text={t(item.textKey)}
               colors={colors}
               fontScale={fontScale}
               compact={compact}
@@ -278,10 +289,10 @@ function FeatureCarousel({
         <View style={styles.pagination} accessibilityRole="tablist">
           {items.map((item, index) => (
             <TouchableOpacity
-              key={item.title}
+              key={item.titleKey}
               onPress={() => moveTo(index)}
               accessibilityRole="tab"
-              accessibilityLabel={`${itemLabel} ${index + 1}`}
+              accessibilityLabel={`${t(itemLabel)} ${index + 1}`}
               accessibilityState={{ selected: activeIndex === index }}
               style={styles.paginationButton}
             >
@@ -306,7 +317,7 @@ function FeatureCarousel({
             onPress={() => moveTo(activeIndex - 1)}
             disabled={activeIndex === 0}
             accessibilityRole="button"
-            accessibilityLabel="Beneficio anterior"
+            accessibilityLabel={t("landing.previous")}
           >
             <Ionicons
               name="arrow-back"
@@ -319,7 +330,7 @@ function FeatureCarousel({
             onPress={() => moveTo(activeIndex + 1)}
             disabled={activeIndex === items.length - 1}
             accessibilityRole="button"
-            accessibilityLabel="Siguiente beneficio"
+            accessibilityLabel={t("landing.next")}
           >
             <Ionicons
               name="arrow-forward"
@@ -339,10 +350,17 @@ function FeatureCarousel({
 
 export default function LandingScreen({ navigation }) {
   const { currentColors, darkMode, fontScale } = useTheme();
+  const { t } = useLanguage();
   const scrollRef = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const screenWidth = Dimensions.get("window").width;
   const goTo = (section) =>
     scrollRef.current?.scrollTo({ y: section, animated: true });
+  const closeMenu = () => setMenuOpen(false);
+  const navigateToSection = (section) => {
+    closeMenu();
+    goTo(section);
+  };
   return (
     <View style={[styles.container, { backgroundColor: currentColors.bgBody }]}>
       <StatusBar
@@ -359,7 +377,7 @@ export default function LandingScreen({ navigation }) {
             style={styles.brand}
             onPress={() => goTo(0)}
             accessibilityRole="button"
-            accessibilityLabel="Ir al inicio"
+            accessibilityLabel={t("landing.home")}
           >
             <View
               style={[
@@ -374,28 +392,33 @@ export default function LandingScreen({ navigation }) {
               />
             </View>
             <Text
-              style={[styles.brandText, { color: currentColors.textPrimary }]}
+              style={[
+                styles.brandText,
+                {
+                  color: currentColors.textPrimary,
+                  fontSize: 17 * fontScale,
+                },
+              ]}
             >
               EduAir<Text style={{ color: currentColors.accent }}>Control</Text>
             </Text>
           </TouchableOpacity>
-          <View style={styles.navActions}>
-            <TouchableOpacity onPress={() => goTo(600)}>
-              <Text
-                style={[styles.navLink, { color: currentColors.textSecondary }]}
-              >
-                Conocer más
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.navLogin, { borderColor: currentColors.accent }]}
-              onPress={() => navigation.navigate("Login")}
-            >
-              <Text style={{ color: currentColors.accent, fontWeight: "700" }}>
-                Ingresar
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            style={[
+              styles.menuButton,
+              { borderColor: currentColors.borderColor },
+            ]}
+            onPress={() => setMenuOpen(true)}
+            accessibilityRole="button"
+            accessibilityLabel={t("landing.openNavigation")}
+            accessibilityState={{ expanded: menuOpen }}
+          >
+            <Ionicons
+              name="menu-outline"
+              size={25}
+              color={currentColors.accent}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.hero}>
           <View
@@ -417,7 +440,7 @@ export default function LandingScreen({ navigation }) {
                 color={currentColors.accent}
               />
               <Text style={[styles.badgeText, { color: currentColors.accent }]}>
-                AIRE MÁS SALUDABLE
+                {t("landing.healthyAir")}
               </Text>
             </View>
             <Text
@@ -429,8 +452,10 @@ export default function LandingScreen({ navigation }) {
                 },
               ]}
             >
-              El aire también{" "}
-              <Text style={{ color: currentColors.accent }}>educa.</Text>
+              {t("landing.heroTitle")}{" "}
+              <Text style={{ color: currentColors.accent }}>
+                {t("landing.heroAccent")}
+              </Text>
             </Text>
             <Text
               style={[
@@ -441,8 +466,7 @@ export default function LandingScreen({ navigation }) {
                 },
               ]}
             >
-              EduAirControl transforma la calidad del aire en información
-              accionable para crear espacios más sanos y productivos.
+              {t("landing.heroDescription")}
             </Text>
             <View style={styles.heroButtons}>
               <TouchableOpacity
@@ -458,7 +482,7 @@ export default function LandingScreen({ navigation }) {
                     { color: currentColors.bgBody },
                   ]}
                 >
-                  Crear cuenta
+                  {t("landing.createAccount")}
                 </Text>
                 <Ionicons
                   name="arrow-forward"
@@ -479,39 +503,43 @@ export default function LandingScreen({ navigation }) {
                     { color: currentColors.textPrimary },
                   ]}
                 >
-                  Explorar
+                  {t("landing.explore")}
                 </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.heroStats}>
               <Stat
                 value="24/7"
-                label="monitoreo"
+                label={t("landing.monitoring")}
                 colors={currentColors}
                 fontScale={fontScale}
               />
               <Stat
                 value="100%"
-                label="trazabilidad"
+                label={t("landing.traceability")}
                 colors={currentColors}
                 fontScale={fontScale}
               />
               <Stat
                 value="1"
-                label="vista central"
+                label={t("landing.centralView")}
                 colors={currentColors}
                 fontScale={fontScale}
               />
             </View>
           </View>
-          <DashboardPreview colors={currentColors} fontScale={fontScale} />
+          <DashboardPreview
+            colors={currentColors}
+            fontScale={fontScale}
+            t={t}
+          />
         </View>
         <View style={styles.section}>
           <SectionHeading
-            eyebrow="Por qué elegirnos"
-            title="Bienestar que se"
-            accent="puede medir"
-            text="Una plataforma diseñada para que cada lectura se convierta en una mejora concreta."
+            eyebrow={t("landing.whyEyebrow")}
+            title={t("landing.whyTitle")}
+            accent={t("landing.whyAccent")}
+            text={t("landing.whyDescription")}
             colors={currentColors}
             fontScale={fontScale}
           />
@@ -519,9 +547,10 @@ export default function LandingScreen({ navigation }) {
             items={features}
             colors={currentColors}
             fontScale={fontScale}
+            t={t}
             screenWidth={screenWidth}
-            accessibilityLabel="Beneficios de EduAirControl"
-            itemLabel="Ver beneficio"
+            accessibilityLabel={t("landing.benefit")}
+            itemLabel="landing.benefit"
           />
         </View>
         <View
@@ -532,10 +561,10 @@ export default function LandingScreen({ navigation }) {
           ]}
         >
           <SectionHeading
-            eyebrow="Pensado para"
-            title="Espacios que"
-            accent="cuidan"
-            text="EduAirControl acompaña a quienes hacen que cada ambiente funcione mejor."
+            eyebrow={t("landing.designedEyebrow")}
+            title={t("landing.designedTitle")}
+            accent={t("landing.designedAccent")}
+            text={t("landing.designedDescription")}
             colors={currentColors}
             fontScale={fontScale}
           />
@@ -543,9 +572,10 @@ export default function LandingScreen({ navigation }) {
             items={audiences}
             colors={currentColors}
             fontScale={fontScale}
+            t={t}
             screenWidth={screenWidth}
-            accessibilityLabel="Públicos de EduAirControl"
-            itemLabel="Ver público"
+            accessibilityLabel={t("landing.audience")}
+            itemLabel="landing.audience"
             compact
           />
         </View>
@@ -561,10 +591,10 @@ export default function LandingScreen({ navigation }) {
               { color: currentColors.bgBody, fontSize: 28 * fontScale },
             ]}
           >
-            Empieza a cuidar tu aire.
+            {t("landing.ctaTitle")}
           </Text>
           <Text style={[styles.ctaText, { color: currentColors.bgBody }]}>
-            Convierte tus espacios en ambientes más saludables desde hoy.
+            {t("landing.ctaDescription")}
           </Text>
           <TouchableOpacity
             style={[
@@ -574,7 +604,7 @@ export default function LandingScreen({ navigation }) {
             onPress={() => navigation.navigate("SignUp")}
           >
             <Text style={{ color: currentColors.accent, fontWeight: "800" }}>
-              Comenzar ahora
+              {t("landing.startNow")}
             </Text>
             <Ionicons
               name="arrow-forward"
@@ -585,21 +615,161 @@ export default function LandingScreen({ navigation }) {
         </View>
         <View style={styles.footer}>
           <Text
-            style={[styles.footerBrand, { color: currentColors.textPrimary }]}
+            style={[
+              styles.footerBrand,
+              {
+                color: currentColors.textPrimary,
+                fontSize: 18 * fontScale,
+              },
+            ]}
           >
             EduAir<Text style={{ color: currentColors.accent }}>Control</Text>
           </Text>
           <Text style={[styles.footerText, { color: currentColors.textMuted }]}>
-            Tecnología para ambientes que inspiran.
+            {t("landing.footerDescription")}
           </Text>
           <Text style={[styles.copyright, { color: currentColors.textMuted }]}>
             © 2026 EduAirControl · Neiva, Colombia
           </Text>
         </View>
       </ScrollView>
+      <Modal
+        visible={menuOpen}
+        transparent
+        animationType="fade"
+        onRequestClose={closeMenu}
+      >
+        <Pressable style={styles.menuOverlay} onPress={closeMenu}>
+          <Pressable
+            style={[styles.sideMenu, { backgroundColor: currentColors.bgCard }]}
+            onPress={(event) => event.stopPropagation()}
+          >
+            <View style={styles.sideMenuHeader}>
+              <Text
+                style={[
+                  styles.sideMenuTitle,
+                  {
+                    color: currentColors.textPrimary,
+                    fontSize: 20 * fontScale,
+                  },
+                ]}
+              >
+                {t("landing.navigation")}
+              </Text>
+              <TouchableOpacity
+                onPress={closeMenu}
+                accessibilityRole="button"
+                accessibilityLabel={t("landing.closeNavigation")}
+              >
+                <Ionicons
+                  name="close"
+                  size={25}
+                  color={currentColors.textMuted}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.sideMenuLinks}>
+              <MenuLink
+                icon="home-outline"
+                label={t("landing.home")}
+                colors={currentColors}
+                fontScale={fontScale}
+                onPress={() => navigateToSection(0)}
+              />
+              <MenuLink
+                icon="sparkles-outline"
+                label={t("landing.whyEyebrow")}
+                colors={currentColors}
+                fontScale={fontScale}
+                onPress={() => navigateToSection(600)}
+              />
+              <MenuLink
+                icon="people-outline"
+                label={t("landing.designedEyebrow")}
+                colors={currentColors}
+                fontScale={fontScale}
+                onPress={() => navigateToSection(1050)}
+              />
+            </View>
+            <AccessibilityMenu inline />
+            <View
+              style={[
+                styles.sideMenuActions,
+                { borderTopColor: currentColors.borderColor },
+              ]}
+            >
+              <TouchableOpacity
+                style={[
+                  styles.sideMenuPrimary,
+                  { backgroundColor: currentColors.accent },
+                ]}
+                onPress={() => {
+                  closeMenu();
+                  navigation.navigate("SignUp");
+                }}
+              >
+                <Text
+                  style={[
+                    styles.sideMenuPrimaryText,
+                    { color: currentColors.bgBody, fontSize: 15 * fontScale },
+                  ]}
+                >
+                  {t("landing.createAccount")}
+                </Text>
+                <Ionicons
+                  name="arrow-forward"
+                  size={18}
+                  color={currentColors.bgBody}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.sideMenuLogin,
+                  { borderColor: currentColors.borderColor },
+                ]}
+                onPress={() => {
+                  closeMenu();
+                  navigation.navigate("Login");
+                }}
+              >
+                <Text
+                  style={[
+                    styles.sideMenuLoginText,
+                    { color: currentColors.accent, fontSize: 15 * fontScale },
+                  ]}
+                >
+                  {t("landing.signIn")}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </Pressable>
+        </Pressable>
+      </Modal>
       <AccessibilityMenu />
     </View>
   );
+
+  function MenuLink({ icon, label, colors, fontScale, onPress }) {
+    return (
+      <TouchableOpacity
+        style={styles.sideMenuLink}
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={label}
+      >
+        <Ionicons name={icon} size={21} color={colors.accent} />
+        <Text
+          style={[
+            styles.sideMenuLinkText,
+            { color: colors.textPrimary, fontSize: 16 * fontScale },
+          ]}
+        >
+          {label}
+        </Text>
+        <Ionicons name="chevron-forward" size={17} color={colors.textMuted} />
+      </TouchableOpacity>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -622,14 +792,71 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   brandText: { fontSize: 17, fontWeight: "800" },
-  navActions: { flexDirection: "row", alignItems: "center", gap: 13 },
-  navLink: { fontSize: 12, fontWeight: "600" },
-  navLogin: {
+  menuButton: {
+    width: 44,
+    height: 44,
     borderWidth: 1,
-    borderRadius: 9,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
   },
+  menuOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.58)",
+    alignItems: "flex-end",
+  },
+  sideMenu: {
+    width: "84%",
+    maxWidth: 380,
+    height: "100%",
+    paddingTop: 56,
+    paddingHorizontal: 22,
+    shadowColor: "#000",
+    shadowOpacity: 0.3,
+    shadowRadius: 18,
+    elevation: 12,
+  },
+  sideMenuHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(148, 163, 184, 0.18)",
+  },
+  sideMenuTitle: { fontWeight: "900" },
+  sideMenuLinks: { paddingVertical: 18, gap: 6 },
+  sideMenuLink: {
+    minHeight: 56,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 13,
+    paddingHorizontal: 10,
+    borderRadius: 12,
+  },
+  sideMenuLinkText: { flex: 1, fontWeight: "700" },
+  sideMenuActions: {
+    borderTopWidth: 1,
+    paddingTop: 22,
+    gap: 11,
+  },
+  sideMenuPrimary: {
+    minHeight: 49,
+    borderRadius: 11,
+    paddingHorizontal: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  sideMenuPrimaryText: { fontWeight: "800" },
+  sideMenuLogin: {
+    minHeight: 49,
+    borderRadius: 11,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  sideMenuLoginText: { fontWeight: "800" },
   hero: {
     paddingHorizontal: 20,
     paddingTop: 30,

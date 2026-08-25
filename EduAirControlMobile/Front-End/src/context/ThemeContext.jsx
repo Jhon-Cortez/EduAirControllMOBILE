@@ -115,9 +115,12 @@ export function ThemeProvider({ children }) {
     [
       accessibilityTheme,
       changeAccessibilityTheme,
+      changeFontScale,
       currentColors,
       darkMode,
       loaded,
+      fontScale,
+      resetAccessibility,
       toggleDarkMode,
     ],
   );

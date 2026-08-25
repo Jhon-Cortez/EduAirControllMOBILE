@@ -11,6 +11,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import { useLanguage } from "../../context/LanguageContext";
+import AccessibilityMenu from "../../components/AccessibilityMenu";
 
 export default function ForgotPasswordScreen({ navigation }) {
   const { currentColors, darkMode } = useTheme();
@@ -29,6 +30,7 @@ export default function ForgotPasswordScreen({ navigation }) {
         barStyle={darkMode ? "light-content" : "dark-content"}
         backgroundColor={currentColors.bgBody}
       />
+      <AccessibilityMenu />
       <View
         style={[
           styles.card,

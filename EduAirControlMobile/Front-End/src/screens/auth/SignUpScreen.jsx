@@ -14,6 +14,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import { useLanguage } from "../../context/LanguageContext";
+import AccessibilityMenu from "../../components/AccessibilityMenu";
 
 export default function SignUpScreen({ navigation }) {
   const { currentColors, darkMode } = useTheme();
@@ -59,6 +60,7 @@ export default function SignUpScreen({ navigation }) {
         barStyle={darkMode ? "light-content" : "dark-content"}
         backgroundColor={currentColors.bgBody}
       />
+      <AccessibilityMenu />
       <ScrollView contentContainerStyle={styles.scroll}>
         <View
           style={[
@@ -322,7 +324,7 @@ export default function SignUpScreen({ navigation }) {
             >
               {t("auth.hasAccount")}
             </Text>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <Text style={{ color: currentColors.accent, fontWeight: "600" }}>
                 {t("auth.loginLink")}
               </Text>
