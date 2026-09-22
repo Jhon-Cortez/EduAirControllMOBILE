@@ -1,0 +1,959 @@
+{
+  "nav": {
+    "environments": "Ranking",
+    "profile": "Meu perfil",
+    "activity": "Ambientes",
+    "favorites": "Favoritos",
+    "settings": "Configurações",
+    "logout": "Sair",
+    "management": "Gestão",
+    "greeting": "Olá",
+    "admin": "Administrador",
+    "user": "Usuário"
+  },
+  "login": {
+    "title": "Entrar",
+    "email": "E-mail",
+    "password": "Senha",
+    "placeholderEmail": "exemplo@e-mail.com",
+    "placeholderPassword": "••••••••",
+    "rememberMe": "Lembrar de mim",
+    "forgotPassword": "Esqueceu sua senha?",
+    "loginBtn": "Entrar",
+    "signUpBtn": "Cadastrar-se",
+    "orWith": "Entrar com",
+    "or": "OU"
+  },
+  "signup": {
+    "title": "Cadastrar-se",
+    "name": "Nome",
+    "email": "E-mail",
+    "password": "Senha",
+    "confirmPassword": "Confirmar senha",
+    "placeholderName": "seu nome",
+    "placeholderEmail": "exemplo@e-mail.com",
+    "placeholderPassword": "••••••••",
+    "placeholderConfirm": "••••••••",
+    "accept": "aceito",
+    "terms": "Termos de Uso e Política de Privacidade",
+    "termsTitle": "Termos e Condições",
+    "termsIntro": "Ao registrarse na plataforma, você concorda com os seguintes termos:",
+    "term1": "O uso responsável da aplicação e de suas funcionalidades.",
+    "term2": "O tratamento dos seus dados pessoais de acordo com a nossa política de privacidade.",
+    "term3": "Não utilizar a plataforma para fins não autorizados ou ilegais.",
+    "term4": "Que as informações fornecidas sejam precisas e atualizadas.",
+    "signUpBtn": "Cadastrar-se",
+    "passwordMismatch": "As senhas não coincidem!",
+    "mustAgreeTerms": "Você deve aceitar os Termos e Condições",
+    "termsModal": {
+      "acceptPrefix": "Li e aceito os",
+      "link": "Termos e Políticas de Segurança",
+      "title": "Termos e Condições",
+      "subtitle": "Uso responsável · Segurança · Proteção de dados",
+      "intro": "Ao se cadastrar, você confirma que leu, compreendeu e aceita as condições essenciais para o uso responsável do EduAirControl:",
+      "items": ["Fornecer informações verdadeiras, completas e atualizadas e proteger suas credenciais de acesso.", "Informar rapidamente acessos não autorizados, perda de credenciais ou situações que comprometam a segurança da conta.", "Usar a plataforma apenas para fins educacionais, administrativos e de monitoramento ambiental autorizados.", "Não acessar, alterar, excluir ou extrair informações, nem interferir em sistemas, bancos de dados ou sensores IoT sem autorização.", "As leituras dos sensores são informativas, podem variar e não substituem avaliações técnicas especializadas.", "O EduAirControl aplica medidas razoáveis de segurança, embora nenhum sistema garanta proteção absoluta contra todos os riscos.", "Autorizar o tratamento de dados pessoais quando necessário, conforme a legislação aplicável e a Política de Tratamento de Dados.", "Podem ocorrer manutenções, atualizações ou interrupções temporárias por motivos técnicos, de conectividade ou dos dispositivos IoT.", "Aceitar atualizações destes termos comunicadas pela plataforma; o descumprimento pode restringir ou suspender o acesso."],
+      "notice": "Este resumo não substitui o documento completo. O uso do EduAirControl está sujeito aos Termos e Condições completos, à Política de Tratamento de Dados Pessoais e à legislação aplicável."
+      ,"fullDocumentPrefix": "Deseja revisar todas as informações?",
+      "fullDocumentLink": "Ler o documento completo",
+      "readRequired": "Você deve ler e aceitar o documento completo antes de se cadastrar."
+    },
+    "passwordStrength": {
+      "weak": "Senha fraca",
+      "medium": "Senha média",
+      "good": "Senha boa",
+      "strong": "Senha segura"
+    }
+  },
+  "common": {
+    "close": "Fechar",
+    "unknown": "um estranho",
+    "noName": "sem nome"
+  },
+  "forgotPassword": {
+    "title": "Esqueci minha senha",
+    "description": "Digite seu e-mail e enviaremos um código de recuperação.",
+    "emailLabel": "E-mail",
+    "sendBtn": "Enviar código de recuperação",
+    "tryAnother": "Tentar de outra forma"
+  },
+  "verifyCode": {
+    "title": "Verificar código",
+    "description": "Digite o código de 5 dígitos enviado ao seu e-mail.",
+    "resend": "Reenviar código",
+    "verifyBtn": "Verificar código"
+  },
+  "changePassword": {
+    "title": "Esqueci minha senha",
+    "description": "Atualize sua senha para manter sua conta segura.",
+    "newPassword": "Nova senha",
+    "confirmPassword": "Confirmar senha",
+    "confirmBtn": "Confirmar alteração",
+    "mismatch": "As senhas não coincidem!"
+  },
+  "terms": {
+  "title": "Termos e Condições de Uso",
+  "brand": "EduAirControl",
+  "subtitle": "Proteção de Dados · Segurança · Uso Responsável · Monitoramento Ambiental",
+  "sections": [
+    {
+      "title": "1. Aceitação dos Termos",
+      "paragraphs": [
+        "Bem-vindo ao EduAirControl. Estes Termos e Condições estabelecem as regras para o acesso e uso da plataforma.",
+        "Ao se registrar, acessar ou utilizar o EduAirControl, você declara que leu e compreendeu estes termos e concorda em cumprir as disposições aqui estabelecidas.",
+        "Quando aplicável, o tratamento de dados pessoais também estará sujeito à Política de Tratamento de Dados Pessoais do EduAirControl e à legislação colombiana aplicável."
+      ]
+    },
+    {
+      "title": "2. Registro e Responsabilidade do Usuário",
+      "paragraphs": [
+        "As informações fornecidas durante o registro devem ser verdadeiras, completas, atualizadas e verificáveis.",
+        "Cada usuário é responsável por manter a confidencialidade de suas credenciais de acesso e pelas atividades realizadas por meio de sua conta.",
+        "O usuário deverá informar imediatamente qualquer acesso não autorizado, perda de credenciais ou situação que possa comprometer a segurança de sua conta."
+      ]
+    },
+    {
+      "title": "3. Uso Permitido da Plataforma",
+      "paragraphs": [
+        "O EduAirControl deverá ser utilizado exclusivamente para fins educacionais, administrativos e de monitoramento ambiental autorizados pela instituição.",
+        "O usuário se compromete a utilizar a plataforma de maneira responsável e de acordo com a legislação colombiana aplicável."
+      ],
+      "list": [
+        "Tentar acessar sem autorização contas, sistemas, bancos de dados ou serviços do EduAirControl.",
+        "Manipular, alterar, excluir ou extrair informações sem autorização.",
+        "Interferir no funcionamento da plataforma ou dos dispositivos IoT conectados.",
+        "Explorar vulnerabilidades de segurança para obter acesso não autorizado.",
+        "Utilizar a plataforma para atividades ilícitas ou contrárias a estes termos."
+      ],
+      "note": "O acesso não autorizado a sistemas informáticos ou a violação de dados poderá gerar as consequências legais correspondentes de acordo com a legislação colombiana."
+    },
+    {
+      "title": "4. Informações Obtidas por Meio de Sensores IoT",
+      "paragraphs": [
+        "O EduAirControl pode coletar e exibir informações ambientais provenientes de dispositivos IoT, incluindo variáveis como temperatura, umidade, concentração de CO₂ e níveis de ruído, de acordo com os sensores implementados em cada ambiente.",
+        "Essas informações têm como finalidade o monitoramento, a análise e o apoio à tomada de decisões relacionadas às condições ambientais dos espaços educacionais.",
+        "Os dados obtidos por meio dos sensores podem apresentar variações, erros de medição ou interrupções decorrentes do funcionamento dos dispositivos, das comunicações ou de fatores externos.",
+        "As informações fornecidas pela plataforma não substituem inspeções, medições ou avaliações técnicas especializadas quando forem necessárias."
+      ]
+    },
+    {
+      "title": "5. Proteção de Dados Pessoais",
+      "paragraphs": [
+        "O EduAirControl tratará os dados pessoais de acordo com os princípios e obrigações estabelecidos pela legislação colombiana aplicável, especialmente a Lei 1581 de 2012 e suas normas regulamentares.",
+        "O tratamento de dados pessoais será realizado para finalidades legítimas, informadas e relacionadas à prestação e administração dos serviços da plataforma.",
+        "Quando necessário, o tratamento será respaldado pela autorização prévia, expressa e informada do titular dos dados, de acordo com a legislação aplicável.",
+        "Os titulares dos dados poderão exercer seus direitos de conhecer, atualizar e corrigir seus dados, solicitar informações sobre seu tratamento e apresentar consultas ou reclamações ao responsável ou encarregado pelo tratamento.",
+        "As condições específicas sobre coleta, armazenamento, uso, circulação, conservação e exclusão dos dados estão estabelecidas na Política de Tratamento de Dados Pessoais do EduAirControl."
+      ]
+    },
+    {
+      "title": "6. Segurança da Informação",
+      "paragraphs": [
+        "O EduAirControl implementará medidas técnicas, administrativas e organizacionais razoáveis destinadas a proteger as informações contra acessos não autorizados, perda, alteração, divulgação ou uso indevido.",
+        "No entanto, nenhum sistema informático pode garantir segurança absoluta contra todos os riscos tecnológicos, incidentes externos ou situações fora do controle razoável da plataforma.",
+        "Os usuários também deverão adotar medidas razoáveis para proteger suas contas e credenciais de acesso."
+      ]
+    },
+    {
+      "title": "7. Disponibilidade e Atualizações",
+      "paragraphs": [
+        "O EduAirControl poderá apresentar interrupções temporárias devido a manutenção, atualizações, falhas técnicas, problemas de conectividade, funcionamento dos dispositivos IoT ou outras circunstâncias técnicas.",
+        "A plataforma poderá receber atualizações, melhorias, modificações ou correções destinadas a melhorar seu funcionamento, segurança e qualidade.",
+        "Quando necessário, as modificações relevantes serão informadas por meio dos canais disponíveis na plataforma ou pelos meios estabelecidos pela instituição."
+      ]
+    },
+    {
+      "title": "8. Precisão das Informações",
+      "paragraphs": [
+        "O EduAirControl buscará fornecer informações claras e confiáveis dentro das capacidades técnicas da plataforma.",
+        "No entanto, os dados provenientes dos sensores podem estar sujeitos a variações, erros de medição, falhas de conectividade ou limitações próprias dos dispositivos utilizados.",
+        "As decisões que exigirem uma avaliação técnica especializada deverão ser apoiadas pelos procedimentos e verificações correspondentes."
+      ]
+    },
+    {
+      "title": "9. Alterações dos Termos e Condições",
+      "paragraphs": [
+        "O EduAirControl poderá modificar estes Termos e Condições quando necessário devido a alterações funcionais, técnicas, legais ou administrativas.",
+        "As alterações serão publicadas ou comunicadas por meio dos mecanismos disponíveis na plataforma.",
+        "Quando exigido pela legislação aplicável, uma nova aceitação do usuário será solicitada."
+      ]
+    },
+    {
+      "title": "10. Descumprimento",
+      "paragraphs": [
+        "O descumprimento destes Termos e Condições poderá resultar na suspensão ou restrição do acesso à plataforma, de acordo com as políticas da instituição e sem prejuízo das medidas legais que possam ser aplicáveis."
+      ]
+    },
+    {
+      "title": "11. Legislação Aplicável",
+      "paragraphs": [
+        "Estes Termos e Condições serão interpretados de acordo com a legislação colombiana aplicável.",
+        "Em matéria de proteção de dados pessoais, serão consideradas, entre outras disposições aplicáveis, o artigo 15 da Constituição Política da Colômbia, a Lei 1581 de 2012 e suas normas regulamentares.",
+        "As disposições relacionadas aos crimes informáticos serão aplicáveis quando cabível, incluindo as condutas estabelecidas na Lei 1273 de 2009."
+      ]
+    },
+    {
+      "title": "12. Aceitação",
+      "paragraphs": [
+        "Ao selecionar “Aceitar”, o usuário confirma que leu, compreendeu e aceitou estes Termos e Condições de Uso.",
+        "Quando aplicável ao tratamento de dados pessoais, a aceitação destes termos não substitui a autorização específica que possa ser necessária de acordo com a legislação de proteção de dados pessoais."
+      ]
+    }
+  ],
+  "metadata": {
+    "updated": "Data da última atualização",
+    "updatedValue": "18/08/2026",
+    "responsible": "Responsável pelo EduAirControl",
+    "responsibleValue": "Equipe EduAirControl",
+    "email": "E-mail de contato",
+    "emailValue": "eduaircontrol@gmail.com"
+  },
+  "intro": "Bem-vindo ao EduAirControl. Antes de utilizar nossa plataforma, leia atentamente os seguintes Termos e Condições. Ao criar uma conta e utilizar nossos serviços, você concorda em cumprir estas disposições e a legislação colombiana aplicável.",
+  "item1": "As informações fornecidas durante o registro devem ser verdadeiras, completas e atualizadas. O usuário é responsável por informar qualquer alteração que afete as informações registradas.",
+  "item2": "Cada usuário é responsável por proteger suas credenciais de acesso e pelas atividades realizadas por meio de sua conta. Caso seja detectado um acesso não autorizado, ele deverá ser informado imediatamente.",
+  "item3": "A plataforma deve ser utilizada exclusivamente para fins educacionais, administrativos e de monitoramento ambiental autorizados pela instituição, respeitando a legislação colombiana e as regras de uso estabelecidas.",
+  "item4": "É proibido manipular, alterar, excluir, extrair ou acessar sem autorização informações, bancos de dados, dispositivos IoT, contas ou serviços do EduAirControl.",
+  "item5": "Os dados ambientais exibidos pela plataforma correspondem a informações coletadas por meio de sensores IoT e têm como finalidade o monitoramento, a análise e o apoio à tomada de decisões. Esses dados podem apresentar variações ou erros de medição e não substituem inspeções técnicas especializadas quando necessárias.",
+  "item6": "O EduAirControl implementa medidas técnicas, administrativas e organizacionais razoáveis para proteger as informações contra acessos não autorizados, perda, alteração, divulgação ou uso indevido. No entanto, nenhum sistema informático pode garantir segurança absoluta.",
+  "item7": "A plataforma poderá receber atualizações, melhorias, correções ou modificações relacionadas ao seu funcionamento, segurança ou serviços. Quando necessário, as alterações relevantes serão comunicadas por meio dos mecanismos disponíveis na plataforma.",
+  "item8": "Os dados pessoais serão tratados de acordo com a legislação colombiana aplicável, especialmente a Lei 1581 de 2012 e suas normas regulamentares. Quando necessário, será solicitada ao titular a autorização prévia, expressa e informada para o tratamento de seus dados pessoais.",
+  "footer1": "Os titulares dos dados pessoais têm o direito de conhecer, atualizar e corrigir seus dados, solicitar informações sobre seu tratamento e apresentar consultas ou reclamações de acordo com a legislação colombiana aplicável. As condições específicas do tratamento de dados estão estabelecidas na Política de Tratamento de Dados Pessoais do EduAirControl.",
+  "footer2": "O EduAirControl poderá modificar estes Termos e Condições quando necessário. As alterações serão publicadas ou comunicadas por meio dos mecanismos disponíveis na plataforma. Ao clicar em “Aceitar”, você confirma que leu, compreendeu e aceitou estes Termos e Condições.",
+  "acceptBtn": "Li e aceito",
+  "readToEnd": "Role até o final do documento para habilitar a aceitação."
+},
+  "dashboard": {
+    "clickDetails": "Clique para ver detalhes",
+    "idealRange": "Faixa ideal",
+    "temperature": "Temperatura",
+    "humidity": "Umidade",
+    "noise": "Nível de ruído",
+    "airQuality": "Qualidade do ar",
+    "env1": "Ambiente 209-1",
+    "env2": "Ambiente 209-2",
+    "env3": "Ambiente 209-3",
+    "statusWarning": "Aviso",
+    "statusAlert": "Alerta",
+    "statusNormal": "Normal",
+    "qualityRegular": "Regular",
+    "qualityGood": "Boa",
+    "qualityBad": "Ruim"
+  },
+  "filterBar": {
+    "all": "Todos os ambientes",
+    "allSub": "Clique para ver todos",
+    "normal": "Estado normal",
+    "warnings": "Avisos",
+    "alerts": "Alertas"
+  },
+  "ranking": {
+    "title": "Ranking de Ambientes",
+    "subtitle": "Consulte os ambientes mais bem avaliados com base em suas condições ambientais.",
+    "totalEnvironments": "Ambientes",
+    "averageScore": "Média",
+    "bestEnvironment": "Melhor Ambiente",
+    "worstEnvironment": "Pior Ambiente",
+    "environmentScore": "Pontuação Ambiental",
+    "viewEnvironment": "Ver Ambiente",
+    "status": "Status",
+    "statusExcellent": "Excelente",
+    "statusGood": "Bom",
+    "statusRegular": "Regular",
+    "statusCritical": "Crítico",
+    "emptyTitle": "Nenhum Ambiente",
+    "emptyDescription": "Nenhum ambiente foi encontrado com os filtros selecionados."
+  },
+  "blocks": {
+    "a": "Bloco A",
+    "b": "Bloco B",
+    "c": "Bloco C"
+  },
+  "allEnvironments": {
+    "title": "Ambientes",
+    "subtitle": "Consulte o estado ambiental de cada espaço em tempo real.",
+    "qualityTitle": "Índice Ambiental",
+    "qualityDesc": "Calculado com base na temperatura, umidade, CO₂ e ruído.",
+    "co2": "CO₂",
+    "tempDescription": "A temperatura ideal está entre 20°C e 26°C.",
+    "humidityDescription": "A umidade recomendada está entre 40% e 60%.",
+    "co2Description": "O nível de CO₂ reflete a qualidade do ar.",
+    "noiseDescription": "Níveis mais baixos de ruído melhoram a concentração.",
+    "recTemp": "A temperatura está alta. Recomenda-se ventilar o ambiente.",
+    "recHumidity": "A umidade está fora da faixa recomendada.",
+    "recCo2": "O nível de CO₂ está alto. Abra portas e janelas.",
+    "recNoise": "O nível de ruído está elevado. Reduza as fontes de som.",
+    "recPerfect": "O ambiente apresenta condições ideais.",
+    "statusIdeal": "Ideal",
+    "statusHigh": "Alta",
+    "statusOutOfRange": "Fora da faixa",
+    "co2Good": "Boa",
+    "co2Regular": "Regular",
+    "co2Bad": "Ruim",
+    "noiseLow": "Baixo",
+    "noiseModerate": "Moderado",
+    "noiseHigh": "Alto",
+    "temperature": "Temperatura",
+    "humidity": "Umidade",
+    "noise": "Ruído",
+    "capacity": "Capacidade",
+    "building": "Bloco",
+    "floor": "Andar",
+    "lastUpdate": "Última atualização",
+    "favorite": "Adicionar aos favoritos",
+    "removeFavorite": "Remover dos favoritos",
+    "viewDetails": "Ver detalhes",
+    "noResults": "Nenhum ambiente encontrado com os filtros selecionados."
+  },
+  "favorites": {
+    "title": "Favoritos",
+    "description": "Notificações dos seus ambientes favoritos",
+    "empty": "Você não tem ambientes favoritos",
+    "emptyHint": "Clique em um coração no dashboard para adicionar favoritos",
+    "notif1": "⚠️ Temperatura alta: 26°C",
+    "notif2": "🔴 CO₂ alto: 1200 ppm",
+    "notif3": "⚠️ Umidade baixa: 28%",
+    "ago5": "Há 5 min",
+    "ago15": "Há 15 min",
+    "ago10": "Há 10 min"
+  },
+  "profile": {
+    "title": "Meu perfil",
+    "description": "Gerencie suas informações pessoais e mantenha seus dados atualizados.",
+    "fullName": "Nome completo",
+    "email": "E-mail",
+    "titleLabel": "Cargo",
+    "phone": "Telefone",
+    "location": "Localização",
+    "update": "Editar perfil",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "logoutBtn": "Sair",
+    "logoutTitle": "Sair da conta",
+    "logoutMessage": "Tem certeza de que deseja sair? Será necessário fazer login novamente para acessar sua conta."
+  },
+  "settings": {
+    "title": "Configurações",
+    "appearance": "Aparência",
+    "darkMode": "Modo escuro",
+    "enabled": "Ativado",
+    "disabled": "Desativado",
+    "langAndDates": "Idiomas e datas",
+    "langDescription": "Escolha o idioma e o formato de data para sua conta.",
+    "language": "Idioma",
+    "dateFormat": "Formato de data",
+    "autoTimezone": "Fuso horário automático",
+    "updateBtn": "Atualizar",
+    "accessibleThemes": "Temas acessíveis",
+    "themeNormal": "Normal",
+    "themeProtanopia": "Protanopia",
+    "themeDeuteranopia": "Deuteranopia",
+    "themeTritanopia": "Tritanopia",
+    "selectTimezone": "Selecione seu fuso horário",
+    "reminders": "Lembretes",
+    "remindersDescription": "Configure quais notificações você deseja receber.",
+    "reminderAlerts": "Notificar alertas críticos",
+    "reminderWarnings": "Notificar avisos",
+    "reminderDaily": "Resumo diário",
+    "reminderSound": "Som de notificações",
+    "privacy": "Privacidade e Segurança",
+    "privacyDescription": "Controle quem pode ver suas informações e como elas são usadas.",
+    "privacyInfoLabel": "Visibilidade dos dados",
+    "privacyInfo": "Seus dados são visíveis apenas para os administradores da sua instituição.",
+    "changePassword": "Alterar senha",
+    "changePasswordSub": "Atualize sua senha de acesso",
+    "viewPrivacyPolicy": "Ver política de privacidade",
+    "viewPrivacyPolicySub": "Como protegemos suas informações",
+    "deleteAccount": "Excluir conta",
+    "deleteAccountSub": "Esta ação é permanente e irreversível",
+    "deleteAccountConfirm": "Tem certeza? Todos os seus dados serão excluídos permanentemente.",
+    "deleteAccountDetail": "Seu perfil, ambientes favoritos e histórico de atividade serão excluídos.",
+    "deleteBtn": "Excluir conta",
+    "deleteRequestSent": "Solicitação enviada. Entraremos em contato em breve.",
+    "help": "Ajuda e Suporte",
+    "helpDescription": "Encontre respostas e entre em contato com o suporte.",
+    "helpFaq": "Perguntas frequentes",
+    "helpFaqSub": "Respostas para dúvidas comuns",
+    "helpContact": "Contato com suporte",
+    "helpContactSub": "Escreva para suporte@eduaircontrol.com",
+    "helpTerms": "Termos e condições",
+    "helpTermsSub": "Leia nossos termos de uso",
+    "helpPrivacy": "Política de privacidade",
+    "helpPrivacySub": "Como protegemos seus dados",
+    "helpVersion": "Versão do app",
+    "versionDesc": "Sistema de Monitoramento da Qualidade do Ar",
+    "versionDate": "Última atualização: Abril 2026",
+    "passwordModal": {
+      "title": "Alterar senha",
+      "current": "Senha atual",
+      "new": "Nova senha",
+      "confirm": "Confirmar senha",
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "success": "Senha atualizada com sucesso",
+      "errorEmpty": "Preencha todos os campos",
+      "errorMatch": "As senhas não coincidem",
+      "errorLength": "A senha deve ter pelo menos 6 caracteres"
+    },
+    "faq": {
+      "q1": "Como adiciono um ambiente favorito?",
+      "a1": "Clique no ícone de coração em qualquer ambiente.",
+      "q2": "Como mudar o idioma?",
+      "a2": "Vá em Configurações → Idiomas e Datas → Atualizar.",
+      "q3": "O que significam as cores?",
+      "a3": "Verde = Normal, Amarelo = Aviso, Vermelho = Alerta crítico.",
+      "q4": "Posso adicionar ambientes?",
+      "a4": "Sim, vá em Gestão e clique em 'Adicionar Ambiente'."
+    },
+    "contact": {
+      "emailTitle": "E-mail",
+      "emailDesc": "suporte@eduaircontrol.com",
+      "scheduleTitle": "Horário de atendimento",
+      "scheduleDesc": "Segunda a Sexta, 8h00 – 18h00 (UTC-5)",
+      "responseTitle": "Tempo de resposta",
+      "responseDesc": "Respondemos em até 24 horas úteis."
+    },
+    "terms": {
+      "intro": "Ao acessar e usar o EduAirControl, você concorda em cumprir os seguintes termos e condições de uso:",
+      "sections": [
+        {
+          "title": "Aceitação dos termos",
+          "items": [
+            "Ao criar uma conta ou usar a plataforma, você confirma que aceita estes termos integralmente.",
+            "Se você não concordar com alguma parte deles, deve se abster de usar o EduAirControl."
+          ]
+        },
+        {
+          "title": "Sua conta",
+          "items": [
+            "Você deve fornecer informações precisas, completas e atualizadas ao se cadastrar.",
+            "Você é responsável por manter a confidencialidade da sua senha e por toda atividade realizada a partir da sua conta.",
+            "Notifique-nos imediatamente se suspeitar de uso não autorizado da sua conta."
+          ]
+        },
+        {
+          "title": "Uso permitido da plataforma",
+          "items": [
+            "A plataforma deve ser usada apenas para fins autorizados, educacionais e legais.",
+            "Não é permitido tentar violar, sobrecarregar ou interferir nos sensores, servidores ou no funcionamento do sistema.",
+            "Não é permitido copiar, revender ou redistribuir o serviço sem autorização prévia."
+          ]
+        },
+        {
+          "title": "Dados ambientais e relatórios",
+          "items": [
+            "Os dados ambientais (qualidade do ar, temperatura, umidade etc.) são fornecidos apenas para fins de monitoramento e informação.",
+            "Eles não devem ser usados como única fonte para decisões críticas de segurança; em uma emergência, siga sempre os protocolos oficiais da sua instituição."
+          ]
+        },
+        {
+          "title": "Propriedade intelectual",
+          "items": [
+            "O nome, o logotipo, o design e o software do EduAirControl pertencem aos seus criadores e são protegidos por direitos autorais.",
+            "Nenhum direito de uso dessas marcas fora da plataforma é concedido sem autorização expressa."
+          ]
+        },
+        {
+          "title": "Suspensão e cancelamento",
+          "items": [
+            "Podemos suspender ou cancelar contas que violem estes termos ou representem um risco para a plataforma ou outros usuários.",
+            "Você pode solicitar a exclusão da sua conta a qualquer momento na seção de Privacidade."
+          ]
+        },
+        {
+          "title": "Alterações nestes termos",
+          "items": [
+            "Podemos atualizar estes termos periodicamente para refletir melhorias ou mudanças legais.",
+            "O uso continuado da plataforma após uma atualização implica a aceitação das alterações."
+          ]
+        }
+      ],
+      "footer": "Dúvidas sobre estes termos? Escreva para suporte@eduaircontrol.com."
+    },
+    "privacyModal": {
+      "intro": "No EduAirControl, levamos a sério a proteção das suas informações pessoais. Esta política explica quais dados coletamos e como os protegemos:",
+      "sections": [
+        {
+          "title": "Quais informações coletamos",
+          "items": [
+            "Dados de conta: nome, e-mail e credenciais de acesso.",
+            "Dados ambientais gerados pelos sensores da sua instituição (qualidade do ar, temperatura, umidade etc.).",
+            "Dados de uso: preferências, idioma, fuso horário e configurações do aplicativo."
+          ]
+        },
+        {
+          "title": "Como usamos suas informações",
+          "items": [
+            "Para fornecer acesso ao painel, aos rankings e às notificações da plataforma.",
+            "Para gerar relatórios ambientais da sua instituição.",
+            "Para melhorar o serviço e entrar em contato sobre atualizações importantes."
+          ]
+        },
+        {
+          "title": "Como protegemos seus dados",
+          "items": [
+            "Seus dados são transmitidos e armazenados de forma criptografada.",
+            "As senhas nunca são armazenadas em texto simples; são protegidas por algoritmos de criptografia seguros.",
+            "O acesso às informações é restrito à equipe autorizada que precisa dele para operar a plataforma.",
+            "Revisamos periodicamente nossas práticas de segurança para evitar acessos não autorizados."
+          ]
+        },
+        {
+          "title": "Com quem compartilhamos suas informações",
+          "items": [
+            "Não vendemos nem alugamos seus dados pessoais a terceiros.",
+            "Compartilhamos informações apenas com administradores da sua própria instituição, ou com fornecedores estritamente necessários para operar o serviço (por exemplo, hospedagem).",
+            "Podemos divulgar informações se exigido por lei."
+          ]
+        },
+        {
+          "title": "Seus direitos",
+          "items": [
+            "Você pode acessar, corrigir ou atualizar seus dados pessoais no seu perfil.",
+            "Você pode solicitar a exclusão da sua conta e dos seus dados a qualquer momento nesta seção de Configurações.",
+            "Você pode solicitar uma cópia das informações que temos sobre você entrando em contato com o suporte."
+          ]
+        },
+        {
+          "title": "Retenção de dados",
+          "items": [
+            "Mantemos suas informações enquanto sua conta estiver ativa.",
+            "Ao solicitar a exclusão da conta, seus dados pessoais são excluídos ou anonimizados dentro de um prazo razoável, salvo exigência legal de retenção."
+          ]
+        }
+      ],
+      "footer": "Dúvidas sobre como tratamos seus dados? Escreva para suporte@eduaircontrol.com."
+    }
+  },
+  "google": {
+    "chooseAccount": "Escolha sua conta",
+    "otherAccount": "Outra conta"
+  },
+  "status": {
+    "normal": "Normal",
+    "warning": "Aviso",
+    "alert": "Alerta",
+    "excellent": "Excelente",
+    "regular": "Regular",
+    "bad": "Ruim"
+  },
+  "facebook": {
+    "chooseAccount": "Escolha sua conta",
+    "otherAccount": "Outra conta"
+  },
+  "detail": {
+    "metricsTitle": "Métricas em tempo real",
+    "locationTitle": "Localização",
+    "capacityTitle": "Capacidade",
+    "conditionsTitle": "Condições",
+    "people": "pessoas",
+    "addFav": "Adicionar favorito",
+    "removeFav": "Remover favorito",
+    "qualityDesc": "Com base nos níveis de CO₂, temperatura, umidade e ruído do ambiente.",
+    "notFound": "Ambiente não encontrado"
+  },
+  "management": {
+    "title": "Gestão de Ambientes",
+    "addBtn": "Adicionar Ambiente",
+    "editBtn": "Editar",
+    "editTitle": "Editar Ambiente",
+    "addTitle": "Adicionar Ambiente",
+    "nameLabel": "Nome",
+    "capacityLabel": "Capacidade",
+    "locationLabel": "Localização",
+    "namePlaceholder": "Ex: Ambiente 290-4",
+    "capacityPlaceholder": "Ex: 30",
+    "locationPlaceholder": "Ex: Sala A",
+    "saveBtn": "Salvar alterações",
+    "addConfirmBtn": "Adicionar",
+    "cancelBtn": "Cancelar",
+    "deleteTitle": "Excluir Ambiente",
+    "deleteMsg": "Tem certeza que deseja excluir este ambiente? Esta ação não pode ser desfeita.",
+    "deleteBtn": "Excluir",
+    "empty": "Nenhum ambiente. Adicione um!",
+    "capacity": "Capacidade",
+    "location": "Localização",
+    "env1": "Ambiente 290-1",
+    "env2": "Ambiente 290-2",
+    "env3": "Ambiente 290-3"
+  },
+  "editModal": {
+    "dateFormatTitle": "Formato de data",
+    "dateFormatSubtitle": "Escolha como as datas são exibidas no app",
+    "updateTitle": "Atualizar",
+    "preview": "Prévia",
+    "cancel": "Cancelar",
+    "save": "Salvar"
+  },
+  "errors": {
+    "required_email": "L'adresse e-mail est obligatoire",
+    "invalid_email": "Adresse e-mail invalide",
+    "password_min": "Le mot de passe doit contenir au moins 6 caractères",
+    "password_match": "Les mots de passe ne correspondent pas",
+    "name_short": "Le nom est trop court",
+    "required_company_code": "Le code de l'entreprise est obligatoire",
+    "invalid_company_code": "Le code de l'entreprise doit respecter le format ABC-1234",
+    "uppercaseRequired:_password" : "Deve conter pelo menos uma letra maiúscula."
+  },
+  "notifications": {
+    "title": "Notificações",
+    "empty": "Sem notificações",
+    "markAllRead": "Marcar todas como lidas",
+    "co2High": "CO₂ alto",
+    "co2Message": "O ambiente {{name}} tem {{value}} ppm de CO₂",
+    "tempHigh": "Temperatura alta",
+    "tempMessage": "O ambiente {{name}} está com {{value}}°C",
+    "warning": "Aviso",
+    "warningMessage": "O ambiente {{name}} apresenta condições irregulares",
+    "dailySummary": "Resumo diário",
+    "summaryMessage": "{{alerts}} ambientes em alerta e {{warnings}} com avisos hoje"
+  },
+  "leaderboard": {
+    "title": "Ranking de Ambientes",
+    "subtitle": "Pontuação calculada por temperatura, umidade, CO₂ e ruído · Toque em um ambiente para ver detalhes",
+    "filters": {
+      "all": "Todos",
+      "normal": "✅ Normal",
+      "warning": "⚠️ Aviso",
+      "alert": "🔴 Alertas"
+    },
+    "stats": {
+      "total": "Total"
+    },
+    "health": {
+      "good": "Estado geral bom",
+      "attention": "Atenção recomendada",
+      "critical": "Intervenção necessária",
+      "monitored": "{{count}} ambientes monitorados",
+      "normal": "Normal",
+      "warning": "Aviso",
+      "alert": "Alerta"
+    },
+    "topVsAverage": {
+      "title": "vs. média geral",
+      "average": "Média"
+    },
+    "metrics": {
+      "temperature": "Temperatura",
+      "humidity": "Umidade",
+      "co2": "CO₂",
+      "noise": "Ruído"
+    },
+    "alerts": {
+      "title": "Alertas ativos",
+      "empty": "Sem alertas ativos — todos os ambientes estão bem",
+      "temp": "Temp",
+      "humidity": "Umidade",
+      "noise": "Ruído"
+    },
+    "ranking": {
+      "positions": "Posições {{start}} – {{end}}",
+      "empty": "Não há ambientes com este status",
+      "days": "{{count}} dias"
+    },
+    "favorites": {
+      "add": "Adicionar favorito",
+      "remove": "Remover favorito"
+    },
+    "legend": {
+      "title": "💡 Como a pontuação é calculada",
+      "temp": "Temp ideal: 18–24 °C",
+      "humidity": "Umidade ideal: 40–60 %",
+      "co2": "CO₂ ideal: < 1000 ppm",
+      "noise": "Ruído ideal: < 50 dB"
+    },
+    "locations": {
+      "roomA": "Sala A",
+      "roomB": "Sala B",
+      "roomC": "Sala C"
+    }
+  },
+  "filters": {
+    "all": "Todos",
+    "name": "Nome",
+    "searchEnvironment": "Pesquisar ambiente...",
+    "building": "Bloco",
+    "floor": "Andar",
+    "favorites": "Somente favoritos"
+  },
+  "landing": {
+    "navbar": {
+      "home": "Início",
+      "why": "Por que nos escolher?",
+      "modules": "Módulos",
+      "howItWorks": "Como funciona",
+      "technologies": "Tecnologias",
+      "designedFor": "Desenvolvido para",
+      "cta": "Começar",
+      "login": "Entrar",
+      "menuOpen": "Abrir menu de navegação",
+      "menuClose": "Fechar menu de navegação",
+      "closeMenu": "Fechar menu de navegação",
+      "mainNav": "Navegação principal"
+    },
+    "hero": {
+      "badge": "Plataforma líder em monitoramento ambiental educacional",
+      "title1": "Respire Tranquilo",
+      "title2": "Aprenda Mejor",
+      "title3": "EduAirControl",
+      "description": "Monitore em tempo real a calidad do ar em salas de aula, laboratórios e espacios educacionais por meio de sensores IoT, análises inteligentes e alertas automáticos.",
+      "downloadApp": "Descargar app",
+      "viewDemo": "Ver demonstrações",
+      "stat1Value": "+120",
+      "stat1Label": "Instituições",
+      "stat2Value": "99.8%",
+      "stat2Label": "Disponibilidade",
+      "stat3Value": "24/7",
+      "stat3Label": "Monitoramento",
+      "trustedBy": "Com a confianza de",
+      "trusted1": "Instituições",
+      "trusted2": "Universidades",
+      "trusted3": "Laboratórios",
+      "trusted4": "Centros de Formação",
+      "dashboard": {
+        "headerTitle": "Visão Geral",
+        "headerSubtitle": "Dados ambientais em tempo real",
+        "roomPrefix": "Sala",
+        "statusOnline": "On-line",
+        "aqiTitle": "Índice AQI",
+        "aqiStatus": "Excelente",
+        "co2Status": "Boa",
+        "humidityTitle": "Umidade",
+        "humidityStatus": "Ótima",
+        "tempTitle": "Temperatura",
+        "tempStatus": "Confortável",
+        "chartTitle": "Tendência da Qualidade do Ar",
+        "chartSubtitle": "Monitoramento em tempo real",
+        "chartRange24h": "Últimas 24 horas",
+        "chartRange7d": "Últimos 7 dias",
+        "chartRangeMonth": "Último mês",
+        "widgetAlerts": "Alertas",
+        "widgetAlertsDesc": "1 Crítico • 1 Aviso",
+        "widgetDevices": "Dispositivos",
+        "widgetDevicesDesc": "16 Ativos • 2 Desconectados",
+        "widgetAirQuality": "Qualidade do Ar",
+        "widgetAirQualityDesc": "Ambiente Saudável",
+        "widgetAirQualityValue": "Boa"
+      },
+      "cards": {
+        "healthy": "Ambientes Saudáveis",
+        "realtime": "Tempo Real",
+        "alerts": "Alertas Inteligentes",
+        "reports": "Histórico e Relatórios"
+      }
+    },
+    "why": {
+      "badge": "Por que EduAirControl?",
+      "title": "Tudo o que você precisa para",
+      "titleHighlight": "monitorar ambientes educacionais",
+      "description": "EduAirControl integra sensores IoT, análise inteligente e visualização em tempo real para manter espaços saudáveis e seguros.",
+      "card1Title": "Sensores IoT",
+      "card1Desc": "Captura dados ambientais em tempo real de múltiplos dispositivos.",
+      "card2Title": "Alertas Inteligentes",
+      "card2Desc": "Detecta riscos automaticamente e notifica antes que se tornem um problema.",
+      "card3Title": "Painel Analítico",
+      "card3Desc": "Visualize indicadores, gráficos e históricos de qualquer lugar.",
+      "card4Title": "Ambientes Seguros",
+      "card4Desc": "Ajuda a melhorar a qualidade do ar e o bem-estar de alunos e professores."
+    },
+    "modules": {
+      "badge": "Plataforma completa",
+      "title": "Módulos do",
+      "titleHighlight": "Sistema",
+      "description": "EduAirControl integra todas as ferramentas necessárias para monitorar, analisar e gerenciar a qualidade do ar em instituições educacionais em um único lugar.",
+      "module1Title": "Alertas Inteligentes",
+      "module1Desc": "Notificações automáticas quando a qualidade do ar ultrapassa os limites seguros.",
+      "module2Title": "Relatórios",
+      "module2Desc": "Relatórios históricos com gráficos e estatísticas ambientais.",
+      "module3Title": "Gestão de Usuários",
+      "module3Desc": "Gerencie administradores, professores e alunos em uma única plataforma.",
+      "module4Title": "Sensores IoT",
+      "module4Desc": "Conecte e supervisione todos os dispositivos responsáveis por medir a qualidade do ar."
+    },
+    "howItWorks": {
+      "badge": "Arquitetura do sistema",
+      "title": "Como funciona o",
+      "titleHighlight": "EduAirControl",
+      "description": "Desde a captura de dados até a visualização de métricas e a geração de alertas, todas as informações fluem automaticamente por meio de uma arquitetura moderna, segura e escalável.",
+      "step1Title": "Sensores IoT",
+      "step1Desc": "Capturam temperatura, umidade, CO₂ e partículas PM2.5 em tempo real.",
+      "step2Title": "API REST",
+      "step2Desc": "Recebe e transmite as informações geradas pelos dispositivos.",
+      "step3Title": "Backend",
+      "step3Desc": "Processa as leituras, aplica regras de negócio e analisa riscos.",
+      "step4Title": "Banco de Dados",
+      "step4Desc": "Armazena históricos, métricas e registros ambientais.",
+      "step5Title": "Painel",
+      "step5Desc": "Visualiza indicadores, gráficos e o estado de cada sala.",
+      "step6Title": "Alertas Inteligentes",
+      "step6Desc": "Gera notificações automáticas quando existe um risco.",
+      "diagramSubtitle": "Monitoramento ambiental em tempo real",
+      "diagramStatus": "Sistema Ativo",
+      "metricTemp": "Temperatura",
+      "metricHumidity": "Umidade",
+      "metricCO2": "CO₂",
+      "statusNormal": "Normal",
+      "statusOptimal": "Ótima",
+      "statusStable": "Estável",
+      "flowSensors": "Sensores",
+      "flowAlerts": "Alertas",
+      "systemOk": "Sistema funcionando corretamente",
+      "systemOkDesc": "Todos os sensores estão reportando dados. Nenhum risco ambiental detectado."
+    },
+    "technologies": {
+      "badge": "Stack Tecnológico",
+      "title": "Tecnologias por trás do",
+      "titleHighlight": "EduAirControl",
+      "description": "Usamos ferramentas modernas para construir uma plataforma escalável, segura e preparada para aplicações IoT.",
+      "tech1Title": "Frontend",
+      "tech1Desc": "Interface moderna, rápida e totalmente responsiva.",
+      "tech2Title": "Backend",
+      "tech2Desc": "Serviços REST seguros e escaláveis.",
+      "tech3Title": "Banco de Dados",
+      "tech3Desc": "Persistência eficiente para grandes volumes de dados.",
+      "tech4Title": "DevOps",
+      "tech4Desc": "Controle de versões e implantação contínua."
+    },
+    "designedFor": {
+      "badge": "Usuários do sistema",
+      "title": "Desenvolvido para",
+      "titleHighlight": "toda a comunidade educacional",
+      "description": "EduAirControl oferece ferramentas específicas para cada perfil, permitindo uma gestão ambiental eficiente dentro das instituições educacionais.",
+      "user1Title": "Administradores",
+      "user1Desc": "Gerenciam toda a plataforma, supervisionam campi, revisam métricas ambientais e geram relatórios estratégicos.",
+      "user2Title": "Professores",
+      "user2Desc": "Visualizam o estado ambiental de suas salas e recebem alertas para agir rapidamente.",
+      "user3Title": "Alunos",
+      "user3Desc": "Consultam indicadores de qualidade do ar e promovem hábitos saudáveis dentro da instituição.",
+      "user4Title": "Pessoal Técnico",
+      "user4Desc": "Monitora sensores, realiza manutenção preventiva e garante o funcionamento do sistema."
+    },
+    "cta": {
+      "badge": "Comece hoje",
+      "title": "Vamos construir instituições",
+      "titleHighlight": "mais saudáveis",
+      "description": "EduAirControl ajuda a monitorar a qualidade do ar em tempo real, gerar alertas inteligentes e tomar decisões baseadas em dados para proteger toda a comunidade educacional.",
+      "registerBtn": "CADASTRE-SE AGORA"
+    },
+    "footer": {
+      "description": "Plataforma inteligente para monitoramento ambiental em tempo real, ajudando instituições educacionais a tomar melhores decisões por meio de dados confiáveis.",
+      "navTitle": "Navegação",
+      "resourcesTitle": "Recursos",
+      "contactTitle": "Contato",
+      "loginLink": "Entrar",
+      "signupLink": "Criar conta",
+      "termsLink": "Termos e Condições",
+      "copyright": "© 2026 EduAirControl. Todos os direitos reservados."
+    },
+    "a11y": {
+      "title": "Acessibilidade",
+      "panelLabel": "Painel de acessibilidade",
+      "closeLabel": "Fechar painel",
+      "textSize": "Tamanho do texto",
+      "colorMode": "Modo de cor",
+      "light": "Claro",
+      "dark": "Escuro",
+      "colorVision": "Visão de cor",
+      "resetAll": "Redefinir tudo",
+      "triggerLabel": "Opções de acessibilidade",
+      "triggerTitle": "Acessibilidade"
+    },
+    "scroll": {
+      "backToTop": "Voltar ao topo"
+    }
+  },
+  "tooltips": {
+    "close": "Fecha esta janela e volta à lista de ambientes.",
+    "status": "Indica o estado geral do ambiente: Normal, Aviso ou Alerta, calculado a partir dos sensores.",
+    "score": "Pontuação de 0 a 100 que resume a qualidade do ambiente combinando temperatura, umidade, CO₂ e ruído. Quanto mais alto, melhor.",
+    "temperature": "Temperatura atual do ambiente. Ajuda a saber se convém ligar o ar-condicionado ou aquecimento.",
+    "humidity": "Nível de umidade no ar. Um nível fora da faixa pode afetar o conforto e a saúde respiratória.",
+    "co2": "Concentração de CO₂ em partes por milhão (ppm). Valores altos indicam pouca ventilação; considere abrir janelas.",
+    "noise": "Nível de ruído ambiental em decibéis (dB). Ajuda a detectar excesso de ruído que pode afetar a concentração.",
+    "recommendations": "Sugestões automáticas geradas com base nas condições atuais, para ajudar a melhorar este ambiente.",
+    "favoriteAdd": "Marque este ambiente como favorito para encontrá-lo mais rápido.",
+    "favoriteRemove": "Remova este ambiente dos seus favoritos.",
+    "closeBtn": "Fecha esta janela."
+  },
+  "dashboardAnalysis": {
+    "title": "PAINEL DE ANÁLISE",
+    "subtitle": "também conta uma história.",
+    "description": "Compare a evolução dos seus ambientes, identifique mudanças e tome decisões antes que um alerta interrompa a aprendizagem.",
+    "periods": {
+      "day": "Dia",
+      "dayContext": "Últimas 24 horas",
+      "week": "Semana",
+      "weekContext": "18 — 24 agosto 2026",
+      "month": "Mês",
+      "monthContext": "Agosto 2026",
+      "year": "Ano",
+      "yearContext": "Janeiro — agosto 2026"
+    },
+    "labels": {
+      "temperature": "Temperatura",
+      "humidity": "Umidade",
+      "noise": "Ruído",
+      "normal": "Normal",
+      "warning": "Aviso",
+      "alert": "Alerta"
+    },
+    "chart": {
+      "weekdays": ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
+      "months": ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago"],
+      "weeks": ["Sem 1", "Sem 2", "Sem 3", "Sem 4", "Atual"],
+      "hours": ["00h", "03h", "06h", "09h", "12h", "15h", "18h", "21h"],
+      "comfortThreshold": "limite de conforto",
+      "recommendedAverage": "Média recomendada: ",
+      "referenceRange": "Faixa de referência",
+      "co2Range": "Abaixo de 800 ppm",
+      "throughTime": "ao longo do tempo",
+      "syncedData": "Dados sincronizados"
+    },
+    "kpi": {
+      "averagePrefix": "Média ",
+      "vsPreviousPeriod": "7,4% vs. período anterior",
+      "environmentsInRange": "ambientes dentro da faixa",
+      "requireFollowUp": "requerem acompanhamento",
+      "requireAttention": "requerem atenção"
+    },
+    "context": {
+      "environments": "Ambientes",
+      "selectEnvironment": "Escolha um espaço para revisar sua evolução específica.",
+      "allEnvironments": "Todos os ambientes",
+      "consolidatedView": "Visão consolidada",
+      "floor": "Andar",
+      "lastReading": "Última leitura",
+      "refreshData": "Atualizar dados"
+    },
+    "quickReading": {
+      "title": "LEITURA RÁPIDA",
+      "alertMessage": "Há um ambiente que pede atenção.",
+      "normalMessage": "A rede mantém-se estável.",
+      "alertDescription": "Verifique a tendência do ambiente em alerta e compare com suas horas de maior ocupação.",
+      "normalDescription": "A maioria dos espaços está dentro da faixa recomendada.",
+      "viewDetail": "Ver detalhe"
+    },
+    "comparison": {
+      "title": "COMPARAÇÃO",
+      "byEnvironment": "Por ambiente",
+      "descriptionPrefix": "Média de",
+      "descriptionSuffix": "no período"
+    },
+    "network": {
+      "title": "ESTADO ATUAL",
+      "health": "Saúde da rede",
+      "monitoring": "Monitorando",
+      "inRange": "na faixa",
+      "dataUpdated": "Dados atualizados"
+    },
+    "footer": {
+      "brand": "EduAirControl · Monitoramento Inteligente do Ar",
+      "autoUpdate": "ambientes · Atualização automática a cada 5 min"
+    },
+    "ariaLabels": {
+      "controls": "Controles da análise",
+      "selectPeriod": "Selecionar período",
+      "selectMetric": "Selecionar métrica",
+      "periodIndicators": "Indicadores do período",
+      "refreshData": "Atualizar dados"
+    }
+  }
+}
