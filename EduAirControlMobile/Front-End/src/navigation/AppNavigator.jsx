@@ -1,15 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Ionicons } from '@expo/vector-icons'
+import { useTranslation } from 'react-i18next'
 import { useTheme } from '../context/ThemeContext'
-import { useLanguage } from '../context/LanguageContext'
-
-import NotificationsScreen from '../screens/app/NotificationsScreen'
-import ProfileScreen from '../screens/app/ProfileScreen'
-import SettingsScreen from '../screens/app/SettingsScreen'
 
 import DashboardScreen from '../modules/dashboard/pages/DashboardScreen'
 import FavoritesScreen from '../modules/favorites/pages/FavoritesScreen'
+import NotificationsScreen from '../modules/notifications/pages/NotificationsScreen'
+import ProfileScreen from '../modules/profile/pages/ProfileScreen'
+import SettingsScreen from '../modules/settings/pages/SettingsScreen'
 import AllEnvironmentsScreen from '../modules/environment/pages/AllEnvironmentsScreen'
 import EnvironmentDetailScreen from '../modules/environment/pages/EnvironmentDetailScreen'
 import EnvironmentManagementScreen from '../modules/environment/pages/EnvironmentManagementScreen'
@@ -67,7 +66,7 @@ function ProfileStack() {
 
 export default function AppNavigator() {
   const { currentColors } = useTheme()
-  const { t } = useLanguage()
+  const { t } = useTranslation()
 
   return (
     <Tab.Navigator
@@ -106,27 +105,27 @@ export default function AppNavigator() {
       <Tab.Screen
         name="Dashboard"
         component={DashboardStack}
-        options={{ tabBarLabel: t('tabs.home') }}
+        options={{ tabBarLabel: t('nav.environments') }}
       />
       <Tab.Screen
         name="Favorites"
         component={FavoritesStack}
-        options={{ tabBarLabel: t('tabs.favorites') }}
+        options={{ tabBarLabel: t('nav.favorites') }}
       />
       <Tab.Screen
         name="Management"
         component={ManagementStack}
-        options={{ tabBarLabel: t('tabs.management') }}
+        options={{ tabBarLabel: t('nav.management') }}
       />
       <Tab.Screen
         name="Environments"
         component={EnvironmentsStack}
-        options={{ tabBarLabel: t('tabs.environments') }}
+        options={{ tabBarLabel: t('nav.activity') }}
       />
       <Tab.Screen
         name="Profile"
         component={ProfileStack}
-        options={{ tabBarLabel: t('tabs.profile') }}
+        options={{ tabBarLabel: t('nav.profile') }}
       />
     </Tab.Navigator>
   )
