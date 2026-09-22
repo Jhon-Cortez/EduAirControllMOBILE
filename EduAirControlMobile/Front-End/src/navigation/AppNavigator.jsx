@@ -4,14 +4,15 @@ import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../context/ThemeContext'
 import { useLanguage } from '../context/LanguageContext'
 
-import DashboardScreen from '../screens/app/DashboardScreen'
-import EnvironmentDetailScreen from '../screens/app/EnvironmentDetailScreen'
-import FavoritesScreen from '../screens/app/FavoritesScreen'
 import NotificationsScreen from '../screens/app/NotificationsScreen'
-import AllEnvironmentsScreen from '../screens/app/AllEnvironmentsScreen'
 import ProfileScreen from '../screens/app/ProfileScreen'
-import EnvironmentManagementScreen from '../screens/app/EnvironmentManagementScreen'
 import SettingsScreen from '../screens/app/SettingsScreen'
+
+import DashboardScreen from '../modules/dashboard/pages/DashboardScreen'
+import FavoritesScreen from '../modules/favorites/pages/FavoritesScreen'
+import AllEnvironmentsScreen from '../modules/environment/pages/AllEnvironmentsScreen'
+import EnvironmentDetailScreen from '../modules/environment/pages/EnvironmentDetailScreen'
+import EnvironmentManagementScreen from '../modules/environment/pages/EnvironmentManagementScreen'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
