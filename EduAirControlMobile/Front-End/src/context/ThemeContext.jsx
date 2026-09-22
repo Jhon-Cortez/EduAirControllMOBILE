@@ -1,37 +1,36 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { darkColors, lightColors } from '../styles/colors'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { darkColors, lightColors, applyColorTheme } from '../styles/colors'
+import {
+  getAccessibilitySettings,
+  saveAccessibilitySettings,
+  onAccessibilityChange,
+} from '../shared/accessibility/accessibilitySettings'
 
 const ThemeContext = createContext()
 
 export function ThemeProvider({ children }) {
   const [darkMode, setDarkMode] = useState(false)
+  const [colorTheme, setColorTheme] = useState('')
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        const saved = await AsyncStorage.getItem('darkMode')
-        if (saved !== null) setDarkMode(JSON.parse(saved))
-      } catch (e) {
-        console.warn('Error loading darkMode:', e)
-      } finally {
-        setLoaded(true)
-      }
-    }
-    load()
+    const a11y = getAccessibilitySettings()
+    setDarkMode(a11y.darkMode)
+    setColorTheme(a11y.colorTheme || '')
+    setLoaded(true)
+    return onAccessibilityChange(() => {
+      const next = getAccessibilitySettings()
+      setDarkMode(next.darkMode)
+      setColorTheme(next.colorTheme || '')
+    })
   }, [])
 
   const toggleDarkMode = async (value) => {
-    setDarkMode(value)
-    try {
-      await AsyncStorage.setItem('darkMode', JSON.stringify(value))
-    } catch (e) {
-      console.warn('Error saving darkMode:', e)
-    }
+    const a11y = getAccessibilitySettings()
+    saveAccessibilitySettings({ ...a11y, darkMode: value })
   }
 
-  const currentColors = darkMode ? darkColors : lightColors
+  const currentColors = applyColorTheme(darkMode ? darkColors : lightColors, colorTheme)
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleDarkMode, currentColors, loaded }}>
