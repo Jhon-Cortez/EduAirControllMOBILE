@@ -96,7 +96,7 @@ function EnvironmentCard({ environment, onEdit, onDelete, currentColors, t }) {
           <Ionicons name="create-outline" size={14} color={currentColors.accent} />
           <Text style={[styles.editBtnTxt, { color: currentColors.accent }]}>{t('management.editBtn')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.deleteBtn} onPress={() => onDelete(environment)}>
+        <TouchableOpacity style={styles.deleteBtn} onPress={() => onDelete(environment.id)}>
           <Ionicons name="trash-outline" size={14} color={currentColors.error} />
           <Text style={[styles.deleteBtnTxt, { color: currentColors.error }]}>{t('management.deleteBtn')}</Text>
         </TouchableOpacity>
