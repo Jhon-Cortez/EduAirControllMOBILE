@@ -1,12 +1,13 @@
 import { registerRootComponent } from 'expo';
 
 import storage from './src/shared/storage/storage';
-import './src/shared/i18n/i18n';
+import { applySavedLanguage } from './src/shared/i18n/i18n';
 import App from './App';
 
 // Hydrate the storage adapter (AsyncStorage → cache síncrono) antes de montar la app.
 async function bootstrap() {
   await storage.init();
+  applySavedLanguage();
   registerRootComponent(App);
 }
 
