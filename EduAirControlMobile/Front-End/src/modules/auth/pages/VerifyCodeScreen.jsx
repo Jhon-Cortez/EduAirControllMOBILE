@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { Ionicons } from '@expo/vector-icons'
 import Button from '../../../shared/components/Button/Button'
+import { useToast } from '../../../shared/components/Toast/Toast'
 import { useTheme } from '../../../context/ThemeContext'
 
 const CODE_LENGTH = 5
@@ -20,8 +21,15 @@ export default function VerifyCodeScreen() {
   const navigation = useNavigation()
   const { t } = useTranslation()
   const { currentColors: c } = useTheme()
+  const toast = useToast()
   const [code, setCode] = useState(Array(CODE_LENGTH).fill(''))
   const inputsRef = useRef([])
+
+  const handleResend = () => {
+    setCode(Array(CODE_LENGTH).fill(''))
+    inputsRef.current[0]?.focus()
+    toast.success(t('forgotPassword.sent', 'Revisa tu correo'))
+  }
 
   const handleChange = (index, value) => {
     if (value.length > 1) return
@@ -73,7 +81,7 @@ export default function VerifyCodeScreen() {
           ))}
         </View>
 
-        <Pressable style={styles.resend} onPress={() => {}}>
+        <Pressable style={styles.resend} onPress={handleResend}>
           <Text style={[styles.resendText, { color: c.accent }]}>{t('verifyCode.resend')}</Text>
         </Pressable>
 
