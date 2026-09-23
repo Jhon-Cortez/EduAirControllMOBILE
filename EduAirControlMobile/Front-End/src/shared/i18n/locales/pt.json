@@ -30,7 +30,6 @@
   },
   "signup": {
     "title": "Cadastrar-se",
-    "name": "Nome",
     "email": "E-mail",
     "password": "Senha",
     "confirmPassword": "Confirmar senha",
@@ -55,7 +54,7 @@
       "title": "Termos e Condições",
       "subtitle": "Uso responsável · Segurança · Proteção de dados",
       "intro": "Ao se cadastrar, você confirma que leu, compreendeu e aceita as condições essenciais para o uso responsável do EduAirControl:",
-      "items": ["Fornecer informações verdadeiras, completas e atualizadas e proteger suas credenciais de acesso.", "Informar rapidamente acessos não autorizados, perda de credenciais ou situações que comprometam a segurança da conta.", "Usar a plataforma apenas para fins educacionais, administrativos e de monitoramento ambiental autorizados.", "Não acessar, alterar, excluir ou extrair informações, nem interferir em sistemas, bancos de dados ou sensores IoT sem autorização.", "As leituras dos sensores são informativas, podem variar e não substituem avaliações técnicas especializadas.", "O EduAirControl aplica medidas razoáveis de segurança, embora nenhum sistema garanta proteção absoluta contra todos os riscos.", "Autorizar o tratamento de dados pessoais quando necessário, conforme a legislação aplicável e a Política de Tratamento de Dados.", "Podem ocorrer manutenções, atualizações ou interrupções temporárias por motivos técnicos, de conectividade ou dos dispositivos IoT.", "Aceitar atualizações destes termos comunicadas pela plataforma; o descumprimento pode restringir ou suspender o acesso."],
+      "items": ["Fornecer informações verdadeiras, completas e atualizadas e proteger suas credenciais de acesso.", "Informar rapidamente acessos não autorizados, perda de credenciais ou situações que comprometam a segurança da conta.", "Usar a plataforma apenas para fins educacionais, administrativos e de monitoramento ambiental autorizados.", "Não acessar, alterar, excluir ou extrair informações, nem interferir em sistemas, bancos de dados ou sensores IoT sem autorização.", "As leituras dos sensores são informativas, podem variar e não substituem avaliações técnicas especializadas.", "O EduAirControl aplica medidas razoáveis de segurança, embora nenhum sistema garanta proteção absoluta contra todos os riscos.", "Autorizar o tratamento de dados pessoais quando necessário, conforme a legislação aplicável e a Política de Tratamento de Dados.", "Podem ocorrer manutenções, atualizações ou interrupções temporárias por motivos técnicos, de conectividade ou dos dispositivos IoT.", "Aceitar atualizações destes termos comunicadas pela plataforma; o descumprimento pode restringir ou suspender o acesso.", "Usar os dados ambientais como apoio à tomada de decisões e aplicar os procedimentos institucionais ou verificações técnicas quando a situação exigir.", "Reconhecer que estes termos são interpretados de acordo com a legislação colombiana, incluindo as disposições sobre proteção de dados e crimes cibernéticos quando aplicável.", "Confirmar, ao marcar a caixa de aceitação, que você leu e compreendeu este resumo e os Termos e Condições completos disponíveis no EduAirControl."],
       "notice": "Este resumo não substitui o documento completo. O uso do EduAirControl está sujeito aos Termos e Condições completos, à Política de Tratamento de Dados Pessoais e à legislação aplicável."
       ,"fullDocumentPrefix": "Deseja revisar todas as informações?",
       "fullDocumentLink": "Ler o documento completo",
@@ -75,7 +74,6 @@
   "common": {
     "close": "Fechar",
     "unknown": "um estranho",
-    "noName": "sem nome",
     "back": "Voltar",
     "delete": "Remover",
     "or": "OU"
@@ -319,6 +317,7 @@
     "removeFavorite": "Remover dos favoritos",
     "viewDetails": "Ver detalhes",
     "noResults": "Nenhum ambiente encontrado com os filtros selecionados.",
+    "environmentIndex": "Índice ambiental",
     "showing": "Mostrando {{shown}} de {{total}}",
     "seeResults": "Ver {{count}} resultados"
   },
@@ -664,56 +663,15 @@
       "warning": "⚠️ Aviso",
       "alert": "🔴 Alertas"
     },
-    "stats": {
-      "total": "Total"
-    },
-    "health": {
-      "good": "Estado geral bom",
-      "attention": "Atenção recomendada",
-      "critical": "Intervenção necessária",
-      "monitored": "{{count}} ambientes monitorados",
-      "normal": "Normal",
-      "warning": "Aviso",
-      "alert": "Alerta"
-    },
-    "topVsAverage": {
-      "title": "vs. média geral",
-      "average": "Média"
-    },
-    "metrics": {
-      "temperature": "Temperatura",
-      "humidity": "Umidade",
-      "co2": "CO₂",
-      "noise": "Ruído"
-    },
-    "alerts": {
-      "title": "Alertas ativos",
-      "empty": "Sem alertas ativos — todos os ambientes estão bem",
-      "temp": "Temp",
-      "humidity": "Umidade",
-      "noise": "Ruído"
-    },
-    "ranking": {
-      "positions": "Posições {{start}} – {{end}}",
-      "empty": "Não há ambientes com este status",
-      "days": "{{count}} dias"
-    },
-    "favorites": {
-      "add": "Adicionar favorito",
-      "remove": "Remover favorito"
-    },
-    "legend": {
-      "title": "💡 Como a pontuação é calculada",
-      "temp": "Temp ideal: 18–24 °C",
-      "humidity": "Umidade ideal: 40–60 %",
-      "co2": "CO₂ ideal: < 1000 ppm",
-      "noise": "Ruído ideal: < 50 dB"
-    },
-    "locations": {
-      "roomA": "Sala A",
-      "roomB": "Sala B",
-      "roomC": "Sala C"
-    }
+    "addFavorite": "Adicionar aos favoritos",
+    "removeFavorite": "Remover dos favoritos",
+    "empty": "Não há ambientes com este status",
+    "positions": "Posições",
+    "scoreCalculation": "Como a pontuação é calculada",
+    "tempIdeal": "Temp ideal: 18–24 °C",
+    "humidityIdeal": "Umidade ideal: 40–60 %",
+    "co2Ideal": "CO₂ ideal: < 1000 ppm",
+    "noiseIdeal": "Ruído ideal: < 50 dB"
   },
   "filters": {
     "all": "Todos",

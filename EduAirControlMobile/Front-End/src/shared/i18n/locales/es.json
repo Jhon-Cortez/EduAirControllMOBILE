@@ -30,7 +30,6 @@
   },
   "signup": {
     "title": "Crear cuenta",
-    "Name": "Nombre completo",
     "email": "Correo electrónico",
     "password": "Contraseña",
     "confirmPassword": "Confirmar contraseña",
@@ -86,7 +85,6 @@
     "haveAccount": "¿Ya tienes una cuenta?"
   },
   "common": {
-    "addFavorites": "Agregar a favoritos",
     "close": "Cerrar",
     "unknown": "Desconocido",
     "back": "Volver",
@@ -154,22 +152,6 @@
   "readToEnd": "Desplázate hasta el final del documento para habilitar la aceptación."
 },
 
-  "termsSummary": {
-    "title": "Términos y Condiciones",
-    "subtitle": "Protección de datos • Seguridad • Uso responsable",
-    "intro": "Bienvenido a EduAirControl. Antes de utilizar nuestra plataforma, por favor lee cuidadosamente los siguientes términos y condiciones. Al crear una cuenta y utilizar nuestros servicios aceptas cumplir con estas disposiciones.",
-    "item1": "La información suministrada durante el registro debe ser veraz, actualizada y completa.",
-    "item2": "Cada usuario es responsable de proteger sus credenciales de acceso y de todas las actividades realizadas desde su cuenta.",
-    "item3": "La plataforma debe utilizarse únicamente con fines educativos, administrativos y de monitoreo ambiental autorizados por la institución.",
-    "item4": "Está prohibido manipular, alterar o intentar acceder sin autorización a la información, dispositivos IoT o servicios de EduAirControl.",
-    "item5": "Los datos ambientales mostrados por la plataforma corresponden a información recopilada por sensores IoT y tienen fines de monitoreo, análisis y apoyo en la toma de decisiones. No sustituyen inspecciones técnicas especializadas.",
-    "item6": "EduAirControl implementa medidas de seguridad para proteger la información almacenada; sin embargo, ningún sistema puede garantizar seguridad absoluta frente a incidentes externos.",
-    "item7": "La plataforma podrá recibir actualizaciones, mejoras o modificaciones sin previo aviso cuando sean necesarias para optimizar su funcionamiento.",
-    "item8": "Al aceptar estos términos, autorizas el tratamiento de los datos necesarios para el funcionamiento de la plataforma conforme a la normativa de protección de datos aplicable.",
-    "footer1": "EduAirControl podrá modificar estos Términos y Condiciones cuando sea necesario. Las modificaciones serán publicadas en la plataforma.",
-    "footer2": "Al hacer clic en \"Aceptar\" confirmas que has leído, comprendido y aceptado estos Términos y Condiciones.",
-    "acceptBtn": "Aceptar"
-  },
   "dashboard": {
     "clickDetails": "Click Para Ver Detalles",
     "idealRange": "Rango ideal",
@@ -252,11 +234,6 @@
     "viewDetails": "Ver detalles",
     "noResults": "No se encontraron ambientes con los filtros seleccionados.",
     "environmentIndex": "Índice ambiental",
-    "environmentIndexDescription": "Evalúa la calidad del ambiente",
-    "excellent": "Excelente",
-    "good": "Bueno",
-    "regular": "Regular",
-    "bad": "Malo",
     "showing": "Mostrando {{shown}} de {{total}}",
     "seeResults": "Ver {{count}} resultados"
   },
@@ -596,10 +573,8 @@
   "leaderboard": {
     "title": "Ranking de Ambientes",
     "subtitle": "Puntaje calculado por temperatura, humedad, CO₂ y ruido · Toca un ambiente para ver detalles",
-    "days": "días",
     "removeFavorite": "Quitar favorito",
     "addFavorite": "Agregar favorito",
-    "total": "Total",
     "empty": "No hay ambientes con este estado",
     "positions": "Posiciones",
     "scoreCalculation": "Cómo se calcula el puntaje",
@@ -613,11 +588,6 @@
       "warning": "⚠️ Advertencia",
       "alert": "🔴 Alertas"
     }
-  },
-  "locations": {
-    "roomA": "Sala A",
-    "roomB": "Sala B",
-    "roomC": "Sala C"
   },
   "filters": {
     "all": "Todos",

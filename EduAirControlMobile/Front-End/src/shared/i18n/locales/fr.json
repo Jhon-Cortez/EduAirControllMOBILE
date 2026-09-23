@@ -30,7 +30,6 @@
   },
   "signup": {
     "title": "S'inscrire",
-    "name": "Nom complet",
     "email": "Adresse e-mail",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
@@ -55,7 +54,7 @@
       "title": "Conditions générales",
       "subtitle": "Utilisation responsable · Sécurité · Protection des données",
       "intro": "En vous inscrivant, vous confirmez avoir lu, compris et accepté les conditions essentielles d'utilisation responsable d'EduAirControl :",
-      "items": ["Fournir des informations exactes, complètes et à jour et protéger vos identifiants.", "Signaler rapidement tout accès non autorisé, perte d'identifiants ou risque pour la sécurité du compte.", "Utiliser la plateforme uniquement à des fins éducatives, administratives et de surveillance environnementale autorisées.", "Ne pas accéder, modifier, supprimer ou extraire des informations, ni perturber les systèmes, bases de données ou capteurs IoT sans autorisation.", "Les mesures des capteurs sont informatives, peuvent varier et ne remplacent pas une évaluation technique spécialisée.", "EduAirControl applique des mesures de sécurité raisonnables, sans pouvoir garantir une protection absolue contre tous les risques.", "Autoriser le traitement des données personnelles lorsque nécessaire, conformément à la loi applicable et à la politique de confidentialité.", "Des maintenances, mises à jour ou interruptions temporaires peuvent survenir pour des raisons techniques ou de connectivité.", "Accepter les mises à jour de ces conditions communiquées par la plateforme ; un manquement peut limiter ou suspendre l'accès."],
+      "items": ["Fournir des informations exactes, complètes et à jour et protéger vos identifiants.", "Signaler rapidement tout accès non autorisé, perte d'identifiants ou risque pour la sécurité du compte.", "Utiliser la plateforme uniquement à des fins éducatives, administratives et de surveillance environnementale autorisées.", "Ne pas accéder, modifier, supprimer ou extraire des informations, ni perturber les systèmes, bases de données ou capteurs IoT sans autorisation.", "Les mesures des capteurs sont informatives, peuvent varier et ne remplacent pas une évaluation technique spécialisée.", "EduAirControl applique des mesures de sécurité raisonnables, sans pouvoir garantir une protection absolue contre tous les risques.", "Autoriser le traitement des données personnelles lorsque nécessaire, conformément à la loi applicable et à la politique de confidentialité.", "Des maintenances, mises à jour ou interruptions temporaires peuvent survenir pour des raisons techniques ou de connectivité.", "Accepter les mises à jour de ces conditions communiquées par la plateforme ; un manquement peut limiter ou suspendre l'accès.", "Utiliser les données environnementales comme aide à la prise de décision et appliquer les procédures institutionnelles ou vérifications techniques lorsque la situation l'exige.", "Reconnaître que ces conditions sont interprétées conformément à la législation colombienne, y compris les dispositions sur la protection des données et les cybercrimes le cas échéant.", "Confirmer, en cochant la case d'acceptation, que vous avez lu et compris ce résumé et les Conditions générales complètes disponibles dans EduAirControl."],
       "notice": "Ce résumé ne remplace pas le document complet. L'utilisation d'EduAirControl est soumise aux Conditions générales complètes, à la Politique de traitement des données personnelles et à la législation applicable."
       ,"fullDocumentPrefix": "Souhaitez-vous consulter toutes les informations ?",
       "fullDocumentLink": "Lire le document complet",
@@ -75,7 +74,6 @@
   "common": {
     "close": "Fermer",
     "unknown": "un étranger",
-    "noName": "anonyme",
     "back": "Retour",
     "delete": "Supprimer",
     "or": "OU"
@@ -319,6 +317,7 @@
     "removeFavorite": "Retirer des favoris",
     "viewDetails": "Voir les détails",
     "noResults": "Aucun environnement ne correspond aux filtres sélectionnés.",
+    "environmentIndex": "Indice environnemental",
     "showing": "Affichage de {{shown}} sur {{total}}",
     "seeResults": "Voir {{count}} résultats"
   },
@@ -664,56 +663,15 @@
       "warning": "⚠️ Avertissement",
       "alert": "🔴 Alertes"
     },
-    "stats": {
-      "total": "Total"
-    },
-    "health": {
-      "good": "État général bon",
-      "attention": "Attention recommandée",
-      "critical": "Intervention nécessaire",
-      "monitored": "{{count}} environnements surveillés",
-      "normal": "Normal",
-      "warning": "Avertissement",
-      "alert": "Alerte"
-    },
-    "topVsAverage": {
-      "title": "vs. moyenne générale",
-      "average": "Moyenne"
-    },
-    "metrics": {
-      "temperature": "Température",
-      "humidity": "Humidité",
-      "co2": "CO₂",
-      "noise": "Bruit"
-    },
-    "alerts": {
-      "title": "Alertes actives",
-      "empty": "Aucune alerte active — tous les environnements vont bien",
-      "temp": "Temp",
-      "humidity": "Humidité",
-      "noise": "Bruit"
-    },
-    "ranking": {
-      "positions": "Positions {{start}} – {{end}}",
-      "empty": "Aucun environnement avec ce statut",
-      "days": "{{count}} jours"
-    },
-    "favorites": {
-      "add": "Ajouter aux favoris",
-      "remove": "Retirer des favoris"
-    },
-    "legend": {
-      "title": "💡 Comment le score est calculé",
-      "temp": "Temp idéale : 18–24 °C",
-      "humidity": "Humidité idéale : 40–60 %",
-      "co2": "CO₂ idéal : < 1000 ppm",
-      "noise": "Bruit idéal : < 50 dB"
-    },
-    "locations": {
-      "roomA": "Salle A",
-      "roomB": "Salle B",
-      "roomC": "Salle C"
-    }
+    "addFavorite": "Ajouter aux favoris",
+    "removeFavorite": "Retirer des favoris",
+    "empty": "Aucun environnement avec ce statut",
+    "positions": "Positions",
+    "scoreCalculation": "Comment le score est calculé",
+    "tempIdeal": "Temp idéale : 18–24 °C",
+    "humidityIdeal": "Humidité idéale : 40–60 %",
+    "co2Ideal": "CO₂ idéal : < 1000 ppm",
+    "noiseIdeal": "Bruit idéal : < 50 dB"
   },
   "filters": {
     "all": "Tous",
