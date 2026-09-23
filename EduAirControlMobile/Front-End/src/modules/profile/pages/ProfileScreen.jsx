@@ -12,6 +12,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import { useProfileVM } from '../viewmodels/useProfileVM'
+import authService from '../../auth/services/authService'
 import Modal from '../../../shared/components/Modal/Modal'
 import Button from '../../../shared/components/Button/Button'
 import Input from '../../../shared/components/Input/Input'
@@ -49,7 +50,10 @@ export default function ProfileScreen({ navigation }) {
   const { darkMode, currentColors } = useTheme()
   const { t } = useTranslation()
   const vm = useProfileVM({
-    onLogout: () => navigation.replace('Login'),
+    onLogout: async () => {
+      await authService.logout()
+      navigation.replace('Login')
+    },
   })
 
   const unfilled = !vm.profile.fullName && !vm.profile.email
@@ -106,7 +110,7 @@ export default function ProfileScreen({ navigation }) {
             <Text style={[styles.profileRole, { color: currentColors.textMuted }]}>{vm.profile.title}</Text>
           </View>
 
-          <Text style={[styles.sectionTitle, { color: currentColors.textMuted }]}>{t('profile.personalInfo')}</Text>
+          <Text style={[styles.sectionTitle, { color: currentColors.textMuted }]}>{t('profile.personalInfo', 'Información personal')}</Text>
 
           <View style={[styles.fieldsCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
             {vm.isEditing ? (
@@ -139,7 +143,6 @@ export default function ProfileScreen({ navigation }) {
                     index < FIELD_CONFIG.length - 1 && [styles.fieldRowBorder, { borderBottomColor: currentColors.borderColor }],
                   ]}
                   onPress={() => vm.setIsEditing(true)}
-                  disabled={!vm.editable}
                 >
                   <View style={styles.fieldLeft}>
                     <View style={[styles.fieldIconWrap, { backgroundColor: currentColors.accentDim }]}>
