@@ -6,7 +6,7 @@ const Input = forwardRef(function Input(
   { label, type = 'text', placeholder, error, icon, disabled, style, multiline, secureTextEntry, ...props },
   ref
 ) {
-  const { currentColors, currentColors: c } = useTheme()
+  const { currentColors: c } = useTheme()
   const borderColor = error ? c.error : c.borderColor
 
   return (

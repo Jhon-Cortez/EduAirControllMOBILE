@@ -112,7 +112,7 @@ function RankRow({ env, rank, score, onPress, onToggleFav, currentColors, t }) {
   const status = getEnvironmentStatus(env.statusKey, t)
   const temp = env.temp ?? env.temperature ?? 0
   const pills = [
-    { label: `${temp}°C`.replace('°', ''), warn: temp < 18 || temp > 24 },
+    { label: `${temp}°`, warn: temp < 18 || temp > 24 },
     { label: `${env.humidity ?? 0}%`, warn: (env.humidity ?? 0) < 40 || (env.humidity ?? 0) > 60 },
     { label: `${env.co2 ?? 0}ppm`, warn: (env.co2 ?? 0) > 1000 },
     { label: `${env.noise ?? 0}dB`, warn: (env.noise ?? 0) > 50 },

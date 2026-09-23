@@ -11,13 +11,11 @@ const ThemeContext = createContext()
 export function ThemeProvider({ children }) {
   const [darkMode, setDarkMode] = useState(false)
   const [colorTheme, setColorTheme] = useState('')
-  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     const a11y = getAccessibilitySettings()
     setDarkMode(a11y.darkMode)
     setColorTheme(a11y.colorTheme || '')
-    setLoaded(true)
     return onAccessibilityChange(() => {
       const next = getAccessibilitySettings()
       setDarkMode(next.darkMode)
@@ -33,7 +31,7 @@ export function ThemeProvider({ children }) {
   const currentColors = applyColorTheme(darkMode ? darkColors : lightColors, colorTheme)
 
   return (
-    <ThemeContext.Provider value={{ darkMode, toggleDarkMode, currentColors, loaded }}>
+    <ThemeContext.Provider value={{ darkMode, toggleDarkMode, currentColors }}>
       {children}
     </ThemeContext.Provider>
   )

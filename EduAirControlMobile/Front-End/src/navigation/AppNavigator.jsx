@@ -93,8 +93,6 @@ export default function AppNavigator() {
             iconName = focused ? 'settings' : 'settings-outline'
           } else if (route.name === 'Environments') {
             iconName = focused ? 'business' : 'business-outline'
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'options' : 'options-outline'
           } else if (route.name === 'Profile') {
             iconName = focused ? 'person' : 'person-outline'
           }

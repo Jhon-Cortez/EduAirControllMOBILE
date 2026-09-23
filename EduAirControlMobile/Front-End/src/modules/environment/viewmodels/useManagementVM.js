@@ -13,13 +13,10 @@ export function useManagementVM() {
   const { environments, addEnvironment, editEnvironment, deleteEnvironment } = useEnvironments()
 
   const [search, setSearch] = useState('')
-  const [minCapacity, setMinCapacity] = useState('')
-  const [maxCapacity, setMaxCapacity] = useState('')
   const [showAdd, setShowAdd] = useState(false)
   const [editEnv, setEditEnv] = useState(null)
   const [deleteEnv, setDeleteEnv] = useState(null)
   const [activeFilter, setActiveFilter] = useState('all')
-  const [sortBy, setSortBy] = useState('name')
 
   const filtered = useMemo(() => {
     // 1. Text filter (name only, using proper locale-aware display name)
@@ -29,13 +26,7 @@ export function useManagementVM() {
       return name.toLowerCase().includes(search.toLowerCase())
     })
 
-    // 2. Capacity filter (exact numeric range, not string contains)
-    const min = minCapacity.trim() === '' ? null : Number(minCapacity)
-    const max = maxCapacity.trim() === '' ? null : Number(maxCapacity)
-    if (min !== null) result = result.filter((env) => (env.capacity || 0) >= min)
-    if (max !== null) result = result.filter((env) => (env.capacity || 0) <= max)
-
-    // 3. Status filter
+    // 2. Status filter
     if (activeFilter !== 'all') {
       const keyMap = {
         normal: 'dashboard.statusNormal',
@@ -46,30 +37,15 @@ export function useManagementVM() {
       result = result.filter((env) => (env.statusKey || 'dashboard.statusNormal') === target)
     }
 
-    // 4. Sort
-    const statusOrder = {
-      'dashboard.statusAlert': 0,
-      'dashboard.statusWarning': 1,
-      'dashboard.statusNormal': 2,
-      undefined: 3,
-    }
-
+    // 3. Sort by name (locale-aware)
     result = [...result].sort((a, b) => {
-      if (sortBy === 'capacity') {
-        return (b.capacity || 0) - (a.capacity || 0)
-      }
-      if (sortBy === 'status') {
-        const aOrder = statusOrder[a.statusKey] ?? 3
-        const bOrder = statusOrder[b.statusKey] ?? 3
-        return aOrder - bOrder
-      }
       const nameA = a.nameKey ? t(a.nameKey) : a.name || ''
       const nameB = b.nameKey ? t(b.nameKey) : b.name || ''
       return nameA.localeCompare(nameB)
     })
 
     return result
-  }, [environments, search, minCapacity, maxCapacity, activeFilter, sortBy, t])
+  }, [environments, search, activeFilter, t])
 
   const stats = useMemo(
     () => ({
@@ -107,13 +83,10 @@ export function useManagementVM() {
     filtered,
     stats,
     search,
-    minCapacity,
-    maxCapacity,
     showAdd,
     editEnv,
     deleteEnv,
     activeFilter,
-    sortBy,
     // actions
     setSearch,
     setShowAdd,
@@ -124,9 +97,6 @@ export function useManagementVM() {
     handleEdit,
     handleDelete,
     setActiveFilter,
-    setSortBy,
-    setMinCapacity,
-    setMaxCapacity,
   }
 }
 

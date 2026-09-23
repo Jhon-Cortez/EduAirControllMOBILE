@@ -30,16 +30,6 @@ export function useDashboardVM() {
     return ranked.filter(({ env }) => env.statusKey === STATUS_KEY_MAP[filter])
   }, [ranked, filter])
 
-  const statusCounts = useMemo(
-    () => ({
-      normal: environments.filter((e) => e.statusKey === 'dashboard.statusNormal').length,
-      warning: environments.filter((e) => e.statusKey === 'dashboard.statusWarning').length,
-      alert: environments.filter((e) => e.statusKey === 'dashboard.statusAlert').length,
-      total: environments.length,
-    }),
-    [environments]
-  )
-
   const top3 = filtered.slice(0, 3)
   const rest = filtered.slice(3)
 
@@ -49,7 +39,6 @@ export function useDashboardVM() {
     filtered,
     top3,
     rest,
-    statusCounts,
     toggleFavorite,
   }
 }

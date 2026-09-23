@@ -13,7 +13,7 @@ const LANGUAGES = [
   { code: 'pt', label: 'Português' },
 ]
 
-function LanguageSelector({ compact = true, onSelect }) {
+function LanguageSelector({ onSelect }) {
   const { i18n } = useTranslation()
   const { currentColors: c } = useTheme()
   const [show, setShow] = useState(false)
