@@ -79,7 +79,8 @@
   },
   "common": {
     "addFavorites": "Agregar a favoritos",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "unknown": "Desconocido"
   },
   "forgotPassword": {
     "title": "Olvidé mi contraseña",

@@ -39,4 +39,9 @@ export function setAppLanguage(language) {
   storage.setItem('language', next)
 }
 
+export function applySavedLanguage() {
+  const saved = storage.getItem('language')
+  if (validLangs.includes(saved)) i18n.changeLanguage(saved)
+}
+
 export default i18n
