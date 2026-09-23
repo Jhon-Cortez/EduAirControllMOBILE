@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Front-End",
-    "slug": "Front-End",
+    "name": "EduAirControl",
+    "slug": "EduAirControl",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,9 +13,13 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "EduAirControl necesita acceso a tus fotos para que puedas elegir tu avatar de perfil."
+      }
     },
     "android": {
+      "package": "com.eduaircontrol.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -27,7 +31,8 @@
     },
     "plugins": [
       "expo-asset",
-      "expo-font"
+      "expo-font",
+      "expo-image-picker"
     ]
   }
 }
