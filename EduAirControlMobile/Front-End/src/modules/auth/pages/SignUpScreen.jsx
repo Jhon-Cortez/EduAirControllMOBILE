@@ -216,7 +216,7 @@ export default function SignUpScreen() {
             {t('signup.signUpBtn')}
           </Button>
 
-          <Divider text="OR" />
+          <Divider text={t('common.or', 'O')} />
           <View style={styles.switchRow}>
             <Text style={[styles.switchText, { color: c.textMuted }]}>
               {t('signup.haveAccount', '¿Ya tienes una cuenta?')}

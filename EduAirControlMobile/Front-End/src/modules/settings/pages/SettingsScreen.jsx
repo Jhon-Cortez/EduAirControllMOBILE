@@ -23,16 +23,16 @@ import Modal from '../../../shared/components/Modal/Modal'
 import Button from '../../../shared/components/Button/Button'
 
 const TIMEZONES = [
-  { value: 'America/Bogota', label: 'Bogotá (UTC-5)' },
-  { value: 'America/Lima', label: 'Lima (UTC-5)' },
-  { value: 'America/Mexico_City', label: 'Ciudad de México (UTC-6)' },
-  { value: 'America/New_York', label: 'Nueva York (UTC-5/-4)' },
-  { value: 'America/Los_Angeles', label: 'Los Ángeles (UTC-8/-7)' },
-  { value: 'Europe/London', label: 'Londres (UTC+0/+1)' },
-  { value: 'Europe/Madrid', label: 'Madrid (UTC+1/+2)' },
-  { value: 'Europe/Paris', label: 'París (UTC+1/+2)' },
-  { value: 'Asia/Tokyo', label: 'Tokio (UTC+9)' },
-  { value: 'Australia/Sydney', label: 'Sídney (UTC+10/+11)' },
+  { value: 'America/Bogota', labelKey: 'settings.timezoneBogota' },
+  { value: 'America/Lima', labelKey: 'settings.timezoneLima' },
+  { value: 'America/Mexico_City', labelKey: 'settings.timezoneMexicoCity' },
+  { value: 'America/New_York', labelKey: 'settings.timezoneNewYork' },
+  { value: 'America/Los_Angeles', labelKey: 'settings.timezoneLosAngeles' },
+  { value: 'Europe/London', labelKey: 'settings.timezoneLondon' },
+  { value: 'Europe/Madrid', labelKey: 'settings.timezoneMadrid' },
+  { value: 'Europe/Paris', labelKey: 'settings.timezoneParis' },
+  { value: 'Asia/Tokyo', labelKey: 'settings.timezoneTokyo' },
+  { value: 'Australia/Sydney', labelKey: 'settings.timezoneSydney' },
 ]
 
 const LANGUAGES = [
@@ -312,7 +312,7 @@ export default function SettingsScreen({ navigation }) {
                     onPress={() => { setManualTimezone(tz.value); persist('manualTimezone', tz.value) }}
                   >
                     <Text style={[styles.chipLabel, { color: manualTimezone === tz.value ? currentColors.accent : currentColors.textSecondary }]}>
-                      {tz.label}
+                      {t(tz.labelKey)}
                     </Text>
                   </TouchableOpacity>
                 ))}

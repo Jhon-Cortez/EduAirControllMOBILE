@@ -22,7 +22,11 @@
     "loginBtn": "Se connecter",
     "signUpBtn": "S'inscrire",
     "orWith": "Se connecter avec",
-    "or": "OU"
+    "or": "OU",
+    "subtitle": "Bon retour dans EduAirControl",
+    "error": "Erreur de connexion",
+    "placeholderCompany": "Ex. : EDU-2024",
+    "noAccount": "Vous n'avez pas de compte ?"
   },
   "signup": {
     "title": "S'inscrire",
@@ -62,25 +66,35 @@
       "medium": "Mot de passe moyen",
       "good": "Bon mot de passe",
       "strong": "Mot de passe sécurisé"
-    }
+    },
+    "subtitle": "Rejoignez le réseau de surveillance intelligent",
+    "error": "Erreur lors de l'inscription",
+    "placeholderCompany": "Ex. : EDU-2024",
+    "haveAccount": "Vous avez déjà un compte ?"
   },
   "common": {
     "close": "Fermer",
     "unknown": "un étranger",
-    "noName": "anonyme"
+    "noName": "anonyme",
+    "back": "Retour",
+    "delete": "Supprimer",
+    "or": "OU"
   },
   "forgotPassword": {
     "title": "Mot de passe oublié",
     "description": "Entrez votre adresse e-mail et nous vous enverrons un code de récupération.",
     "emailLabel": "Adresse e-mail",
     "sendBtn": "Envoyer le code de récupération",
-    "tryAnother": "Essayer autrement"
+    "tryAnother": "Essayer autrement",
+    "sent": "Vérifiez votre e-mail",
+    "sentTo": "Nous avons envoyé les instructions à"
   },
   "verifyCode": {
     "title": "Vérifier le code",
     "description": "Entrez le code à 5 chiffres envoyé à votre e-mail.",
     "resend": "Renvoyer le code",
-    "verifyBtn": "Vérifier le code"
+    "verifyBtn": "Vérifier le code",
+    "digitLabel": "Chiffre du code {{n}}"
   },
   "changePassword": {
     "title": "Changer le mot de passe",
@@ -88,7 +102,10 @@
     "newPassword": "Nouveau mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
     "confirmBtn": "Confirmer le changement",
-    "mismatch": "Les mots de passe ne correspondent pas !"
+    "mismatch": "Les mots de passe ne correspondent pas !",
+    "success": "Mot de passe mis à jour",
+    "minHint": "6 caractères minimum",
+    "matchStatus": "Les mots de passe correspondent"
   },
   "terms": {
   "title": "Conditions Générales d'Utilisation",
@@ -301,7 +318,9 @@
     "favorite": "Ajouter aux favoris",
     "removeFavorite": "Retirer des favoris",
     "viewDetails": "Voir les détails",
-    "noResults": "Aucun environnement ne correspond aux filtres sélectionnés."
+    "noResults": "Aucun environnement ne correspond aux filtres sélectionnés.",
+    "showing": "Affichage de {{shown}} sur {{total}}",
+    "seeResults": "Voir {{count}} résultats"
   },
   "favorites": {
     "title": "Favoris",
@@ -313,7 +332,10 @@
     "notif3": "⚠️ Humidité basse : 28%",
     "ago5": "Il y a 5 minutes",
     "ago15": "Il y a 15 minutes",
-    "ago10": "Il y a 10 minutes"
+    "ago10": "Il y a 10 minutes",
+    "removeTitle": "Retirer des favoris",
+    "removeQuestion": "Retirer {{name}} des favoris ?",
+    "removeLabel": "Retirer"
   },
   "profile": {
     "title": "Mon profil",
@@ -328,7 +350,11 @@
     "cancel": "Annuler",
     "logoutBtn": "Se déconnecter",
     "logoutTitle": "Se déconnecter",
-    "logoutMessage": "Êtes-vous sûr de vouloir vous déconnecter ? Vous devrez vous reconnecter pour accéder à votre compte."
+    "logoutMessage": "Êtes-vous sûr de vouloir vous déconnecter ? Vous devrez vous reconnecter pour accéder à votre compte.",
+    "personalInfo": "Informations personnelles",
+    "avatarSizeError": "L'image ne doit pas dépasser 2 Mo",
+    "avatarReadError": "Erreur de lecture de l'image",
+    "avatarPermissionError": "Permission de la galerie refusée"
   },
   "settings": {
     "title": "Paramètres",
@@ -521,7 +547,17 @@
         }
       ],
       "footer": "Des questions sur la manière dont nous traitons vos données ? Écrivez-nous à support@eduaircontrol.com."
-    }
+    },
+    "timezoneBogota": "Bogota (UTC-5)",
+    "timezoneLima": "Lima (UTC-5)",
+    "timezoneMexicoCity": "Mexico (UTC-6)",
+    "timezoneNewYork": "New York (UTC-5/-4)",
+    "timezoneLosAngeles": "Los Angeles (UTC-8/-7)",
+    "timezoneLondon": "Londres (UTC+0/+1)",
+    "timezoneMadrid": "Madrid (UTC+1/+2)",
+    "timezoneParis": "Paris (UTC+1/+2)",
+    "timezoneTokyo": "Tokyo (UTC+9)",
+    "timezoneSydney": "Sydney (UTC+10/+11)"
   },
   "google": {
     "chooseAccount": "Choisissez votre compte",
@@ -548,7 +584,13 @@
     "addFav": "Ajouter aux favoris",
     "removeFav": "Retirer des favoris",
     "qualityDesc": "Basé sur les niveaux de CO₂, température, humidité et bruit de l'environnement.",
-    "notFound": "Environnement introuvable"
+    "notFound": "Environnement introuvable",
+    "title": "Détails",
+    "ideal": "Idéal",
+    "recommendation": "Vérifier {{list}}.",
+    "perfect": "Les conditions sont dans la plage recommandée.",
+    "needsAttention": "Nécessite une attention",
+    "stable": "Environnement stable"
   },
   "management": {
     "title": "Gestion des Environnements",
@@ -573,7 +615,11 @@
     "location": "Emplacement",
     "env1": "Environnement 290-1",
     "env2": "Environnement 290-2",
-    "env3": "Environnement 290-3"
+    "env3": "Environnement 290-3",
+    "requiredName": "Le nom est requis",
+    "edited": "Environnement mis à jour",
+    "added": "Environnement ajouté",
+    "deleted": "Environnement supprimé"
   },
   "editModal": {
     "dateFormatTitle": "Format de date",
@@ -604,7 +650,10 @@
     "warning": "Avertissement",
     "warningMessage": "L'environnement {{name}} présente des conditions irrégulières",
     "dailySummary": "Résumé quotidien",
-    "summaryMessage": "{{alerts}} environnements en alerte et {{warnings}} avertissements aujourd’hui"
+    "summaryMessage": "{{alerts}} environnements en alerte et {{warnings}} avertissements aujourd’hui",
+    "all": "Toutes",
+    "alerts": "Alertes",
+    "activeAlerts": "{{count}} alertes actives"
   },
   "leaderboard": {
     "title": "Classement des Environnements",
@@ -672,7 +721,14 @@
     "searchEnvironment": "Rechercher un environnement...",
     "building": "Bâtiment",
     "floor": "Étage",
-    "favorites": "Favoris uniquement"
+    "favorites": "Favoris uniquement",
+    "label": "Filtres",
+    "statusLabel": "Statut",
+    "sortLabel": "Trier par",
+    "clear": "Effacer les filtres",
+    "capacitySmall": "≤ 30",
+    "capacityMedium": "31 – 50",
+    "capacityLarge": "> 50"
   },
   "landing": {
     "navbar": {

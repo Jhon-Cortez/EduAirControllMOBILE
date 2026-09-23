@@ -76,7 +76,7 @@ export default function VerifyCodeScreen() {
                   borderColor: digit ? c.accent : c.borderColor,
                 },
               ]}
-              accessibilityLabel={`Código dígito ${index + 1}`}
+              accessibilityLabel={t('verifyCode.digitLabel', 'Código dígito {{n}}', { n: index + 1 })}
             />
           ))}
         </View>

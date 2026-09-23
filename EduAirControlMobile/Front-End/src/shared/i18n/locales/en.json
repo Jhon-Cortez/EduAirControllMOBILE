@@ -22,7 +22,11 @@
     "loginBtn": "Login",
     "signUpBtn": "Sign Up",
     "orWith": "Sign in using your account with",
-    "or": "OR"
+    "or": "OR",
+    "subtitle": "Welcome back to EduAirControl",
+    "error": "Error signing in",
+    "placeholderCompany": "e.g. EDU-2024",
+    "noAccount": "Don't have an account?"
   },
   "signup": {
     "title": "Sign Up",
@@ -62,25 +66,35 @@
       "medium": "Medium password",
       "good": "Good password",
       "strong": "Strong password"
-    }
+    },
+    "subtitle": "Join the smart monitoring network",
+    "error": "Error creating your account",
+    "placeholderCompany": "e.g. EDU-2024",
+    "haveAccount": "Already have an account?"
   },
   "common": {
     "close": "Close",
     "unknown": "Unknown",
-    "noName": "No Name"
+    "noName": "No Name",
+    "back": "Back",
+    "delete": "Remove",
+    "or": "OR"
   },
   "forgotPassword": {
     "title": "Forgot Password",
     "description": "Enter your email address and we'll send you a recovery code.",
     "emailLabel": "Email Address",
     "sendBtn": "Send Recovery Code",
-    "tryAnother": "Try Another Way"
+    "tryAnother": "Try Another Way",
+    "sent": "Check your email",
+    "sentTo": "We sent instructions to"
   },
   "verifyCode": {
     "title": "Verify Code",
     "description": "Enter the 5-digit code sent to your email.",
     "resend": "Resend Code",
-    "verifyBtn": "Verify Code"
+    "verifyBtn": "Verify Code",
+    "digitLabel": "Code digit {{n}}"
   },
   "changePassword": {
     "title": "Forgot Password",
@@ -88,7 +102,10 @@
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "confirmBtn": "Confirm Change",
-    "mismatch": "Passwords do not match!"
+    "mismatch": "Passwords do not match!",
+    "success": "Password updated",
+    "minHint": "Minimum 6 characters",
+    "matchStatus": "Passwords match"
   },
 "terms": {
   "title": "Terms and Conditions of Use",
@@ -302,7 +319,9 @@
     "favorite": "Add to favorites",
     "removeFavorite": "Remove from favorites",
     "viewDetails": "View details",
-    "noResults": "No environments found with the selected filters."
+    "noResults": "No environments found with the selected filters.",
+    "showing": "Showing {{shown}} of {{total}}",
+    "seeResults": "See {{count}} results"
   },
   "favorites": {
     "title": "Favorites",
@@ -314,7 +333,10 @@
     "notif3": "⚠️ Low humidity: 28%",
     "ago5": "5 min ago",
     "ago15": "15 min ago",
-    "ago10": "10 min ago"
+    "ago10": "10 min ago",
+    "removeTitle": "Remove from favorites",
+    "removeQuestion": "Remove {{name}} from favorites?",
+    "removeLabel": "Remove"
   },
   "profile": {
     "title": "My Profile",
@@ -329,7 +351,11 @@
     "cancel": "Cancel",
     "logoutBtn": "Log out",
     "logoutTitle": "Log out",
-    "logoutMessage": "Are you sure you want to log out? You will need to sign in again to access your account."
+    "logoutMessage": "Are you sure you want to log out? You will need to sign in again to access your account.",
+    "personalInfo": "Personal information",
+    "avatarSizeError": "The image must not exceed 2 MB",
+    "avatarReadError": "Error reading the image",
+    "avatarPermissionError": "Gallery permission denied"
   },
   "settings": {
     "title": "Settings",
@@ -522,7 +548,17 @@
         }
       ],
       "footer": "Questions about how we handle your data? Write to us at support@eduaircontrol.com."
-    }
+    },
+    "timezoneBogota": "Bogotá (UTC-5)",
+    "timezoneLima": "Lima (UTC-5)",
+    "timezoneMexicoCity": "Mexico City (UTC-6)",
+    "timezoneNewYork": "New York (UTC-5/-4)",
+    "timezoneLosAngeles": "Los Angeles (UTC-8/-7)",
+    "timezoneLondon": "London (UTC+0/+1)",
+    "timezoneMadrid": "Madrid (UTC+1/+2)",
+    "timezoneParis": "Paris (UTC+1/+2)",
+    "timezoneTokyo": "Tokyo (UTC+9)",
+    "timezoneSydney": "Sydney (UTC+10/+11)"
   },
   "google": {
     "chooseAccount": "Choose your Account",
@@ -549,7 +585,13 @@
     "addFav": "Add to favorites",
     "removeFav": "Remove favorite",
     "qualityDesc": "Based on CO₂, temperature, humidity and noise levels in the environment.",
-    "notFound": "Environment not found"
+    "notFound": "Environment not found",
+    "title": "Details",
+    "ideal": "Ideal",
+    "recommendation": "Check {{list}}.",
+    "perfect": "Conditions are within the recommended range.",
+    "needsAttention": "Needs attention",
+    "stable": "Stable environment"
   },
   "management": {
     "title": "Environment Management",
@@ -574,7 +616,11 @@
     "location": "Location",
     "env1": "Environment 290-1",
     "env2": "Environment 290-2",
-    "env3": "Environment 290-3"
+    "env3": "Environment 290-3",
+    "requiredName": "Name is required",
+    "edited": "Environment updated",
+    "added": "Environment added",
+    "deleted": "Environment deleted"
   },
   "editModal": {
     "dateFormatTitle": "Date format",
@@ -605,7 +651,10 @@
     "warning": "Warning",
     "warningMessage": "Environment {{name}} has irregular conditions",
     "dailySummary": "Daily summary",
-    "summaryMessage": "{{alerts}} environments in alert and {{warnings}} with warnings"
+    "summaryMessage": "{{alerts}} environments in alert and {{warnings}} with warnings",
+    "all": "All",
+    "alerts": "Alerts",
+    "activeAlerts": "{{count}} active alerts"
   },
   "leaderboard": {
     "title": "Environment Ranking",
@@ -673,7 +722,14 @@
     "searchEnvironment": "Search environment...",
     "building": "Building",
     "floor": "Floor",
-    "favorites": "Favorites only"
+    "favorites": "Favorites only",
+    "label": "Filters",
+    "statusLabel": "Status",
+    "sortLabel": "Sort by",
+    "clear": "Clear filters",
+    "capacitySmall": "≤ 30",
+    "capacityMedium": "31 – 50",
+    "capacityLarge": "> 50"
   },
   "landing": {
     "navbar": {

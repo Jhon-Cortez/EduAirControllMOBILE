@@ -21,7 +21,7 @@ const environmentService = {
       co2: 600,
       noise: 40,
       isFavorite: false,
-      lastUpdate: 'Ahora',
+      lastUpdate: new Date().toISOString(),
     })
   },
 

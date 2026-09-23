@@ -18,16 +18,19 @@ const TYPE_CONFIG = {
   info: { icon: 'information-circle', color: '#00b894', bg: 'rgba(0,184,148,0.12)' },
 }
 
-function timeLabel(date, currentColors) {
-  const lang = 'es-CO'
+const HOUR_LOCALES = { es: 'es-CO', en: 'en-US', fr: 'fr-FR', pt: 'pt-BR' }
+
+function timeLabel(date, currentColors, lang) {
+  const locale = HOUR_LOCALES[lang] || 'es-CO'
   try {
-    return date.toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' })
+    return date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })
   } catch {
     return ''
   }
 }
 
 function NotificationItem({ notification, onPress, currentColors }) {
+  const { i18n } = useTranslation()
   const cfg = TYPE_CONFIG[notification.type] || TYPE_CONFIG.info
 
   return (
@@ -45,7 +48,7 @@ function NotificationItem({ notification, onPress, currentColors }) {
         <Text style={[styles.itemMsg, { color: currentColors.textSecondary }]} numberOfLines={2}>
           {notification.message}
         </Text>
-        <Text style={[styles.itemTime, { color: currentColors.textMuted }]}>{timeLabel(notification.time, currentColors)}</Text>
+        <Text style={[styles.itemTime, { color: currentColors.textMuted }]}>{timeLabel(notification.time, currentColors, i18n.language)}</Text>
       </View>
       {notification.envId && (
         <Ionicons name="chevron-forward" size={16} color={currentColors.textMuted} />

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import * as ImagePicker from 'expo-image-picker'
+import { useTranslation } from 'react-i18next'
 import profileService from '../services/profileService'
 
 const MAX_IMAGE_SIZE = 2 * 1024 * 1024
@@ -10,6 +11,7 @@ const MAX_IMAGE_SIZE = 2 * 1024 * 1024
  * - FileReader / input file se reemplazan por expo-image-picker.
  */
 export function useProfileVM({ onLogout } = {}) {
+  const { t } = useTranslation()
   const [profile, setProfile] = useState({
     fullName: '',
     email: '',
@@ -42,7 +44,7 @@ export function useProfileVM({ onLogout } = {}) {
     setAvatarError(null)
 
     if ((asset.fileSize ?? 0) > MAX_IMAGE_SIZE) {
-      setAvatarError('La imagen no debe superar 2 MB')
+      setAvatarError(t('profile.avatarSizeError'))
       return
     }
 
@@ -51,16 +53,16 @@ export function useProfileVM({ onLogout } = {}) {
       const base64 = asset.base64 || null
       setAvatar(base64 ? `data:${asset.mimeType || 'image/jpeg'};base64,${base64}` : asset.uri)
     } catch {
-      setAvatarError('Error al leer la imagen')
+      setAvatarError(t('profile.avatarReadError'))
     } finally {
       setAvatarLoading(false)
     }
-  }, [])
+  }, [t])
 
   const openAvatarPicker = useCallback(async () => {
     const perm = await ImagePicker.requestMediaLibraryPermissionsAsync()
     if (!perm.granted) {
-      setAvatarError('Permiso de galería denegado')
+      setAvatarError(t('profile.avatarPermissionError'))
       return
     }
     const result = await ImagePicker.launchImageLibraryAsync({
