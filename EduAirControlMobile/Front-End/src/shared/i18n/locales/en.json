@@ -629,6 +629,8 @@
     "save": "Save"
   },
   "errors": {
+    "network": "Could not connect to the server. Check your connection.",
+    "sessionExpired": "Your session has expired. Please sign in again.",
     "required_email": "Email is required",
     "invalid_email": "Invalid email address",
     "password_min": "Password must be at least 6 characters",
