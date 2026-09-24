@@ -1,0 +1,35 @@
+import { StyleSheet } from 'react-native'
+
+export const styles = StyleSheet.create({
+  safe: { flex: 1 },
+  header: {
+    flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20,
+    paddingTop: 55, paddingBottom: 16, gap: 12, borderBottomWidth: 1,
+  },
+  headerText: { fontSize: 20, fontWeight: 'bold' },
+  headerSub: { fontSize: 12, marginTop: 1 },
+  iconBtn: { width: 40, height: 40, borderRadius: 12, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  scroll: { flex: 1 },
+  scrollContent: { padding: 20, paddingTop: 16 },
+  card: {
+    flexDirection: 'row', alignItems: 'center', gap: 9,
+    borderRadius: 12, borderWidth: 1, padding: 12, marginBottom: 10,
+    shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
+  },
+  rank: { width: 30, fontSize: 13, fontWeight: '800' },
+  statusIcon: { width: 38, height: 38, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
+  cardInfo: { flex: 1 },
+  cardName: { fontSize: 14, fontWeight: '800', marginBottom: 4 },
+  cardMeta: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  cardMetaTxt: { fontSize: 11, flexShrink: 1, maxWidth: 110 },
+  statusText: { fontSize: 10, fontWeight: '800', marginLeft: 4 },
+  scoreRing: { width: 42, height: 42, borderRadius: 21, borderWidth: 3, alignItems: 'center', justifyContent: 'center' },
+  scoreText: { fontSize: 12, fontWeight: '900' },
+  heartBtn: { marginLeft: 2 },
+  empty: { alignItems: 'center', paddingTop: 60, gap: 10 },
+  emptyTitle: { fontSize: 17, fontWeight: 'bold' },
+  emptyText: { fontSize: 13, textAlign: 'center' },
+  modalText: { fontSize: 14, lineHeight: 20, textAlign: 'center', marginBottom: 4 },
+  modalActions: { flexDirection: 'row', gap: 10, marginTop: 16 },
+})
