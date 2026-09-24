@@ -9,13 +9,14 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { useTheme } from '../../../context/ThemeContext'
+import { useTheme } from '../../../../context/ThemeContext.jsx'
 import { useTranslation } from 'react-i18next'
-import { useProfileVM } from '../viewmodels/useProfileVM'
-import authService from '../../auth/services/authService'
-import Modal from '../../../shared/components/Modal/Modal'
-import Button from '../../../shared/components/Button/Button'
-import Input from '../../../shared/components/Input/Input'
+import { useProfileVM } from '../../viewmodels/useProfileVM.js'
+import authService from '../../../auth/services/authService.js'
+import Modal from '../../../../shared/components/Modal/Modal.jsx'
+import Button from '../../../../shared/components/Button/Button.jsx'
+import Input from '../../../../shared/components/Input/Input.jsx'
+import { styles } from './ProfileScreen.styles'
 
 const FIELD_CONFIG = [
   { field: 'fullName', icon: 'person-outline' },
@@ -185,47 +186,3 @@ export default function ProfileScreen({ navigation }) {
   )
 }
 
-const styles = StyleSheet.create({
-  safe: { flex: 1 },
-  header: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    paddingHorizontal: 20, paddingTop: 55, paddingBottom: 16, borderBottomWidth: 1,
-  },
-  headerTitle: { fontSize: 22, fontWeight: 'bold' },
-  settingsBtn: { width: 36, height: 36, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
-  scroll: { flex: 1 },
-  scrollContent: { paddingHorizontal: 20, paddingBottom: 20 },
-  loading: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  avatarSection: { alignItems: 'center', paddingVertical: 24, paddingHorizontal: 20 },
-  avatar: {
-    width: 90, height: 90, borderRadius: 45, borderWidth: 2,
-    alignItems: 'center', justifyContent: 'center', marginBottom: 12, overflow: 'hidden',
-  },
-  avatarText: { fontSize: 32, fontWeight: 'bold' },
-  avatarActions: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 2 },
-  avatarActionText: { fontSize: 13, fontWeight: '600' },
-  avatarError: { fontSize: 12, marginTop: 6 },
-  profileName: { fontSize: 20, fontWeight: 'bold', marginTop: 10, textAlign: 'center' },
-  profileRole: { fontSize: 15, marginTop: 4, textAlign: 'center' },
-  sectionTitle: {
-    fontSize: 13, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1,
-    marginBottom: 10, marginTop: 8,
-  },
-  fieldsCard: { borderRadius: 16, borderWidth: 1, overflow: 'hidden', paddingHorizontal: 16 },
-  fieldRow: { paddingVertical: 14 },
-  fieldRowBorder: { borderBottomWidth: 1 },
-  fieldLeft: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  fieldIconWrap: { width: 34, height: 34, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
-  fieldLabel: { fontSize: 11, marginBottom: 2 },
-  fieldValue: { fontSize: 14, fontWeight: '500' },
-  editFields: { paddingVertical: 14, gap: 12 },
-  editActions: { flexDirection: 'row', gap: 10, marginTop: 6 },
-  logoutBtn: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10,
-    marginTop: 24, borderRadius: 12, borderWidth: 1, paddingVertical: 14,
-    backgroundColor: 'rgba(244,67,54,0.08)',
-  },
-  logoutText: { fontSize: 15, fontWeight: 'bold' },
-  modalText: { fontSize: 14, lineHeight: 20, textAlign: 'center' },
-  modalActions: { flexDirection: 'row', gap: 10, marginTop: 16 },
-})
