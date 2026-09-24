@@ -4,14 +4,15 @@ import { Ionicons } from '@expo/vector-icons'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '../context/ThemeContext'
 
-import DashboardScreen from '../modules/dashboard/pages/DashboardScreen'
-import FavoritesScreen from '../modules/favorites/pages/FavoritesScreen'
-import NotificationsScreen from '../modules/notifications/pages/NotificationsScreen'
-import ProfileScreen from '../modules/profile/pages/ProfileScreen'
-import SettingsScreen from '../modules/settings/pages/SettingsScreen'
-import AllEnvironmentsScreen from '../modules/environment/pages/AllEnvironmentsScreen'
-import EnvironmentDetailScreen from '../modules/environment/pages/EnvironmentDetailScreen'
-import EnvironmentManagementScreen from '../modules/environment/pages/EnvironmentManagementScreen'
+import DashboardScreen from '../modules/dashboard/pages/dashboard/DashboardScreen'
+import FavoritesScreen from '../modules/favorites/pages/favorites/FavoritesScreen'
+import NotificationsScreen from '../modules/notifications/pages/notifications/NotificationsScreen'
+import ProfileScreen from '../modules/profile/pages/profile/ProfileScreen'
+import SettingsScreen from '../modules/settings/pages/settings/SettingsScreen'
+
+import AllEnvironmentsScreen from '../modules/environment/pages/allEnvironments/AllEnvironmentsScreen'
+import EnvironmentDetailScreen from '../modules/environment/pages/environmentDetail/EnvironmentDetailScreen'
+import EnvironmentManagementScreen from '../modules/environment/pages/environmentManagement/EnvironmentManagementScreen'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()

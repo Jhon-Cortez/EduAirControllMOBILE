@@ -18,7 +18,7 @@ import { getMetricColor } from '../../utils/environmentHelpers.js'
 import { METRIC_DEFINITIONS } from '../../constants/metricDefinitions.js'
 import { METRIC_ICONS } from '../../../../shared/constants/iconMap.js'
 import { useToast } from '../../../../shared/components/Toast/Toast.jsx'
-import { styles } from './EnvironmentDetailScreen.styles'
+import { styles } from './EnvironmentDetailScreen.styles.js'
 
 function getProgress(value, min, max) {
   return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))

@@ -12,7 +12,7 @@ import { useTheme } from '../../../../context/ThemeContext.jsx'
 import { useTranslation } from 'react-i18next'
 import { useDashboardVM } from '../../viewmodels/useDashboardVM.js'
 import { getEnvironmentStatus } from '../../../environment/utils/getEnvironmentStatus.js'
-import { pdStyles, rrStyles, srStyles, styles } from './DashboardScreen.styles'
+import { pdStyles, rrStyles, srStyles, styles } from './DashboardScreen.style'
 
 const MEDAL = { 1: '#FFD700', 2: '#C0C0C0', 3: '#CD7F32' }
 
