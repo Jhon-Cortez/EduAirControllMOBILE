@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     padding: 20,
+    maxHeight: '92%',
     shadowColor: '#000',
     shadowOpacity: 0.25,
     shadowRadius: 32,
@@ -20,5 +21,5 @@ export const styles = StyleSheet.create({
   },
   closeBtn: { position: 'absolute', top: 14, right: 14, zIndex: 1 },
   title: { fontSize: 18, fontWeight: '700', marginBottom: 16, marginRight: 32 },
-  body: {},
+  body: { flexShrink: 1 },
 })
