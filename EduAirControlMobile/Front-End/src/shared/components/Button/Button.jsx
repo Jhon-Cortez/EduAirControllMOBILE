@@ -1,6 +1,7 @@
 import React from 'react'
 import { Pressable, ActivityIndicator, StyleSheet, Text, View } from 'react-native'
-import { useTheme } from '../../../context/ThemeContext'
+import { useTheme } from '../../../context/ThemeContext.jsx'
+import { styles } from './Button.styles'
 
 const VARIANTS = {
   primary: (c) => ({ backgroundColor: c.accent, text: '#ffffff' }),
@@ -65,22 +66,6 @@ function Button({
   )
 }
 
-const styles = StyleSheet.create({
-  base: {
-    borderRadius: 999,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  label: {
-    fontWeight: '600',
-  },
-  leftIcon: { marginRight: 8 },
-  rightIcon: { marginLeft: 8 },
-})
+
 
 export default Button

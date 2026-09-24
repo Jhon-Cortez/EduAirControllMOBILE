@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTranslation } from 'react-i18next'
-import { setAppLanguage } from '../../i18n/i18n'
-import { useTheme } from '../../../context/ThemeContext'
-import Modal from '../Modal/Modal'
+import { setAppLanguage } from '../../i18n/i18n.js'
+import { useTheme } from '../../../context/ThemeContext.jsx'
+import Modal from '../Modal/Modal.jsx'
+import { styles } from './LanguageSelector.styles'
 
 const LANGUAGES = [
   { code: 'es', label: 'Español' },
@@ -57,27 +58,6 @@ function LanguageSelector({ onSelect }) {
   )
 }
 
-const styles = StyleSheet.create({
-  button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    borderWidth: 1,
-    borderRadius: 999,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-  },
-  buttonText: { fontSize: 14, fontWeight: '600' },
-  option: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    borderRadius: 12,
-    marginBottom: 6,
-  },
-  optionText: { fontSize: 16 },
-})
+
 
 export default LanguageSelector

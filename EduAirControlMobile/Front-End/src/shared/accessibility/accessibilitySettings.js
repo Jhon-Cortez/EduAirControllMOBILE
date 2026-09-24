@@ -1,4 +1,4 @@
-import storage from '../storage/storage'
+import storage from '../storage/storage.js'
 
 export const ACCESSIBILITY_STORAGE_KEYS = {
   fontSize: 'a11y-font-size',

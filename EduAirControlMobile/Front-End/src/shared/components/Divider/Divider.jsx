@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { useTheme } from '../../../context/ThemeContext'
+import { useTheme } from '../../../context/ThemeContext.jsx'
+import { styles } from './Divider.styles'
 
 function Divider({ text, style }) {
   const { currentColors: c } = useTheme()
@@ -15,10 +16,6 @@ function Divider({ text, style }) {
   )
 }
 
-const styles = StyleSheet.create({
-  line: { height: 1 },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 12, marginVertical: 8 },
-  text: { fontSize: 13 },
-})
+
 
 export default Divider
