@@ -97,7 +97,12 @@ export default function SignUpScreen() {
     setErrors({})
     setSubmitting(true)
     try {
-      await authService.register(parsed.data.name, parsed.data.email, parsed.data.password)
+      await authService.register(
+        parsed.data.name,
+        parsed.data.email,
+        parsed.data.password,
+        parsed.data.companyCode
+      )
       navigation.reset({ index: 0, routes: [{ name: 'App' }] })
     } catch (err) {
       const msg = err.message || t('signup.error', 'Error al registrarse')
