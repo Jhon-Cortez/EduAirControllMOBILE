@@ -545,6 +545,8 @@
     "save": "Guardar"
   },
   "errors": {
+    "network": "No se pudo conectar con el servidor. Verifica tu conexión.",
+    "sessionExpired": "Tu sesión ha expirado. Inicia sesión de nuevo.",
     "required_email": "El correo electrónico es obligatorio",
     "invalid_email": "Dirección de correo electrónico no válida",
     "password_min": "La contraseña debe tener al menos 6 caracteres",
