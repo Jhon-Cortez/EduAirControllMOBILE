@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { Ionicons } from '@expo/vector-icons'
 import Button from '../../../../shared/components/Button/Button.jsx'
 import { useTheme } from '../../../../context/ThemeContext.jsx'
-import { styles } from './ForgotPasswordScreen.styles'
+import { styles } from './forgotPasswordScreen.style'
 
 export default function ForgotPasswordScreen() {
   const navigation = useNavigation()

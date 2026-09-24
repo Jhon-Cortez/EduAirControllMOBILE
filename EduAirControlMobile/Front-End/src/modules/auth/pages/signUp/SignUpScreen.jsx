@@ -22,7 +22,7 @@ import LanguageSelector from '../../../../shared/components/LanguageSelector/Lan
 import Modal from '../../../../shared/components/Modal/Modal.jsx'
 import { useTheme } from '../../../../context/ThemeContext.jsx'
 import { useToast } from '../../../../shared/components/Toast/Toast.jsx'
-import { styles } from './SignUpScreen.styles'
+import { styles } from './signUpScreen.style'
 
 function Field({ icon, ...props }) {
   const { currentColors: c } = useTheme()
