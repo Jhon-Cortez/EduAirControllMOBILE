@@ -3,12 +3,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 // Auth screens (módulo reestructurado, conectado a servicio + schemas + i18n)
-import LoginScreen from './src/modules/auth/pages/LoginScreen'
-import SignUpScreen from './src/modules/auth/pages/SignUpScreen'
-import ForgotPasswordScreen from './src/modules/auth/pages/ForgotPasswordScreen'
-import VerifyCodeScreen from './src/modules/auth/pages/VerifyCodeScreen'
-import ChangePasswordScreen from './src/modules/auth/pages/ChangePasswordScreen'
-import TermsScreen from './src/modules/auth/pages/TermsScreen'
+// Auth screens
+import LoginScreen from './src/modules/auth/pages/login/LoginScreen';
+import SignUpScreen from './src/modules/auth/pages/signUp/SignUpScreen';
+import ForgotPasswordScreen from './src/modules/auth/pages/forgotPassword/ForgotPasswordScreen';
+import VerifyCodeScreen from './src/modules/auth/pages/verifyCode/VerifyCodeScreen';
+import ChangePasswordScreen from './src/modules/auth/pages/changePassword/ChangePasswordScreen';
+import TermsScreen from './src/modules/auth/pages/terms/TermsScreen';
 
 // App navigator (bottom tabs + stacks)
 import AppNavigator from './src/navigation/AppNavigator'
