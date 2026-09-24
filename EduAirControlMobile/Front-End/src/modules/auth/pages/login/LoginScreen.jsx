@@ -20,7 +20,7 @@ import Checkbox from '../../../../shared/components/Checkbox/Checkbox.jsx'
 import LanguageSelector from '../../../../shared/components/LanguageSelector/LanguageSelector.jsx'
 import { useTheme } from '../../../../context/ThemeContext.jsx'
 import { useToast } from '../../../../shared/components/Toast/Toast.jsx'
-import { styles } from './LoginScreen.styles'
+import { styles } from './LoginScreen.style'
 
 function Field({ icon, ...props }) {
   const { currentColors: c } = useTheme()
