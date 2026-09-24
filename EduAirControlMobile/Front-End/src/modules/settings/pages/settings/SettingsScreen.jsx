@@ -11,16 +11,17 @@ import {
   Alert,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { useTheme } from '../../../context/ThemeContext'
+import { useTheme } from '../../../../context/ThemeContext.jsx'
 import { useTranslation } from 'react-i18next'
-import { setAppLanguage } from '../../../shared/i18n/i18n'
-import storage from '../../../shared/storage/storage'
+import { setAppLanguage } from '../../../../shared/i18n/i18n.js'
+import storage from '../../../../shared/storage/storage.js'
 import {
   getAccessibilitySettings,
   saveAccessibilitySettings,
-} from '../../../shared/accessibility/accessibilitySettings'
-import Modal from '../../../shared/components/Modal/Modal'
-import Button from '../../../shared/components/Button/Button'
+} from '../../../../shared/accessibility/accessibilitySettings.js'
+import Modal from '../../../../shared/components/Modal/Modal.jsx'
+import Button from '../../../../shared/components/Button/Button.jsx'
+import { styles } from './SettingsScreen.styles'
 
 const TIMEZONES = [
   { value: 'America/Bogota', labelKey: 'settings.timezoneBogota' },
@@ -465,49 +466,3 @@ export default function SettingsScreen({ navigation }) {
   )
 }
 
-const styles = StyleSheet.create({
-  safe: { flex: 1 },
-  header: {
-    flexDirection: 'row', alignItems: 'center', gap: 10,
-    paddingHorizontal: 20, paddingTop: 55, paddingBottom: 20, borderBottomWidth: 1,
-  },
-  headerTitle: { fontSize: 24, fontWeight: 'bold' },
-  scroll: { flex: 1 },
-  scrollContent: { paddingHorizontal: 20, paddingBottom: 20 },
-  card: { borderRadius: 16, borderWidth: 1, marginBottom: 16, overflow: 'hidden', paddingHorizontal: 16, paddingVertical: 12 },
-  cardHeader: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 },
-  cardTitle: { fontSize: 16, fontWeight: 'bold' },
-  cardDesc: { fontSize: 12, marginBottom: 8 },
-  row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12 },
-  rowLeft: { flexDirection: 'row', alignItems: 'center', gap: 10, flex: 1, marginRight: 8 },
-  rowLabel: { fontSize: 14, flex: 1 },
-  rowValue: { fontSize: 13, flexShrink: 0, maxWidth: 140, textAlign: 'right' },
-  toggle: { width: 46, height: 26, borderRadius: 13, padding: 3, justifyContent: 'center', alignItems: 'flex-start' },
-  toggleCircle: { width: 20, height: 20, borderRadius: 10, backgroundColor: '#fff' },
-  chipWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  chip: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20, borderWidth: 1 },
-  chipLabel: { fontSize: 12 },
-  timezoneWrap: { marginTop: 10, gap: 8 },
-  timezoneLabel: { fontSize: 13, marginBottom: 4 },
-  input: { borderRadius: 10, borderWidth: 1, paddingHorizontal: 14, paddingVertical: 11, fontSize: 15, marginBottom: 12 },
-  inputRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  modalActions: { flexDirection: 'row', gap: 12, marginTop: 16 },
-  langOption: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    paddingHorizontal: 14, paddingVertical: 12, borderRadius: 12, marginBottom: 6,
-  },
-  langOptionText: { fontSize: 15, fontWeight: '600' },
-  modalText: { fontSize: 14, lineHeight: 20, textAlign: 'center', marginBottom: 12 },
-  helpItem: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginBottom: 14 },
-  helpIcon: { fontSize: 16, marginTop: 2 },
-  helpLabel: { fontSize: 13, fontWeight: '600', marginBottom: 2 },
-  helpValue: { fontSize: 13 },
-  helpQuestion: { fontSize: 14, fontWeight: '600', marginBottom: 4 },
-  helpAnswer: { fontSize: 13, lineHeight: 18 },
-  helpText: { fontSize: 14, lineHeight: 20, marginBottom: 12 },
-  helpSection: { marginBottom: 14 },
-  helpSectionTitle: { fontSize: 14, fontWeight: '700', marginBottom: 6 },
-  helpListItem: { fontSize: 13, lineHeight: 19 },
-  versionDesc: { fontSize: 15, fontWeight: '600' },
-  versionDate: { fontSize: 12 },
-})
