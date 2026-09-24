@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
+import { Ionicons } from '@expo/vector-icons'
 import logo from '../../../../../assets/EduAirControlLogo.png'
 import { loginSchema } from '../../schemas/loginSchema.js'
 import authService from '../../services/authService.js'
