@@ -629,6 +629,8 @@
     "save": "Salvar"
   },
   "errors": {
+    "network": "Não foi possível conectar ao servidor. Verifique sua conexão.",
+    "sessionExpired": "Sua sessão expirou. Faça login novamente.",
     "required_email": "L'adresse e-mail est obligatoire",
     "invalid_email": "Adresse e-mail invalide",
     "password_min": "Le mot de passe doit contenir au moins 6 caractères",

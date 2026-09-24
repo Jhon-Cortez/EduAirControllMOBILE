@@ -1,4 +1,5 @@
-import { NavigationContainer } from '@react-navigation/native'
+import { useEffect } from 'react'
+import { NavigationContainer, createNavigationContainerRef } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -19,17 +20,31 @@ import { EnvironmentProvider } from './src/context/EnvironmentContext'
 import { ThemeProvider } from './src/context/ThemeContext'
 import { ToastProvider } from './src/shared/components/Toast/Toast'
 
+// Auth
+import authService from './src/modules/auth/services/authService'
+import { setOnUnauthorized } from './src/shared/services/apiClient'
+
 const Stack = createNativeStackNavigator()
+const navigationRef = createNavigationContainerRef()
 
 export default function App() {
+  useEffect(() => {
+    setOnUnauthorized(() => {
+      if (navigationRef.isReady()) {
+        navigationRef.reset({ index: 0, routes: [{ name: 'Login' }] })
+      }
+    })
+    return () => setOnUnauthorized(null)
+  }, [])
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider>
         <ToastProvider>
           <EnvironmentProvider>
-            <NavigationContainer>
+            <NavigationContainer ref={navigationRef}>
               <Stack.Navigator
-                initialRouteName="Login"
+                initialRouteName={authService.isAuthenticated() ? 'App' : 'Login'}
                 screenOptions={{ headerShown: false }}
               >
                 {/* Auth */}

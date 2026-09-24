@@ -11,8 +11,8 @@ function decodeJWT(token) {
 }
 
 const authService = {
-  async login(email, password) {
-    const data = await apiClient.post('/auth/login', { email, password })
+  async login(email, password, companyCode) {
+    const data = await apiClient.post('/auth/login', { email, password, companyCode })
     await storage.setItem('token', data.token)
     const claims = decodeJWT(data.token)
     const user = { email: claims?.sub || email, role: claims?.role || 'USER', name: email.split('@')[0] }
@@ -20,8 +20,8 @@ const authService = {
     return data
   },
 
-  async register(name, email, password) {
-    const data = await apiClient.post('/auth/register', { name, email, password })
+  async register(name, email, password, companyCode) {
+    const data = await apiClient.post('/auth/register', { name, email, password, companyCode })
     await storage.setItem('token', data.token)
     const claims = decodeJWT(data.token)
     const user = { email: claims?.sub || email, role: claims?.role || 'USER', name }
