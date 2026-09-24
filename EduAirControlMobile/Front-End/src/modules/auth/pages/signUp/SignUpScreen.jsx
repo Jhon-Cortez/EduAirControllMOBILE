@@ -130,79 +130,83 @@ export default function SignUpScreen() {
             {t('signup.subtitle', 'Únete a la red de monitoreo inteligente')}
           </Text>
 
-          <Field
-            icon="business-outline"
-            value={form.companyCode}
-            onChangeText={(v) => handleChange('companyCode', v.toUpperCase())}
-            placeholder={t('signup.placeholderCompany', 'Ej: EDU-2024')}
-            autoCapitalize="characters"
-          />
-          {errors.companyCode && (
-            <Text style={[styles.errorText, { color: c.error }]}>{errors.companyCode}</Text>
-          )}
+          <View style={styles.form}>
+            <Field
+              icon="business-outline"
+              value={form.companyCode}
+              onChangeText={(v) => handleChange('companyCode', v.toUpperCase())}
+              placeholder={t('signup.placeholderCompany', 'Ej: EDU-2024')}
+              autoCapitalize="characters"
+            />
+            {errors.companyCode && (
+              <Text style={[styles.errorText, { color: c.error }]}>{errors.companyCode}</Text>
+            )}
 
-          <Field
-            icon="person-outline"
-            value={form.name}
-            onChangeText={(v) => handleChange('name', v)}
-            placeholder={t('signup.placeholderName')}
-          />
-          {errors.name && <Text style={[styles.errorText, { color: c.error }]}>{errors.name}</Text>}
+            <Field
+              icon="person-outline"
+              value={form.name}
+              onChangeText={(v) => handleChange('name', v)}
+              placeholder={t('signup.placeholderName')}
+            />
+            {errors.name && <Text style={[styles.errorText, { color: c.error }]}>{errors.name}</Text>}
 
-          <Field
-            icon="mail-outline"
-            value={form.email}
-            onChangeText={(v) => handleChange('email', v)}
-            placeholder={t('signup.placeholderEmail')}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-          {errors.email && <Text style={[styles.errorText, { color: c.error }]}>{errors.email}</Text>}
+            <Field
+              icon="mail-outline"
+              value={form.email}
+              onChangeText={(v) => handleChange('email', v)}
+              placeholder={t('signup.placeholderEmail')}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            {errors.email && <Text style={[styles.errorText, { color: c.error }]}>{errors.email}</Text>}
 
-          <View>
+            <View>
+              <Field
+                icon="lock-closed-outline"
+                value={form.password}
+                onChangeText={(v) => handleChange('password', v)}
+                placeholder={t('signup.password')}
+                secureTextEntry
+              />
+              {form.password.length > 0 && (
+                <View style={styles.strengthRow}>
+                  <View style={[styles.strengthBar, { backgroundColor: c.borderColor }]}>
+                    <View
+                      style={[
+                        styles.strengthFill,
+                        { width: `${(strength / 5) * 100}%`, backgroundColor: c.accent },
+                      ]}
+                    />
+                  </View>
+                  <Text style={[styles.strengthLabel, { color: c.textMuted }]}>
+                    {t(STRENGTH_LABELS[strength])}
+                  </Text>
+                </View>
+              )}
+            </View>
+            {errors.password && (
+              <Text style={[styles.errorText, { color: c.error }]}>{errors.password}</Text>
+            )}
+
             <Field
               icon="lock-closed-outline"
-              value={form.password}
-              onChangeText={(v) => handleChange('password', v)}
-              placeholder={t('signup.password')}
+              value={form.confirmPassword}
+              onChangeText={(v) => handleChange('confirmPassword', v)}
+              placeholder={t('signup.confirmPassword', 'Confirmar contraseña')}
               secureTextEntry
             />
-            {form.password.length > 0 && (
-              <View style={styles.strengthRow}>
-                <View style={[styles.strengthBar, { backgroundColor: c.borderColor }]}>
-                  <View
-                    style={[
-                      styles.strengthFill,
-                      { width: `${(strength / 5) * 100}%`, backgroundColor: c.accent },
-                    ]}
-                  />
-                </View>
-                <Text style={[styles.strengthLabel, { color: c.textMuted }]}>
-                  {t(STRENGTH_LABELS[strength])}
-                </Text>
-              </View>
+            {errors.confirmPassword && (
+              <Text style={[styles.errorText, { color: c.error }]}>{errors.confirmPassword}</Text>
             )}
           </View>
-          {errors.password && (
-            <Text style={[styles.errorText, { color: c.error }]}>{errors.password}</Text>
-          )}
-
-          <Field
-            icon="lock-closed-outline"
-            value={form.confirmPassword}
-            onChangeText={(v) => handleChange('confirmPassword', v)}
-            placeholder={t('signup.confirmPassword', 'Confirmar contraseña')}
-            secureTextEntry
-          />
-          {errors.confirmPassword && (
-            <Text style={[styles.errorText, { color: c.error }]}>{errors.confirmPassword}</Text>
-          )}
 
           <View style={styles.termsRow}>
-            <Checkbox
-              checked={form.acceptTerms}
-              onChange={(v) => handleChange('acceptTerms', v)}
-            />
+            <View style={styles.termsCheck}>
+              <Checkbox
+                checked={form.acceptTerms}
+                onChange={(v) => handleChange('acceptTerms', v)}
+              />
+            </View>
             <Text style={[styles.termsAccept, { color: c.textSecondary }]}>
               <Text
                 onPress={() => handleChange('acceptTerms', !form.acceptTerms)}

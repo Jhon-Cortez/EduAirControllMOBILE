@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   safe: { flex: 1 },
   flex: { flex: 1 },
   container: { flexGrow: 1, justifyContent: 'center', padding: 24, paddingBottom: 48 },
-  langRow: { position: 'absolute', top: 44, right: 20, zIndex: 2 },
+  langRow: { position: 'absolute', top: 64, right: 20, zIndex: 2 },
   brand: { alignItems: 'center', marginBottom: 32 },
   logo: {
     width: 72,
