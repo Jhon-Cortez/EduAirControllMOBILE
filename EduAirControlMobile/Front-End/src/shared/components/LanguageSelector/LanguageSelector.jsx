@@ -8,10 +8,10 @@ import Modal from '../Modal/Modal.jsx'
 import { styles } from './LanguageSelector.styles'
 
 const LANGUAGES = [
-  { code: 'es', label: 'Español' },
-  { code: 'en', label: 'English' },
-  { code: 'fr', label: 'Français' },
-  { code: 'pt', label: 'Português' },
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
+  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'fr', label: 'Français', flag: '🇫🇷' },
+  { code: 'pt', label: 'Português', flag: '🇵🇹' },
 ]
 
 function LanguageSelector({ onSelect }) {
@@ -33,6 +33,7 @@ function LanguageSelector({ onSelect }) {
         style={[styles.button, { borderColor: c.glassBorder, backgroundColor: c.glassSurface }]}
         onPress={() => setShow(true)}
       >
+        <Text style={styles.buttonFlag}>{current.flag}</Text>
         <Text style={[styles.buttonText, { color: c.textPrimary }]}>{current.label}</Text>
         <Ionicons name="chevron-down" size={16} color={c.textMuted} />
       </Pressable>
@@ -46,9 +47,11 @@ function LanguageSelector({ onSelect }) {
               style={[styles.option, active && { backgroundColor: c.accentDim }]}
               onPress={() => handleChange(lang.code)}
             >
+              <Text style={styles.optionFlag}>{lang.flag}</Text>
               <Text style={[styles.optionText, { color: active ? c.accent : c.textPrimary }]}>
                 {lang.label}
               </Text>
+              <View style={styles.optionSpacer} />
               {active && <Ionicons name="checkmark" size={18} color={c.accent} />}
             </Pressable>
           )
