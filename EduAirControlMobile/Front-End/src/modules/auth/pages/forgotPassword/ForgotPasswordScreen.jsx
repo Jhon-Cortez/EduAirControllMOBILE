@@ -13,8 +13,8 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { Ionicons } from '@expo/vector-icons'
-import Button from '../../../shared/components/Button/Button'
-import { useTheme } from '../../../context/ThemeContext'
+import Button from '../../../../shared/components/Button/Button'
+import { useTheme } from '../../../../context/ThemeContext'
 
 export default function ForgotPasswordScreen() {
   const navigation = useNavigation()

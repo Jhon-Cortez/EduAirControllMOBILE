@@ -13,13 +13,13 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { Ionicons } from '@expo/vector-icons'
-import { loginSchema } from '../schemas/loginSchema'
-import authService from '../services/authService'
-import Button from '../../../shared/components/Button/Button'
-import Checkbox from '../../../shared/components/Checkbox/Checkbox'
-import LanguageSelector from '../../../shared/components/LanguageSelector/LanguageSelector'
-import { useTheme } from '../../../context/ThemeContext'
-import { useToast } from '../../../shared/components/Toast/Toast'
+import { loginSchema } from '../../schemas/loginSchema'
+import authService from '../../services/authService'
+import Button from '../../../../shared/components/Button/Button'
+import Checkbox from '../../../../shared/components/Checkbox/Checkbox'
+import LanguageSelector from '../../../../shared/components/LanguageSelector/LanguageSelector'
+import { useTheme } from '../../../../context/ThemeContext'
+import { useToast } from '../../../../shared/components/Toast/Toast'
 
 function Field({ icon, ...props }) {
   const { currentColors: c } = useTheme()

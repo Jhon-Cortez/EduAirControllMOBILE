@@ -1,0 +1,43 @@
+import { StyleSheet } from 'react-native'
+
+export const styles = StyleSheet.create({
+  safe: { flex: 1 },
+  flex: { flex: 1 },
+  container: { flexGrow: 1, justifyContent: 'center', padding: 24, paddingBottom: 48 },
+  langRow: { position: 'absolute', top: 12, right: 20, zIndex: 2 },
+  brand: { alignItems: 'center', marginBottom: 32 },
+  logo: {
+    width: 72,
+    height: 72,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+  },
+  brandTitle: { fontSize: 26, fontWeight: '800' },
+  brandSub: { fontSize: 14, marginTop: 4 },
+  form: { gap: 4 },
+  field: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 16,
+    borderWidth: 1,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    marginTop: 10,
+  },
+  fieldIcon: { marginRight: 10 },
+  fieldInput: { flex: 1, fontSize: 15, padding: 0 },
+  eye: { position: 'absolute', right: 14, top: 22 },
+  errorText: { fontSize: 12, marginTop: 4, marginLeft: 4 },
+  errorBanner: {
+    fontSize: 13,
+    marginTop: 12,
+    textAlign: 'center',
+  },
+  options: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 14 },
+  forgot: { fontSize: 14, fontWeight: '600' },
+  submit: { marginTop: 20 },
+  switchRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 24 },
+  switchText: { fontSize: 14 },
+})

@@ -11,9 +11,9 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { Ionicons } from '@expo/vector-icons'
-import Button from '../../../shared/components/Button/Button'
-import { useToast } from '../../../shared/components/Toast/Toast'
-import { useTheme } from '../../../context/ThemeContext'
+import Button from '../../../../shared/components/Button/Button'
+import { useToast } from '../../../../shared/components/Toast/Toast'
+import { useTheme } from '../../../../context/ThemeContext'
 
 const CODE_LENGTH = 5
 

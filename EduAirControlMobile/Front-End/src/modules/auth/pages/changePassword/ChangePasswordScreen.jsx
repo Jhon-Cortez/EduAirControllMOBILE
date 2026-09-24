@@ -13,9 +13,9 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { Ionicons } from '@expo/vector-icons'
-import Button from '../../../shared/components/Button/Button'
-import { useTheme } from '../../../context/ThemeContext'
-import { useToast } from '../../../shared/components/Toast/Toast'
+import Button from '../../../../shared/components/Button/Button'
+import { useTheme } from '../../../../context/ThemeContext'
+import { useToast } from '../../../../shared/components/Toast/Toast'
 
 export default function ChangePasswordScreen() {
   const navigation = useNavigation()
