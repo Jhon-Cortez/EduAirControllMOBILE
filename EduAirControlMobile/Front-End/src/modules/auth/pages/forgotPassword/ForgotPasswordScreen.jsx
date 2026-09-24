@@ -56,6 +56,9 @@ export default function ForgotPasswordScreen() {
               <Text style={[styles.successText, { color: c.textSecondary }]}>
                 {t('forgotPassword.sentTo', 'Te enviamos instrucciones a')} {email}
               </Text>
+              <Button onPress={() => navigation.navigate('VerifyCode')} size="lg" style={styles.successBtn}>
+                {t('forgotPassword.continue', 'Continuar')}
+              </Button>
               <Button variant="ghost" onPress={() => setSubmitted(false)} style={styles.successBtn}>
                 {t('forgotPassword.tryAnother')}
               </Button>
