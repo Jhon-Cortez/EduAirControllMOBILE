@@ -11,6 +11,7 @@ export function EnvironmentProvider({ children }) {
     return environmentService
       .getAll()
       .then(setEnvironments)
+      .catch(() => {})
       .finally(() => setLoading(false))
   }, [])
 
