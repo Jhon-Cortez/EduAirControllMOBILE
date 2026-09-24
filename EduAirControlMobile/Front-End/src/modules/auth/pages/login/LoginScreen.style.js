@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   safe: { flex: 1 },
   flex: { flex: 1 },
   container: { flexGrow: 1, justifyContent: 'center', padding: 24, paddingBottom: 48 },
-  langRow: { position: 'absolute', top: 12, right: 20, zIndex: 2 },
+  langRow: { position: 'absolute', top: 44, right: 20, zIndex: 2 },
   brand: { alignItems: 'center', marginBottom: 32 },
   logo: {
     width: 72,
@@ -13,7 +13,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 12,
+    overflow: 'hidden',
   },
+  logoImage: { width: 72, height: 72, borderRadius: 22 },
   brandTitle: { fontSize: 26, fontWeight: '800' },
   brandSub: { fontSize: 14, marginTop: 4 },
   form: { gap: 4 },

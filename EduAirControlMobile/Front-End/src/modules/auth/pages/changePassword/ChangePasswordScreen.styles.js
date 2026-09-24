@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   safe: { flex: 1 },
   flex: { flex: 1 },
   container: { flexGrow: 1, justifyContent: 'center', padding: 24 },
-  back: { position: 'absolute', top: 12, left: 20, zIndex: 2 },
+  back: { position: 'absolute', top: 44, left: 20, zIndex: 2 },
   iconWrap: { alignItems: 'center', marginBottom: 16 },
   icon: { width: 64, height: 64, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
   title: { fontSize: 24, fontWeight: '800', textAlign: 'center' },

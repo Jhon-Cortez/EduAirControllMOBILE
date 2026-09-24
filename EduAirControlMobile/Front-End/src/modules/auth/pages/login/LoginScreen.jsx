@@ -9,10 +9,11 @@ import {
   Platform,
   SafeAreaView,
   StyleSheet,
+  Image,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import { Ionicons } from '@expo/vector-icons'
+import logo from '../../../../../assets/EduAirControlLogo.png'
 import { loginSchema } from '../../schemas/loginSchema.js'
 import authService from '../../services/authService.js'
 import Button from '../../../../shared/components/Button/Button.jsx'
@@ -97,7 +98,7 @@ export default function LoginScreen() {
 
           <View style={styles.brand}>
             <View style={[styles.logo, { backgroundColor: c.accentDim }]}>
-              <Ionicons name="leaf" size={34} color={c.accent} />
+              <Image source={logo} style={styles.logoImage} />
             </View>
             <Text style={[styles.brandTitle, { color: c.textPrimary }]}>EduAirControl</Text>
             <Text style={[styles.brandSub, { color: c.textMuted }]}>

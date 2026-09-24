@@ -4,8 +4,8 @@ export const styles = StyleSheet.create({
   safe: { flex: 1 },
   flex: { flex: 1 },
   container: { flexGrow: 1, padding: 24, paddingBottom: 48 },
-  back: { position: 'absolute', top: 12, left: 20, zIndex: 2 },
-  langRow: { position: 'absolute', top: 12, right: 20, zIndex: 2 },
+  back: { position: 'absolute', top: 44, left: 20, zIndex: 2 },
+  langRow: { position: 'absolute', top: 44, right: 20, zIndex: 2 },
   title: { fontSize: 26, fontWeight: '800', marginTop: 48, marginBottom: 4 },
   subtitle: { fontSize: 14, marginBottom: 20 },
   field: {
