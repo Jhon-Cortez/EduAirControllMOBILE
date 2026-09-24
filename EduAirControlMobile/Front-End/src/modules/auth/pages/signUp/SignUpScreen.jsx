@@ -202,11 +202,22 @@ export default function SignUpScreen() {
             <Checkbox
               checked={form.acceptTerms}
               onChange={(v) => handleChange('acceptTerms', v)}
-              label={t('signup.termsModal.acceptPrefix')}
             />
-            <Pressable onPress={() => setShowTerms(true)} hitSlop={6}>
-              <Text style={[styles.link, { color: c.accent }]}>{t('signup.termsModal.link')}</Text>
-            </Pressable>
+            <Text style={[styles.termsAccept, { color: c.textSecondary }]}>
+              <Text
+                onPress={() => handleChange('acceptTerms', !form.acceptTerms)}
+                suppressHighlighting
+              >
+                {t('signup.termsModal.acceptPrefix')}
+              </Text>{' '}
+              <Text
+                style={[styles.link, { color: c.accent }]}
+                onPress={() => setShowTerms(true)}
+                suppressHighlighting
+              >
+                {t('signup.termsModal.link')}
+              </Text>
+            </Text>
           </View>
 
           {apiError ? (

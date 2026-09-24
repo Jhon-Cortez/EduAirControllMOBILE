@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../../context/ThemeContext.jsx'
 import { styles } from './Modal.styles'
 
-function Modal({ isOpen, onClose, title, children, size = 'md' }) {
+function Modal({ isOpen, onClose, title, children, size = 'md', contentStyle }) {
   const { currentColors: c } = useTheme()
   if (!isOpen) return null
 
@@ -13,7 +13,14 @@ function Modal({ isOpen, onClose, title, children, size = 'md' }) {
   return (
     <RNModal transparent visible={isOpen} animationType="fade" onRequestClose={onClose}>
       <Pressable style={styles.overlay} onPress={onClose}>
-        <Pressable style={[styles.content, { width, backgroundColor: c.bgCard, borderColor: c.glassBorder }]} onPress={() => {}}>
+        <Pressable
+            style={[
+              styles.content,
+              { width, backgroundColor: c.bgCard, borderColor: c.glassBorder },
+              contentStyle,
+            ]}
+            onPress={() => {}}
+          >
           <Pressable style={styles.closeBtn} onPress={onClose} accessibilityLabel="Cerrar" hitSlop={8}>
             <Ionicons name="close" size={22} color={c.textMuted} />
           </Pressable>

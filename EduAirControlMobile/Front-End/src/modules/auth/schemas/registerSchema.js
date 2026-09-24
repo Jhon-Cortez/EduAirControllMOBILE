@@ -6,7 +6,7 @@ export const RegisterSchema = z.object({
   password: z
     .string()
     .min(8, 'errors.password_min')
-    .regex(/[A-Z]/, 'errors.uppercaseRequired:_password'),
+    .regex(/[A-Z]/, 'errors.uppercase_required'),
 
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {

@@ -636,7 +636,7 @@
     "name_short": "Le nom est trop court",
     "required_company_code": "Le code de l'entreprise est obligatoire",
     "invalid_company_code": "Le code de l'entreprise doit respecter le format ABC-1234",
-    "uppercaseRequired:_password" : "Deve conter pelo menos uma letra maiúscula."
+    "uppercase_required": "Deve conter pelo menos uma letra maiúscula"
   },
   "notifications": {
     "title": "Notificações",

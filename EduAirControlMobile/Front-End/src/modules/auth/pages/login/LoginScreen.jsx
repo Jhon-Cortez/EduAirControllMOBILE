@@ -51,7 +51,7 @@ export default function LoginScreen() {
   const { currentColors: c } = useTheme()
   const toast = useToast()
 
-  const [form, setForm] = useState({ companyCode: '', email: '', password: '', rememberMe: false })
+  const [form, setForm] = useState({ email: '', password: '', rememberMe: false })
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState({})
   const [apiError, setApiError] = useState('')
@@ -106,17 +106,6 @@ export default function LoginScreen() {
           </View>
 
           <View style={styles.form}>
-            <Field
-              icon="business-outline"
-              value={form.companyCode}
-              onChangeText={(v) => handleChange('companyCode', v.toUpperCase())}
-              placeholder={t('login.placeholderCompany', 'Ej: EDU-2024')}
-              autoCapitalize="characters"
-            />
-            {errors.companyCode && (
-              <Text style={[styles.errorText, { color: c.error }]}>{errors.companyCode}</Text>
-            )}
-
             <Field
               icon="mail-outline"
               value={form.email}
