@@ -1,0 +1,6 @@
+export { default as LoginScreen } from './pages/login/LoginScreen.jsx'
+export { default as SignUpScreen } from './pages/signUp/SignUpScreen.jsx'
+export { default as ForgotPasswordScreen } from './pages/forgotPassword/ForgotPasswordScreen.jsx'
+export { default as VerifyCodeScreen } from './pages/verifyCode/VerifyCodeScreen.jsx'
+export { default as ChangePasswordScreen } from './pages/changePassword/ChangePasswordScreen.jsx'
+export { default as TermsScreen } from './pages/terms/TermsScreen.jsx'
