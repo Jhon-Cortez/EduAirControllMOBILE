@@ -13,15 +13,16 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { Ionicons } from '@expo/vector-icons'
-import { RegisterSchema } from '../../schemas/registerSchema'
-import authService from '../../services/authService'
-import Button from '../../../../shared/components/Button/Button'
-import Checkbox from '../../../../shared/components/Checkbox/Checkbox'
-import Divider from '../../../../shared/components/Divider/Divider'
-import LanguageSelector from '../../../../shared/components/LanguageSelector/LanguageSelector'
-import Modal from '../../../../shared/components/Modal/Modal'
-import { useTheme } from '../../../../context/ThemeContext'
-import { useToast } from '../../../../shared/components/Toast/Toast'
+import { RegisterSchema } from '../../schemas/registerSchema.js'
+import authService from '../../services/authService.js'
+import Button from '../../../../shared/components/Button/Button.jsx'
+import Checkbox from '../../../../shared/components/Checkbox/Checkbox.jsx'
+import Divider from '../../../../shared/components/Divider/Divider.jsx'
+import LanguageSelector from '../../../../shared/components/LanguageSelector/LanguageSelector.jsx'
+import Modal from '../../../../shared/components/Modal/Modal.jsx'
+import { useTheme } from '../../../../context/ThemeContext.jsx'
+import { useToast } from '../../../../shared/components/Toast/Toast.jsx'
+import { styles } from './SignUpScreen.styles'
 
 function Field({ icon, ...props }) {
   const { currentColors: c } = useTheme()
@@ -254,41 +255,3 @@ export default function SignUpScreen() {
   )
 }
 
-const styles = StyleSheet.create({
-  safe: { flex: 1 },
-  flex: { flex: 1 },
-  container: { flexGrow: 1, padding: 24, paddingBottom: 48 },
-  back: { position: 'absolute', top: 12, left: 20, zIndex: 2 },
-  langRow: { position: 'absolute', top: 12, right: 20, zIndex: 2 },
-  title: { fontSize: 26, fontWeight: '800', marginTop: 48, marginBottom: 4 },
-  subtitle: { fontSize: 14, marginBottom: 20 },
-  field: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 16,
-    borderWidth: 1,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    marginTop: 10,
-  },
-  fieldIcon: { marginRight: 10 },
-  fieldInput: { flex: 1, fontSize: 15, padding: 0 },
-  errorText: { fontSize: 12, marginTop: 4, marginLeft: 4 },
-  errorBanner: { fontSize: 13, marginTop: 12, textAlign: 'center' },
-  strengthRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 6 },
-  strengthBar: { flex: 1, height: 4, borderRadius: 2, overflow: 'hidden' },
-  strengthFill: { height: 4 },
-  strengthLabel: { fontSize: 12 },
-  termsRow: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 14 },
-  link: { fontSize: 14, fontWeight: '600' },
-  submit: { marginTop: 20 },
-  switchRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 16 },
-  switchText: { fontSize: 14 },
-  termsIntro: { fontSize: 13, marginBottom: 10 },
-  termsSubtitle: { fontSize: 12, fontWeight: '600', marginBottom: 8, textAlign: 'center' },
-  termsScroll: { maxHeight: 320 },
-  termListItem: { flexDirection: 'row', gap: 8, marginBottom: 8 },
-  termParagraph: { fontSize: 13, lineHeight: 19, flex: 1 },
-  termNote: { fontSize: 12, fontStyle: 'italic', marginTop: 4 },
-  termsBtn: { marginTop: 12 },
-})
