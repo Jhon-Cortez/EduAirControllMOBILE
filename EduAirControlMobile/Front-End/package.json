@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "check:android": "expo export --platform android --output-dir dist-android"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.1.1",
