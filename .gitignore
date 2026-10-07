@@ -1,0 +1,11 @@
+# Instrucciones locales de agentes IA (no se comparten con el equipo)
+AGENTS.md
+opencode.json
+.opencode/
+
+node_modules/
+dist-android/
+.expo/
+*.log
+.env
+!**/.env.example
