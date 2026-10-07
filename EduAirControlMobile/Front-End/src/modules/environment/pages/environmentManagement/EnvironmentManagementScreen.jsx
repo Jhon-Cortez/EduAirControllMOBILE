@@ -20,6 +20,7 @@ import Modal from '../../../../shared/components/Modal/Modal.jsx'
 import Input from '../../../../shared/components/Input/Input.jsx'
 import { useToast } from '../../../../shared/components/Toast/Toast.jsx'
 import SensorVariablePanel from './SensorVariablePanel.jsx'
+import { useSensorPanelVM } from '../../viewmodels/useSensorPanelVM.js'
 import { styles } from './EnvironmentManagementScreen.styles'
 
 const TABS = [
@@ -185,6 +186,7 @@ export default function EnvironmentManagementScreen({ navigation }) {
   const { t } = useTranslation()
   const toast = useToast()
   const vm = useManagementVM()
+  const sensorVM = useSensorPanelVM()
 
   const [form, setForm] = useState(EMPTY_FORM)
   const [isEdit, setIsEdit] = useState(false)
@@ -243,19 +245,35 @@ export default function EnvironmentManagementScreen({ navigation }) {
         style={[
           styles.header,
           {
-            borderBottomColor: currentColors.borderColor,
+            backgroundColor: currentColors.accent,
             paddingTop: (StatusBar.currentHeight || 0) + 10,
           },
         ]}
       >
         <View style={styles.headerLeft}>
-          <Ionicons name="grid-outline" size={20} color={currentColors.accent} />
-          <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>{t('management.title')}</Text>
+          <Ionicons name={tab === 'sensors' ? 'hardware-chip-outline' : 'grid-outline'} size={20} color="#fff" />
+          <Text style={[styles.headerTitle, { color: '#fff' }]}>
+            {tab === 'sensors' ? t('sensors.headerTitle') : t('management.title')}
+          </Text>
         </View>
+
         {tab === 'environments' && (
-          <TouchableOpacity style={[styles.addBtn, { backgroundColor: currentColors.accent }]} onPress={openAdd} activeOpacity={0.85}>
+          <TouchableOpacity style={[styles.addBtn, { backgroundColor: 'rgba(255,255,255,0.25)' }]} onPress={openAdd} activeOpacity={0.85}>
             <Ionicons name="add" size={18} color="#fff" />
             <Text style={[styles.addBtnTxt, { color: '#fff' }]}>{t('management.addBtn')}</Text>
+          </TouchableOpacity>
+        )}
+        {tab === 'sensors' && (
+          <TouchableOpacity
+            style={[styles.addBtn, { backgroundColor: 'rgba(255,255,255,0.25)' }]}
+            onPress={() => {
+              sensorVM.setForm({ sensorId: '', environmentId: sensorVM.environments[0]?.id ?? '', type: 'temperature', min: '', max: '' })
+              sensorVM.setShowAdd(true)
+            }}
+            activeOpacity={0.85}
+          >
+            <Ionicons name="add" size={18} color="#fff" />
+            <Text style={[styles.addBtnTxt, { color: '#fff' }]}>{t('sensors.addBtn')}</Text>
           </TouchableOpacity>
         )}
       </View>

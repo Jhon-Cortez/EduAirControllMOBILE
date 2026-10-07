@@ -1116,6 +1116,8 @@
   },
   "sensors": {
     "title": "Capteurs et variables",
+    "headerTitle": "Gestion des capteurs",
+    "addBtn": "Ajouter un capteur",
     "subtitle": "Enregistrez et configurez les capteurs de chaque environnement.",
     "summaryTotal": "Total capteurs",
     "summaryActive": "Actifs",

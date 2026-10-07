@@ -179,10 +179,6 @@ export default function SensorVariablePanel() {
           <Text style={[styles.title, { color: c.textPrimary }]}>{t('sensors.title')}</Text>
           <Text style={[styles.subtitle, { color: c.textSecondary }]}>{t('sensors.subtitle')}</Text>
         </View>
-        <TouchableOpacity style={[styles.addBtn, { backgroundColor: c.accent }]} onPress={openAdd} activeOpacity={0.85}>
-          <Ionicons name="add" size={16} color="#fff" />
-          <Text style={styles.addBtnTxt}>{t('management.addBtn')}</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.summaryRow}>

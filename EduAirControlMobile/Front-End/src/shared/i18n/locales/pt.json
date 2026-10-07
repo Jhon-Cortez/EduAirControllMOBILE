@@ -1116,6 +1116,8 @@
   },
   "sensors": {
     "title": "Sensores e variáveis",
+    "headerTitle": "Gestão de Sensores",
+    "addBtn": "Adicionar sensor",
     "subtitle": "Registre e configure os sensores de cada ambiente.",
     "summaryTotal": "Total de sensores",
     "summaryActive": "Ativos",

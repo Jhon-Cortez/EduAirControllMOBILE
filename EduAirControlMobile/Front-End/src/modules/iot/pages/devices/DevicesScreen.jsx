@@ -108,12 +108,20 @@ export default function DevicesScreen({ navigation }) {
     <SafeAreaView style={[styles.safe, { backgroundColor: c.bgBody }]}>
       <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'} backgroundColor={c.bgBody} />
 
-      <View style={[styles.header, { borderBottomColor: c.borderColor }]}>
+      <View
+        style={[
+          styles.header,
+          {
+            backgroundColor: c.accent,
+            paddingTop: (StatusBar.currentHeight || 0) + 10,
+          },
+        ]}
+      >
         <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={8}>
-          <Ionicons name="arrow-back" size={22} color={c.textPrimary} />
+          <Ionicons name="arrow-back" size={22} color="#fff" />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: c.textPrimary }]}>{t('devices.title')}</Text>
-        <TouchableOpacity style={[styles.addBtn, { backgroundColor: c.accent }]} onPress={openAdd} activeOpacity={0.85}>
+        <Text style={[styles.headerTitle, { color: '#fff' }]}>{t('devices.title')}</Text>
+        <TouchableOpacity style={[styles.addBtn, { backgroundColor: 'rgba(255,255,255,0.25)' }]} onPress={openAdd} activeOpacity={0.85}>
           <Ionicons name="add" size={18} color="#fff" />
           <Text style={{ color: '#fff', fontSize: 12.5, fontWeight: '700' }}>{t('management.addBtn')}</Text>
         </TouchableOpacity>
